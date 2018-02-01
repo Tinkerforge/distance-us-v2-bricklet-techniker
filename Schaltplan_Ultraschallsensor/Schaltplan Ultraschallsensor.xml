@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>/home/steps/Documents/Schaltplan Ultraschallsensor/Schaltplan Ultraschallsensor.sch</source>
+    <date>Mi 31 Jan 2018 11:45:32 CET</date>
+    <tool>Eeschema 4.0.7-e2-6376~58~ubuntu16.04.1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>Schaltplan Ultraschallsensor.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="2" name="/sensor/" tstamps="/5A7056AD/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>sensor.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="3" name="/Spannungspumpe/" tstamps="/5A70A0F1/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>Testzeichnung.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="LS1">
+      <value>Ultraschall Sender/Empränger</value>
+      <libsource lib="device" part="Speaker_Ultrasound"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A709684</tstamp>
+    </comp>
+    <comp ref="U1">
+      <value>XMC1XXX40</value>
+      <libsource lib="tinkerforge" part="XMC1XXX40"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A7098F3</tstamp>
+    </comp>
+    <comp ref="C1">
+      <value>100nF</value>
+      <footprint>C0603F</footprint>
+      <libsource lib="tinkerforge" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A70B2A5</tstamp>
+    </comp>
+    <comp ref="C4">
+      <value>100nF</value>
+      <footprint>C0603F</footprint>
+      <libsource lib="tinkerforge" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A70B703</tstamp>
+    </comp>
+    <comp ref="C3">
+      <value>100nF</value>
+      <footprint>C0603F</footprint>
+      <libsource lib="tinkerforge" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A70B790</tstamp>
+    </comp>
+    <comp ref="C2">
+      <value>220nF</value>
+      <footprint>C0603F</footprint>
+      <libsource lib="tinkerforge" part="C"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A70B81F</tstamp>
+    </comp>
+    <comp ref="P1">
+      <value>CON-SENSOR2</value>
+      <footprint>CON-SENSOR2</footprint>
+      <libsource lib="tinkerforge" part="CON-SENSOR2"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A71757A</tstamp>
+    </comp>
+    <comp ref="J1">
+      <value>Conn_01x06_Female</value>
+      <libsource lib="conn" part="Conn_01x06_Female"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A717A6B</tstamp>
+    </comp>
+    <comp ref="IC1">
+      <value>A5950</value>
+      <libsource lib="meine" part="A5950"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5A719833</tstamp>
+    </comp>
+    <comp ref="R12">
+      <value>20k</value>
+      <footprint>R0603F</footprint>
+      <libsource lib="tinkerforge" part="R"/>
+      <sheetpath names="/sensor/" tstamps="/5A7056AD/"/>
+      <tstamp>5A4CE524</tstamp>
+    </comp>
+    <comp ref="R8">
+      <value>50k</value>
+      <libsource lib="device" part="POT"/>
+      <sheetpath names="/sensor/" tstamps="/5A7056AD/"/>
+      <tstamp>5A4CE669</tstamp>
+    </comp>
+    <comp ref="R6">
+      <value>10</value>
+      <footprint>R0603F</footprint>
+      <libsource lib="tinkerforge" part="R"/>
+      <sheetpath names="/sensor/" tstamps="/5A7056AD/"/>
+      <tstamp>5A4CE8F1</tstamp>
+    </comp>
+    <comp ref="R9">
+      <value>120k</value>
+      <footprint>R0603F</footprint>
+      <libsource lib="tinkerforge" part="R"/>
+      <sheetpath names="/sensor/" tstamps="/5A7056AD/"/>
+      <tstamp>5A4CEA2A</tstamp>
+    </comp>
+    <comp ref="R7">
+      <value>100k</value>
+      <footprint>R0603F</footprint>
+      <libsource lib="tinkerforge" part="R"/>
+      <sheetpath names="/sensor/" tstamps="/5A7056AD/"/>
+      <tstamp>5A4CED70</tstamp>
+    </comp>
+    <comp ref="R5">
+      <value>100k</value>
+      <footprint>R0603F</footprint>
+      <libsource lib="tinkerforge" part="R"/>
+      <sheetpath names="/sensor/" tstamps="/5A7056AD/"/>
+      <tstamp>5A4CEDD5</tstamp>
+    </comp>
+    <comp ref="R4">
+      <value>20k</value>
+      <footprint>R0603F</footprint>
+      <libsource lib="tinkerforge" part="R"/>
+      <sheetpath names="/sensor/" tstamps="/5A7056AD/"/>
+      <tstamp>5A4CEE2C</tstamp>
+    </comp>
+    <comp ref="C12">
+      <value>40pF</value>
+      <footprint>C0603F</footprint>
+      <libsource lib="tinkerforge" part="C"/>
+      <sheetpath names="/sensor/" tstamps="/5A7056AD/"/>
+      <tstamp>5A4CEECB</tstamp>
+    </comp>
+    <comp ref="C10">
+      <value>4.7nF</value>
+      <footprint>C0603F</footprint>
+      <libsource lib="tinkerforge" part="C"/>
+      <sheetpath names="/sensor/" tstamps="/5A7056AD/"/>
+      <tstamp>5A4CF011</tstamp>
+    </comp>
+    <comp ref="C11">
+      <value>100nF</value>
+      <footprint>C0603F</footprint>
+      <libsource lib="tinkerforge" part="C"/>
+      <sheetpath names="/sensor/" tstamps="/5A7056AD/"/>
+      <tstamp>5A4CF28C</tstamp>
+    </comp>
+    <comp ref="R11">
+      <value>20k</value>
+      <footprint>R0603F</footprint>
+      <libsource lib="tinkerforge" part="R"/>
+      <sheetpath names="/sensor/" tstamps="/5A7056AD/"/>
+      <tstamp>5A4CF361</tstamp>
+    </comp>
+    <comp ref="R10">
+      <value>100k</value>
+      <footprint>R0603F</footprint>
+      <libsource lib="tinkerforge" part="R"/>
+      <sheetpath names="/sensor/" tstamps="/5A7056AD/"/>
+      <tstamp>5A4D0906</tstamp>
+    </comp>
+    <comp ref="U2">
+      <value>TLC272</value>
+      <footprint>Housings_SOIC:SO-8_5.3x6.2mm_Pitch1.27mm</footprint>
+      <libsource lib="tinkerforge" part="TLC272"/>
+      <sheetpath names="/sensor/" tstamps="/5A7056AD/"/>
+      <tstamp>5A710CB9</tstamp>
+    </comp>
+    <comp ref="D2">
+      <value>ZENER</value>
+      <libsource lib="tinkerforge" part="ZENER"/>
+      <sheetpath names="/sensor/" tstamps="/5A7056AD/"/>
+      <tstamp>5A716F06</tstamp>
+    </comp>
+    <comp ref="L1">
+      <value>FB</value>
+      <libsource lib="tinkerforge" part="INDUCTOR"/>
+      <sheetpath names="/Spannungspumpe/" tstamps="/5A70A0F1/"/>
+      <tstamp>5A4CDD36</tstamp>
+    </comp>
+    <comp ref="L2">
+      <value>10uH</value>
+      <libsource lib="tinkerforge" part="INDUCTOR"/>
+      <sheetpath names="/Spannungspumpe/" tstamps="/5A70A0F1/"/>
+      <tstamp>5A4CDF34</tstamp>
+    </comp>
+    <comp ref="L3">
+      <value>FB</value>
+      <libsource lib="tinkerforge" part="INDUCTOR"/>
+      <sheetpath names="/Spannungspumpe/" tstamps="/5A70A0F1/"/>
+      <tstamp>5A4CDF63</tstamp>
+    </comp>
+    <comp ref="C5">
+      <value>4.7uF</value>
+      <footprint>C0603F</footprint>
+      <libsource lib="tinkerforge" part="C"/>
+      <sheetpath names="/Spannungspumpe/" tstamps="/5A70A0F1/"/>
+      <tstamp>5A4CE030</tstamp>
+    </comp>
+    <comp ref="C6">
+      <value>4.7uF</value>
+      <footprint>C0603F</footprint>
+      <libsource lib="tinkerforge" part="C"/>
+      <sheetpath names="/Spannungspumpe/" tstamps="/5A70A0F1/"/>
+      <tstamp>5A4CE061</tstamp>
+    </comp>
+    <comp ref="R3">
+      <value>1M</value>
+      <footprint>R0603F</footprint>
+      <libsource lib="tinkerforge" part="R"/>
+      <sheetpath names="/Spannungspumpe/" tstamps="/5A70A0F1/"/>
+      <tstamp>5A4CE114</tstamp>
+    </comp>
+    <comp ref="D1">
+      <value>B0520LW</value>
+      <libsource lib="device" part="D_Schottky"/>
+      <sheetpath names="/Spannungspumpe/" tstamps="/5A70A0F1/"/>
+      <tstamp>5A4CE17B</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>13.3k</value>
+      <footprint>R0603F</footprint>
+      <libsource lib="tinkerforge" part="R"/>
+      <sheetpath names="/Spannungspumpe/" tstamps="/5A70A0F1/"/>
+      <tstamp>5A4CE3AA</tstamp>
+    </comp>
+    <comp ref="C9">
+      <value>270pF</value>
+      <footprint>C0603F</footprint>
+      <libsource lib="tinkerforge" part="C"/>
+      <sheetpath names="/Spannungspumpe/" tstamps="/5A70A0F1/"/>
+      <tstamp>5A4CE454</tstamp>
+    </comp>
+    <comp ref="C8">
+      <value>4.7uF</value>
+      <footprint>C0603F</footprint>
+      <libsource lib="tinkerforge" part="C"/>
+      <sheetpath names="/Spannungspumpe/" tstamps="/5A70A0F1/"/>
+      <tstamp>5A4CE671</tstamp>
+    </comp>
+    <comp ref="C7">
+      <value>4.7uF</value>
+      <footprint>C0603F</footprint>
+      <libsource lib="tinkerforge" part="C"/>
+      <sheetpath names="/Spannungspumpe/" tstamps="/5A70A0F1/"/>
+      <tstamp>5A4CE780</tstamp>
+    </comp>
+    <comp ref="U3">
+      <value>LMR62014X</value>
+      <libsource lib="tinkerforge" part="LMR62014X"/>
+      <sheetpath names="/Spannungspumpe/" tstamps="/5A70A0F1/"/>
+      <tstamp>5A4D022D</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>0-200K</value>
+      <libsource lib="device" part="R_Variable"/>
+      <sheetpath names="/Spannungspumpe/" tstamps="/5A70A0F1/"/>
+      <tstamp>5A6ED69F</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="meine" part="A5950">
+      <fields>
+        <field name="Reference">IC</field>
+        <field name="Value">A5950</field>
+      </fields>
+      <pins>
+        <pin num="1" name="CP1" type="input"/>
+        <pin num="2" name="GND" type="input"/>
+        <pin num="3" name="OUT1" type="input"/>
+        <pin num="4" name="LESS" type="input"/>
+        <pin num="5" name="VBB" type="input"/>
+        <pin num="6" name="OUTB" type="input"/>
+        <pin num="7" name="FAULTn" type="input"/>
+        <pin num="8" name="RESTn" type="input"/>
+        <pin num="9" name="VREF" type="input"/>
+        <pin num="10" name="OCLSEL" type="input"/>
+        <pin num="11" name="Phase" type="input"/>
+        <pin num="12" name="Enable" type="input"/>
+        <pin num="13" name="Mode" type="input"/>
+        <pin num="14" name="AIOUT" type="input"/>
+        <pin num="15" name="VCP" type="input"/>
+        <pin num="16" name="CP2" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="tinkerforge" part="C">
+      <footprints>
+        <fp>SM*</fp>
+        <fp>C?</fp>
+        <fp>C1-1</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="tinkerforge" part="CON-SENSOR2">
+      <footprints>
+        <fp>CON-SENSOR2</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">P</field>
+        <field name="Value">CON-SENSOR2</field>
+      </fields>
+      <pins>
+        <pin num="1" name="5V" type="passive"/>
+        <pin num="2" name="GND" type="passive"/>
+        <pin num="3" name="3.3V" type="passive"/>
+        <pin num="4" name="CS" type="passive"/>
+        <pin num="5" name="CLK" type="passive"/>
+        <pin num="6" name="MOSI" type="passive"/>
+        <pin num="7" name="MISO" type="passive"/>
+        <pin num="EP" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="conn" part="Conn_01x06_Female">
+      <description>Generic connector, single row, 01x06</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_??x*mm*</fp>
+        <fp>Connector*:*1x??x*mm*</fp>
+        <fp>Socket?Strip?Straight?1X*</fp>
+        <fp>Socket?Strip?Angled?1X*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x06_Female</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="D_Schottky">
+      <description>Schottky diode</description>
+      <footprints>
+        <fp>TO-???*</fp>
+        <fp>*SingleDiode</fp>
+        <fp>*_Diode_*</fp>
+        <fp>*SingleDiode*</fp>
+        <fp>D_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">D_Schottky</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="tinkerforge" part="INDUCTOR">
+      <fields>
+        <field name="Reference">L</field>
+        <field name="Value">INDUCTOR</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="input"/>
+        <pin num="2" name="~" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="tinkerforge" part="LMR62014X">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">LMR62014X</field>
+      </fields>
+      <pins>
+        <pin num="1" name="SW" type="input"/>
+        <pin num="2" name="GND" type="input"/>
+        <pin num="3" name="FB" type="input"/>
+        <pin num="4" name="nSHDN" type="input"/>
+        <pin num="5" name="VIN" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="POT">
+      <description>Potentiometer</description>
+      <footprints>
+        <fp>Potentiometer*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">RV</field>
+        <field name="Value">POT</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+        <pin num="3" name="3" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="tinkerforge" part="R">
+      <footprints>
+        <fp>R?</fp>
+        <fp>SM0603</fp>
+        <fp>SM0805</fp>
+        <fp>R?-*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="R_Variable">
+      <description>variable Resistor (Rheostat)</description>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R_Variable</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="Speaker_Crystal">
+      <aliases>
+        <alias>Speaker_Ultrasound</alias>
+      </aliases>
+      <description>crystal speaker/transducer</description>
+      <fields>
+        <field name="Reference">LS</field>
+        <field name="Value">Speaker_Crystal</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="input"/>
+        <pin num="2" name="2" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="tinkerforge" part="TLC272">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">TLC272</field>
+      </fields>
+      <pins>
+        <pin num="1" name="OUT" type="output"/>
+        <pin num="2" name="IN-" type="input"/>
+        <pin num="3" name="IN+" type="input"/>
+        <pin num="4" name="GND" type="power_in"/>
+        <pin num="5" name="IN+" type="input"/>
+        <pin num="6" name="IN-" type="input"/>
+        <pin num="7" name="OUT" type="output"/>
+        <pin num="8" name="VDD" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="tinkerforge" part="XMC1XXX40">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">XMC1XXX40</field>
+      </fields>
+      <pins>
+        <pin num="1" name="P2.0" type="passive"/>
+        <pin num="2" name="P2.1" type="passive"/>
+        <pin num="3" name="P2.2" type="passive"/>
+        <pin num="4" name="P2.3" type="passive"/>
+        <pin num="5" name="P2.4" type="passive"/>
+        <pin num="6" name="P2.5" type="passive"/>
+        <pin num="7" name="P2.6" type="passive"/>
+        <pin num="9" name="P2.8" type="passive"/>
+        <pin num="10" name="P2.9" type="passive"/>
+        <pin num="11" name="P2.10" type="passive"/>
+        <pin num="12" name="P2.11" type="passive"/>
+        <pin num="13" name="VSS" type="passive"/>
+        <pin num="14" name="VDD" type="passive"/>
+        <pin num="15" name="VDDP" type="passive"/>
+        <pin num="16" name="P1.6" type="passive"/>
+        <pin num="17" name="P1.5" type="passive"/>
+        <pin num="18" name="P1.4" type="passive"/>
+        <pin num="19" name="P1.3" type="passive"/>
+        <pin num="20" name="P1.2" type="passive"/>
+        <pin num="21" name="P1.1" type="passive"/>
+        <pin num="22" name="P1.0" type="passive"/>
+        <pin num="23" name="P0.0" type="passive"/>
+        <pin num="24" name="P0.1" type="passive"/>
+        <pin num="25" name="P0.2" type="passive"/>
+        <pin num="26" name="P0.3" type="passive"/>
+        <pin num="27" name="P0.4" type="passive"/>
+        <pin num="28" name="P0.5" type="passive"/>
+        <pin num="29" name="P0.6" type="passive"/>
+        <pin num="30" name="P0.7" type="passive"/>
+        <pin num="31" name="VSSP" type="passive"/>
+        <pin num="32" name="VDDP" type="passive"/>
+        <pin num="33" name="P0.8" type="passive"/>
+        <pin num="34" name="P0.9" type="passive"/>
+        <pin num="35" name="P0.10" type="passive"/>
+        <pin num="36" name="P0.11" type="passive"/>
+        <pin num="37" name="P0.12" type="passive"/>
+        <pin num="38" name="P0.13" type="passive"/>
+        <pin num="39" name="P0.14" type="passive"/>
+        <pin num="40" name="P0.15" type="passive"/>
+        <pin num="??" name="VSSP" type="passive"/>
+        <pin num="EXP" name="VSSP" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="tinkerforge" part="ZENER">
+      <description>Diode zener</description>
+      <footprints>
+        <fp>D?</fp>
+        <fp>SO*</fp>
+        <fp>SM*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">ZENER</field>
+      </fields>
+      <pins>
+        <pin num="1" name="A" type="passive"/>
+        <pin num="2" name="K" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="tinkerforge">
+      <uri>/home/steps/Documents/tf/kicad-libraries/tinkerforge.lib</uri>
+    </library>
+    <library logical="meine">
+      <uri>/home/steps/Documents/Schaltplan Ultraschallsensor/meine.lib</uri>
+    </library>
+    <library logical="device">
+      <uri>/usr/share/kicad/library/device.lib</uri>
+    </library>
+    <library logical="conn">
+      <uri>/usr/share/kicad/library/conn.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="+5V">
+      <node ref="P1" pin="1"/>
+      <node ref="R10" pin="1"/>
+      <node ref="U2" pin="8"/>
+      <node ref="R7" pin="1"/>
+    </net>
+    <net code="2" name="+3V3">
+      <node ref="L1" pin="1"/>
+      <node ref="C5" pin="1"/>
+      <node ref="P1" pin="3"/>
+    </net>
+    <net code="3" name="VCC">
+      <node ref="U1" pin="32"/>
+      <node ref="U1" pin="14"/>
+      <node ref="U1" pin="15"/>
+      <node ref="C3" pin="1"/>
+      <node ref="C2" pin="1"/>
+      <node ref="C1" pin="1"/>
+      <node ref="C4" pin="1"/>
+    </net>
+    <net code="4" name="Net-(U1-Pad40)">
+      <node ref="U1" pin="40"/>
+    </net>
+    <net code="5" name="Net-(U1-Pad39)">
+      <node ref="U1" pin="39"/>
+    </net>
+    <net code="6" name="Net-(U1-Pad38)">
+      <node ref="U1" pin="38"/>
+    </net>
+    <net code="7" name="Net-(U1-Pad37)">
+      <node ref="U1" pin="37"/>
+    </net>
+    <net code="8" name="Net-(P1-Pad6)">
+      <node ref="P1" pin="6"/>
+    </net>
+    <net code="9" name="Net-(P1-PadEP)">
+      <node ref="P1" pin="EP"/>
+    </net>
+    <net code="10" name="Net-(P1-Pad7)">
+      <node ref="P1" pin="7"/>
+    </net>
+    <net code="11" name="Net-(U1-Pad36)">
+      <node ref="U1" pin="36"/>
+    </net>
+    <net code="12" name="Net-(P1-Pad5)">
+      <node ref="P1" pin="5"/>
+    </net>
+    <net code="13" name="Net-(P1-Pad4)">
+      <node ref="P1" pin="4"/>
+    </net>
+    <net code="14" name="Net-(U1-Pad3)">
+      <node ref="U1" pin="3"/>
+    </net>
+    <net code="15" name="Net-(U1-Pad20)">
+      <node ref="U1" pin="20"/>
+    </net>
+    <net code="17" name="Net-(U1-Pad19)">
+      <node ref="U1" pin="19"/>
+    </net>
+    <net code="18" name="Net-(U1-Pad18)">
+      <node ref="U1" pin="18"/>
+    </net>
+    <net code="19" name="Net-(U1-Pad17)">
+      <node ref="U1" pin="17"/>
+    </net>
+    <net code="20" name="Net-(U1-Pad16)">
+      <node ref="U1" pin="16"/>
+    </net>
+    <net code="21" name="Net-(U1-Pad1)">
+      <node ref="U1" pin="1"/>
+    </net>
+    <net code="22" name="Net-(U1-Pad2)">
+      <node ref="U1" pin="2"/>
+    </net>
+    <net code="23" name="Net-(U1-Pad21)">
+      <node ref="U1" pin="21"/>
+    </net>
+    <net code="24" name="Net-(U1-Pad4)">
+      <node ref="U1" pin="4"/>
+    </net>
+    <net code="25" name="Net-(U1-Pad5)">
+      <node ref="U1" pin="5"/>
+    </net>
+    <net code="27" name="Net-(U1-Pad6)">
+      <node ref="U1" pin="6"/>
+    </net>
+    <net code="28" name="Net-(U1-Pad7)">
+      <node ref="U1" pin="7"/>
+    </net>
+    <net code="29" name="Net-(U1-Pad9)">
+      <node ref="U1" pin="9"/>
+    </net>
+    <net code="30" name="Net-(U1-Pad10)">
+      <node ref="U1" pin="10"/>
+    </net>
+    <net code="31" name="Net-(U1-Pad35)">
+      <node ref="U1" pin="35"/>
+    </net>
+    <net code="32" name="Net-(U1-Pad34)">
+      <node ref="U1" pin="34"/>
+    </net>
+    <net code="33" name="Net-(U1-Pad33)">
+      <node ref="U1" pin="33"/>
+    </net>
+    <net code="34" name="Net-(U1-Pad29)">
+      <node ref="U1" pin="29"/>
+    </net>
+    <net code="35" name="/Spannungspumpe/nSHDN">
+      <node ref="U3" pin="4"/>
+      <node ref="U1" pin="28"/>
+      <node ref="R3" pin="2"/>
+    </net>
+    <net code="36" name="Net-(IC1-Pad8)">
+      <node ref="IC1" pin="8"/>
+      <node ref="U1" pin="26"/>
+    </net>
+    <net code="37" name="Net-(U1-Pad22)">
+      <node ref="U1" pin="22"/>
+    </net>
+    <net code="38" name="VSspg1">
+      <node ref="R8" pin="3"/>
+      <node ref="R9" pin="1"/>
+      <node ref="R10" pin="2"/>
+      <node ref="C11" pin="1"/>
+      <node ref="U2" pin="5"/>
+      <node ref="U2" pin="1"/>
+      <node ref="U2" pin="6"/>
+      <node ref="J1" pin="1"/>
+    </net>
+    <net code="39" name="VSspg2">
+      <node ref="J1" pin="2"/>
+      <node ref="R11" pin="1"/>
+      <node ref="U2" pin="7"/>
+      <node ref="U1" pin="27"/>
+    </net>
+    <net code="40" name="Net-(IC1-Pad16)">
+      <node ref="IC1" pin="16"/>
+    </net>
+    <net code="41" name="Net-(IC1-Pad15)">
+      <node ref="IC1" pin="15"/>
+    </net>
+    <net code="42" name="Net-(IC1-Pad14)">
+      <node ref="IC1" pin="14"/>
+    </net>
+    <net code="43" name="Net-(IC1-Pad13)">
+      <node ref="IC1" pin="13"/>
+      <node ref="U1" pin="23"/>
+    </net>
+    <net code="44" name="Net-(IC1-Pad10)">
+      <node ref="IC1" pin="10"/>
+    </net>
+    <net code="45" name="Net-(IC1-Pad7)">
+      <node ref="IC1" pin="7"/>
+    </net>
+    <net code="46" name="+Ua">
+      <node ref="J1" pin="3"/>
+      <node ref="C7" pin="1"/>
+      <node ref="L3" pin="2"/>
+      <node ref="IC1" pin="5"/>
+    </net>
+    <net code="47" name="AusA">
+      <node ref="LS1" pin="1"/>
+      <node ref="J1" pin="5"/>
+      <node ref="IC1" pin="3"/>
+      <node ref="R4" pin="1"/>
+      <node ref="C12" pin="1"/>
+    </net>
+    <net code="48" name="Net-(U1-Pad30)">
+      <node ref="U1" pin="30"/>
+      <node ref="U1" pin="??"/>
+    </net>
+    <net code="49" name="AusB">
+      <node ref="U2" pin="4"/>
+      <node ref="C7" pin="2"/>
+      <node ref="D2" pin="1"/>
+      <node ref="C8" pin="2"/>
+      <node ref="C6" pin="2"/>
+      <node ref="R9" pin="2"/>
+      <node ref="R5" pin="2"/>
+      <node ref="R4" pin="2"/>
+      <node ref="C10" pin="2"/>
+      <node ref="C11" pin="2"/>
+      <node ref="R11" pin="2"/>
+      <node ref="R2" pin="2"/>
+      <node ref="C5" pin="2"/>
+      <node ref="U3" pin="2"/>
+      <node ref="U1" pin="EXP"/>
+      <node ref="U1" pin="13"/>
+      <node ref="U1" pin="31"/>
+      <node ref="J1" pin="6"/>
+      <node ref="J1" pin="4"/>
+      <node ref="P1" pin="2"/>
+      <node ref="IC1" pin="1"/>
+      <node ref="IC1" pin="9"/>
+      <node ref="IC1" pin="6"/>
+      <node ref="IC1" pin="4"/>
+      <node ref="IC1" pin="2"/>
+      <node ref="C2" pin="2"/>
+      <node ref="C3" pin="2"/>
+      <node ref="C4" pin="2"/>
+      <node ref="C1" pin="2"/>
+      <node ref="LS1" pin="2"/>
+    </net>
+    <net code="50" name="Net-(U1-Pad11)">
+      <node ref="U1" pin="11"/>
+    </net>
+    <net code="51" name="Net-(U1-Pad12)">
+      <node ref="U1" pin="12"/>
+    </net>
+    <net code="52" name="Net-(IC1-Pad11)">
+      <node ref="IC1" pin="11"/>
+      <node ref="U1" pin="25"/>
+    </net>
+    <net code="53" name="Net-(IC1-Pad12)">
+      <node ref="IC1" pin="12"/>
+      <node ref="U1" pin="24"/>
+    </net>
+    <net code="54" name="Net-(R12-Pad1)">
+      <node ref="R6" pin="1"/>
+      <node ref="U2" pin="2"/>
+      <node ref="R12" pin="1"/>
+    </net>
+    <net code="55" name="Net-(C10-Pad1)">
+      <node ref="R6" pin="2"/>
+      <node ref="C10" pin="1"/>
+    </net>
+    <net code="56" name="Net-(R12-Pad2)">
+      <node ref="R8" pin="1"/>
+      <node ref="R12" pin="2"/>
+      <node ref="R8" pin="2"/>
+    </net>
+    <net code="57" name="Net-(C12-Pad2)">
+      <node ref="R5" pin="1"/>
+      <node ref="R7" pin="2"/>
+      <node ref="U2" pin="3"/>
+      <node ref="D2" pin="2"/>
+      <node ref="C12" pin="2"/>
+    </net>
+    <net code="58" name="Net-(C8-Pad1)">
+      <node ref="L3" pin="1"/>
+      <node ref="D1" pin="1"/>
+      <node ref="C9" pin="2"/>
+      <node ref="C8" pin="1"/>
+      <node ref="R1" pin="1"/>
+    </net>
+    <net code="59" name="Net-(C9-Pad1)">
+      <node ref="U3" pin="3"/>
+      <node ref="C9" pin="1"/>
+      <node ref="R2" pin="1"/>
+      <node ref="R1" pin="2"/>
+    </net>
+    <net code="60" name="Net-(D1-Pad2)">
+      <node ref="U3" pin="1"/>
+      <node ref="D1" pin="2"/>
+      <node ref="L2" pin="2"/>
+    </net>
+    <net code="61" name="Net-(C6-Pad1)">
+      <node ref="C6" pin="1"/>
+      <node ref="U3" pin="5"/>
+      <node ref="L1" pin="2"/>
+      <node ref="L2" pin="1"/>
+      <node ref="R3" pin="1"/>
+    </net>
+  </nets>
+</export>
