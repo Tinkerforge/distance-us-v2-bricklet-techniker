@@ -1,4 +1,0 @@
-(fp_lib_table
-  (lib (name kicad-libraries)(type KiCad)(uri /home/steps/Documents/tf/kicad-libraries)(options "")(descr ""))
-  (lib (name Zusatzteile)(type KiCad)(uri "$(KIPRJMOD)/Zusatzteile.pretty")(options "")(descr ""))
-)
