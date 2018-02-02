@@ -194,7 +194,6 @@ Wire Wire Line
 	5700 1050 5700 1100
 Wire Wire Line
 	5700 1600 5700 2600
-Connection ~ 5700 2050
 Connection ~ 6200 2250
 Connection ~ 6200 3850
 Wire Wire Line
