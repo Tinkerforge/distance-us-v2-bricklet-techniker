@@ -1,7 +1,7 @@
 (export (version D)
   (design
-    (source "/home/steps/Documents/Schaltplan Ultraschallsensor/Schaltplan Ultraschallsensor.sch")
-    (date "Fr 02 Feb 2018 10:55:16 CET")
+    (source "/home/privat/tf/distance-us-v2-bricklet/hardware/Prototyp/Schaltplan_Ultraschallsensor/Schaltplan Ultraschallsensor.sch")
+    (date "Fr 02 Feb 2018 11:35:05 CET")
     (tool "Eeschema 4.0.7-e2-6376~58~ubuntu16.04.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -592,12 +592,12 @@
         (pin (num 1) (name A) (type passive))
         (pin (num 2) (name K) (type passive)))))
   (libraries
-    (library (logical device)
-      (uri /usr/share/kicad/library/device.lib))
-    (library (logical meine)
-      (uri "/home/steps/Documents/Schaltplan Ultraschallsensor/meine.lib"))
     (library (logical tinkerforge)
-      (uri /home/steps/Documents/tf/kicad-libraries/tinkerforge.lib)))
+      (uri /home/privat/tf/kicad-libraries/tinkerforge.lib))
+    (library (logical meine)
+      (uri meine.lib))
+    (library (logical device)
+      (uri /usr/share/kicad/library/device.lib)))
   (nets
     (net (code 1) (name +3.3VADC)
       (node (ref P1) (pin 3))

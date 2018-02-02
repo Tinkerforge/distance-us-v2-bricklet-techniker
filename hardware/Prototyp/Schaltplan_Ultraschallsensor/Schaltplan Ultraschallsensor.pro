@@ -1,4 +1,4 @@
-update=Di 30 Jan 2018 12:11:45 CET
+update=Fr 02 Feb 2018 11:34:27 CET
 version=1
 last_client=kicad
 [pcbnew]
@@ -27,7 +27,7 @@ NetIExt=net
 version=1
 [eeschema]
 version=1
-LibDir=/home/steps/Documents/tf;/home/steps/Documents/OPV
+LibDir=/home/privat/tf
 [eeschema/libraries]
 LibName1=kicad-libraries/tinkerforge
 LibName2=meine
