@@ -1,7 +1,7 @@
 /* distance-us-v2-bricklet
  * Copyright (C) 2018 Olaf Lüke <olaf@tinkerforge.com>
  *
- * main.c: Initialization for Distance US V2 Bricklet
+ * a16pt.h: Driver for HDC1080 humidity sensor
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,27 +19,13 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <stdio.h>
-#include <stdbool.h>
+#ifndef A16PT_H
+#define A16PT_H
 
-#include "configs/config.h"
+#include <stdint.h>
 
-#include "bricklib2/bootloader/bootloader.h"
-#include "bricklib2/hal/system_timer/system_timer.h"
-#include "bricklib2/logging/logging.h"
-#include "communication.h"
-#include "a16pt.h"
+void a16pt_init(void);
+void a16pt_tick(void);
+uint16_t a16pt_get_distance(void); 
 
-int main(void) {
-	logging_init();
-	logd("Start Distance US V2 Bricklet\n\r");
-
-	communication_init();
-	a16pt_init();
-
-	while(true) {
-		bootloader_tick();
-		communication_tick();
-		a16pt_tick();
-	}
-}
+#endif

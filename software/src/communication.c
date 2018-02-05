@@ -25,6 +25,8 @@
 #include "bricklib2/protocols/tfp/tfp.h"
 #include "bricklib2/utility/callback_value.h"
 
+#include "a16pt.h"
+
 CallbackValue callback_value_distance;
 
 
@@ -51,8 +53,7 @@ void communication_tick(void) {
 }
 
 void communication_init(void) {
-	// TODO: Add proper functions
-	callback_value_init(&callback_value_distance, NULL);;
+	callback_value_init(&callback_value_distance, a16pt_get_distance);;
 
 	communication_callback_init();
 }

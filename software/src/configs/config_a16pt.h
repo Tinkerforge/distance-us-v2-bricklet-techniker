@@ -1,7 +1,7 @@
 /* distance-us-v2-bricklet
  * Copyright (C) 2018 Olaf Lüke <olaf@tinkerforge.com>
  *
- * main.c: Initialization for Distance US V2 Bricklet
+ * config_a16pt.h: Configurations for a16pt
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,27 +19,7 @@
  * Boston, MA 02111-1307, USA.
  */
 
-#include <stdio.h>
-#include <stdbool.h>
+#ifndef CONFIG_A16PT_H
+#define CONFIG_A16PT_H
 
-#include "configs/config.h"
-
-#include "bricklib2/bootloader/bootloader.h"
-#include "bricklib2/hal/system_timer/system_timer.h"
-#include "bricklib2/logging/logging.h"
-#include "communication.h"
-#include "a16pt.h"
-
-int main(void) {
-	logging_init();
-	logd("Start Distance US V2 Bricklet\n\r");
-
-	communication_init();
-	a16pt_init();
-
-	while(true) {
-		bootloader_tick();
-		communication_tick();
-		a16pt_tick();
-	}
-}
+#endif
