@@ -185,7 +185,6 @@ NoConn ~ 9950 3150
 NoConn ~ 9950 2850
 NoConn ~ 9950 2450
 NoConn ~ 9950 2350
-NoConn ~ 9950 2250
 NoConn ~ 5400 7000
 NoConn ~ 5400 6900
 NoConn ~ 5400 6500
@@ -697,12 +696,6 @@ Wire Wire Line
 Wire Wire Line
 	8850 4550 8800 4550
 Wire Wire Line
-	3300 3750 5600 3750
-Wire Wire Line
-	3300 3400 3300 3750
-Wire Wire Line
-	2400 3400 3300 3400
-Wire Wire Line
 	3350 3650 5600 3650
 Connection ~ 7150 1900
 Wire Wire Line
@@ -775,8 +768,6 @@ Wire Wire Line
 	5250 1600 5250 1650
 Wire Wire Line
 	5150 1600 5250 1600
-Text Label 4000 3750 0    60   ~ 0
-SP-SHDN
 $Comp
 L +3.3V #PWR014
 U 1 1 5A78F415
@@ -855,13 +846,13 @@ Wire Wire Line
 	3500 1600 3500 1550
 Wire Wire Line
 	3500 1550 3550 1550
-Text GLabel 9800 2050 0    60   Input ~ 0
-HB-Phase
-Text GLabel 9800 1950 0    60   Input ~ 0
-HB-Enable
-Text GLabel 9800 1850 0    60   Input ~ 0
-HB-Mode
 Text GLabel 9800 2150 0    60   Input ~ 0
+HB-Phase
+Text GLabel 9800 2050 0    60   Input ~ 0
+HB-Enable
+Text GLabel 9800 1950 0    60   Input ~ 0
+HB-Mode
+Text GLabel 9800 2250 0    60   Input ~ 0
 HB-Reset
 Text GLabel 3400 1400 0    60   Input ~ 0
 HB-Reset
@@ -895,12 +886,21 @@ Wire Wire Line
 	5100 3550 5150 3550
 Wire Wire Line
 	5150 3550 5150 3650
+Text GLabel 2550 3400 2    60   Input ~ 0
+SP-SHDN
+Text GLabel 9800 1850 0    60   Input ~ 0
+SP-SHDN
 Wire Wire Line
-	9950 2150 9800 2150
+	2400 3400 2550 3400
 Wire Wire Line
-	9800 2050 9950 2050
+	9800 1850 9950 1850
 Wire Wire Line
 	9800 1950 9950 1950
 Wire Wire Line
-	9950 1850 9800 1850
+	9950 2050 9800 2050
+Wire Wire Line
+	9800 2150 9950 2150
+Wire Wire Line
+	9950 2250 9800 2250
+NoConn ~ 5600 3750
 $EndSCHEMATC
