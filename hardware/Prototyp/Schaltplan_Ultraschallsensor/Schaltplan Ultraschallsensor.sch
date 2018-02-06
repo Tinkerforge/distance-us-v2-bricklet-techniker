@@ -698,11 +698,7 @@ Wire Wire Line
 	3350 3650 5600 3650
 Connection ~ 7150 1900
 Wire Wire Line
-	5250 1300 5150 1300
-Wire Wire Line
-	5250 900  5250 1300
-Wire Wire Line
-	2650 900  5250 900 
+	2650 900  5750 900 
 Wire Wire Line
 	2650 900  2650 3300
 Wire Wire Line
@@ -942,4 +938,21 @@ Wire Wire Line
 	5350 4050 5400 4050
 Wire Wire Line
 	5400 4050 5400 4100
+$Comp
+L R R18
+U 1 1 5A795B29
+P 5450 1300
+F 0 "R18" V 5530 1300 50  0000 C CNN
+F 1 "0" V 5450 1300 50  0000 C CNN
+F 2 "kicad-libraries:R0603F" H 5450 1300 60  0000 C CNN
+F 3 "" H 5450 1300 60  0000 C CNN
+	1    5450 1300
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5150 1300 5200 1300
+Wire Wire Line
+	5750 900  5750 1300
+Wire Wire Line
+	5750 1300 5700 1300
 $EndSCHEMATC
