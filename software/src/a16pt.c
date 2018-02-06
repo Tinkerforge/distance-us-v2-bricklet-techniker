@@ -27,7 +27,6 @@
 #include "configs/config_a16pt.h"
 #include "bricklib2/hal/system_timer/system_timer.h"
 #include "bricklib2/logging/logging.h"
-uint16_t x=0;
 uint16_t distance = 0;
 
 void a16pt_init(void) {
@@ -35,9 +34,6 @@ void a16pt_init(void) {
 }
 
 void a16pt_tick(void) { 
-
-x++;
-
 
 }
 
