@@ -47,7 +47,11 @@ int main(void) {
 		bootloader_tick();
 		communication_tick();
 		a16pt_tick();
- 		XMC_GPIO_Init(P2_1,&pin_config);
-		XMC_GPIO_SetOutputLow(P2_1);
+ 		XMC_GPIO_Init(P2_10,&pin_config);
+		XMC_GPIO_SetOutputLow(P2_10);
+		XMC_GPIO_Init(P2_11,&pin_config);
+		XMC_GPIO_SetOutputLow(P2_11);
+		XMC_GPIO_Init(P2_12,&pin_config);
+		XMC_GPIO_SetOutputLow(P2_12);
 	}
 }
