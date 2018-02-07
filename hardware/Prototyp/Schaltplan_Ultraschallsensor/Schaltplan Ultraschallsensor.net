@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source "/home/steps/tf/distance-us-v2-bricklet/hardware/Prototyp/Schaltplan_Ultraschallsensor/Schaltplan Ultraschallsensor.sch")
-    (date "Di 06 Feb 2018 08:17:06 CET")
+    (date "Mi 07 Feb 2018 08:49:29 CET")
     (tool "Eeschema 4.0.7-e2-6376~58~ubuntu16.04.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -259,6 +259,18 @@
       (libsource (lib tinkerforge) (part C))
       (sheetpath (names /sensor/) (tstamps /5A7056AD/))
       (tstamp 5A780601))
+    (comp (ref U6)
+      (value DRILL)
+      (footprint kicad-libraries:DRILL_NP)
+      (libsource (lib tinkerforge) (part DRILL))
+      (sheetpath (names /sensor/) (tstamps /5A7056AD/))
+      (tstamp 5A7AB1D9))
+    (comp (ref U5)
+      (value DRILL)
+      (footprint kicad-libraries:DRILL_NP)
+      (libsource (lib tinkerforge) (part DRILL))
+      (sheetpath (names /sensor/) (tstamps /5A7056AD/))
+      (tstamp 5A7AB2B7))
     (comp (ref L1)
       (value FB)
       (footprint kicad-libraries:C0603F)
@@ -446,6 +458,9 @@
         (pin (num 1) (name ~) (type passive))
         (pin (num 2) (name ~) (type passive))
         (pin (num 3) (name ~) (type passive))))
+    (libpart (lib tinkerforge) (part DRILL)
+      (fields
+        (field (name Value) DRILL)))
     (libpart (lib device) (part D_Schottky)
       (description "Schottky diode")
       (footprints
@@ -619,10 +634,10 @@
         (pin (num 1) (name A) (type passive))
         (pin (num 2) (name K) (type passive)))))
   (libraries
-    (library (logical tinkerforge)
-      (uri /home/steps/Documents/tf/kicad-libraries/tinkerforge.lib))
     (library (logical meine)
       (uri /home/steps/tf/distance-us-v2-bricklet/hardware/Prototyp/Schaltplan_Ultraschallsensor/meine.lib))
+    (library (logical tinkerforge)
+      (uri /home/steps/Documents/tf/kicad-libraries/tinkerforge.lib))
     (library (logical device)
       (uri /usr/share/kicad/library/device.lib)))
   (nets
