@@ -25,7 +25,7 @@
 #include "configs/config.h"
 
 #include "bricklib2/bootloader/bootloader.h"
-#include "bricklib2/hal/system_timer/system_timer.h"
+#include "system_timer/system_timer.h"
 #include "bricklib2/logging/logging.h"
 #include "communication.h"
 #include "a16pt.h"

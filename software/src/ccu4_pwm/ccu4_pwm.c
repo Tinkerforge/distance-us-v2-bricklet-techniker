@@ -21,6 +21,7 @@
 
 #include "ccu4_pwm.h"
 
+
 XMC_CCU4_SLICE_t *const slice[4] = {
 	CCU40_CC40,
 	CCU40_CC41,
@@ -45,7 +46,7 @@ void ccu4_pwm_init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const uint8_t
 		.dither_duty_cycle   = 0,
 		.prescaler_mode      = XMC_CCU4_SLICE_PRESCALER_MODE_NORMAL,
 		.mcm_enable          = 0,
-		.prescaler_initval   = 0,
+		.prescaler_initval   = XMC_CCU4_SLICE_PRESCALER_1024,
 		.float_limit         = 0,
 		.dither_limit        = 0,
 		.passive_level       = XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL_LOW,
