@@ -38,20 +38,11 @@ int main(void) {
 
 	communication_init();
 	a16pt_init();
-	// LED pin configuration
-	const XMC_GPIO_CONFIG_t pin_config = {
-		.mode             = XMC_GPIO_MODE_OUTPUT_PUSH_PULL,
-		.output_level     = XMC_GPIO_OUTPUT_LEVEL_LOW,
-	};
+	
 	while(true) {
 		bootloader_tick();
 		communication_tick();
 		a16pt_tick();
- 		XMC_GPIO_Init(P2_10,&pin_config);
-		XMC_GPIO_SetOutputLow(P2_10);
-		XMC_GPIO_Init(P2_11,&pin_config);
-		XMC_GPIO_SetOutputLow(P2_11);
-		XMC_GPIO_Init(P2_12,&pin_config);
-		XMC_GPIO_SetOutputLow(P2_12);
+
 	}
 }
