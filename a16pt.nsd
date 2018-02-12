@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:nsd="http://structorizer.fisch.lu/" version="3.27-07" preRepeat="jusqu'à " postFor="à" preReturn="return" postForIn="in" preWhile="tant que " output="écrire" input="lire" preFor="pour " preExit="exit" preLeave="leave" ignoreCase="true" preForIn="foreach" stepFor="by" author="Stephan Dannat" created="2018-02-12" changedby="Stephan Dannat" changed="2018-02-12" origin="Structorizer 3.27-07" text="&#34;a16pt&#34;" comment="&#34;&#34;" color="ffffff" type="program" style="nice">
+	<children>
+		<instruction text="&#34;#include &#34;&#34;a16pt.h&#34;&#34;&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<instruction text="&#34;#include &#34;&#34;stdint.h&#34;&#34;&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<instruction text="&#34;#include &#34;&#34;stdbool.h&#34;&#34;&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<instruction text="&#34;#include &#34;&#34;xmc_gpio.h&#34;&#34;&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<instruction text="&#34;#include &#34;&#34;bricklib2/logging/logging.h&#34;&#34;&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<instruction text="&#34;#include &#34;&#34;system_timer/system_timer.h&#34;&#34;&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<instruction text="&#34;#include &#34;&#34;ccu4_pwm/ccu4_pwm.h&#34;&#34;&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<instruction text="&#34;#include &#34;&#34;configs/config_a16pt.h&#34;&#34;&#34;" comment="&#34;&#34;" color="ffffff" rotated="0" disabled="0"></instruction>
+		<call text="&#34;void a16pt_init(void){&#34;,&#34;     ccu4_pwm_init(P1_0, ccu4_slice_number, period_value)&#34;,&#34;     ccu4_pwm_set_duty_cycle(ccu4_slice_number, compare_value)}&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></call>
+		<call text="&#34;void a16pt_tick(void){}&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></call>
+		<call text="&#34;uint16_t a16pt_get_distance(void) {return 0;}&#34;" comment="&#34;&#34;" color="ffffff" disabled="0"></call>
+	</children>
+</root>
