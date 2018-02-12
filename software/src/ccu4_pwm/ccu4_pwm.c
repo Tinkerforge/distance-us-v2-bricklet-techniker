@@ -37,7 +37,8 @@ void ccu4_pwm_set_duty_cycle(const uint8_t ccu4_slice_number, const uint16_t com
 }
 
 // Period value is the amount of clock cycles per period
-void ccu4_pwm_init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const uint8_t ccu4_slice_number, const uint16_t period_value) {
+void ccu4_pwm_init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const uint8_t ccu4_slice_number, const uint16_t period_value)
+{
 	const XMC_CCU4_SLICE_COMPARE_CONFIG_t compare_config = {
 		.timer_mode          = XMC_CCU4_SLICE_TIMER_COUNT_MODE_EA,
 		.monoshot            = false,
@@ -74,4 +75,5 @@ void ccu4_pwm_init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const uint8_t
 
     XMC_CCU4_EnableClock(CCU40, ccu4_slice_number);
     XMC_CCU4_SLICE_StartTimer(slice[ccu4_slice_number]);
+
 }

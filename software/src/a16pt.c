@@ -46,9 +46,6 @@ void a16pt_init(void) {
 
 void a16pt_tick(void) {
 
-
-
-
 }
 
 
