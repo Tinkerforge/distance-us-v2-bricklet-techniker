@@ -18,12 +18,11 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
-/*Hier kommen die Varibalen rein die wir über verwenden*/
+
 #ifndef CONFIG_A16PT_H
 #define CONFIG_A16PT_H
-const uint8_t ccu4_slice_number=0;
-const uint16_t compare_value=9330;
-const uint16_t period_value=18661;
+#define led_taster P1_4
+
 
 
 

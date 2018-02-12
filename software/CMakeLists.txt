@@ -53,6 +53,8 @@ SET(SOURCES
 	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc1_flash.c"
 	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc_ccu4.c"
 	"${PROJECT_SOURCE_DIR}/src/ccu4_pwm/ccu4_pwm.c"
+	"${PROJECT_SOURCE_DIR}/src/eru/eru.c"
+	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc_eru.c"
 )
 
 MESSAGE(STATUS "\nFound following source files:\n ${SOURCES}\n")

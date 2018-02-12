@@ -29,39 +29,22 @@
 #include "bricklib2/logging/logging.h"
 #include "communication.h"
 #include "a16pt.h"
-#include "xmc_gpio.h"
-#include "xmc_common.h"
-#include "xmc_ccu4.h"
 
-uint8_t but=0;
 
 int main(void) {
 	logging_init();
-	logd("Start Distance US V2 Bricklet\n\r");
+	logd("Start Distance US V2 Bricklet\n\r");//Für den DBugModus!!!!!TXPin P0_12
 
 	communication_init();
 	a16pt_init();
-	/****************************************/
-	XMC_GPIO_CONFIG_t button_pin_config = {
-		.mode             = XMC_GPIO_MODE_INPUT_PULL_UP,
-		.output_level     = XMC_GPIO_OUTPUT_LEVEL_HIGH,
-		.input_hysteresis = XMC_GPIO_INPUT_HYSTERESIS_STANDARD
-	};
 
-	XMC_GPIO_Init(P1_4, &button_pin_config);
-	but=XMC_GPIO_GetInput(P1_4);
 
-/********************************************/
-
-	while(true) {
-		if(but==0)
-		{
-				
-		}
+	while(true)
+{
+		ERU0_0_IRQHandler();
 		a16pt_tick();
 		bootloader_tick();
 		communication_tick();
 
-
-	}
+}
 }

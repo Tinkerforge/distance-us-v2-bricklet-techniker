@@ -63,7 +63,7 @@ void ccu4_pwm_init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const uint8_t
     XMC_CCU4_Init(CCU40, XMC_CCU4_SLICE_MCMS_ACTION_TRANSFER_PR_CR);
     XMC_CCU4_StartPrescaler(CCU40);
     XMC_CCU4_SLICE_CompareInit(slice[ccu4_slice_number], &compare_config);
-
+	
     // Set the period and compare register values
     XMC_CCU4_SLICE_SetTimerPeriodMatch(slice[ccu4_slice_number], period_value);
     XMC_CCU4_SLICE_SetTimerCompareMatch(slice[ccu4_slice_number], 0);
