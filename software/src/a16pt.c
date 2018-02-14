@@ -42,29 +42,27 @@ void a16pt_init(void) {
 /************Counter_Compare_Interrupt*********************/
 // Set capture config for calculation of duty cycle
 XMC_CCU4_SLICE_EVENT_CONFIG_t event0_config0 = {
-		.mapped_input = XMC_CCU4_SLICE_INPUT_IN1BB,
+		.mapped_input = XMC_CCU4_SLICE_INPUT_BB,
 		.edge         = XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_RISING_EDGE,
 		.level        = XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_HIGH,
 		.duration     = XMC_CCU4_SLICE_EVENT_FILTER_DISABLED
 	};
-	XMC_CCU4_SLICE_ConfigureEvent(CCU40_CC40, XMC_CCU4_SLICE_EVENT_0, &event0_config0);
+	XMC_CCU4_SLICE_ConfigureEvent(CCU40_CC41, XMC_CCU4_SLICE_EVENT_0, &event0_config0);
+	XMC_CCU4_SLICE_CountConfig(CCU40_CC41, XMC_CCU4_SLICE_EVENT_0);
 
 
-
-
-	//XMC_CCU4_SLICE_ConfigureEvent(CCU40_CC41, XMC_CCU4_SLICE_EVENT_0, &event0_config0); //countconfig
-	XMC_CCU4_SLICE_CountConfig(CCU40_CC40, XMC_CCU4_SLICE_EVENT_0); //countconfig
-	/*XMC_CCU4_SLICE_Capture1Config(CCU40_CC41, XMC_CCU4_SLICE_EVENT_1);*/
-	XMC_CCU4_SLICE_EnableEvent(CCU40_CC40, XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP);//Auf die PWM SLice 0
-	XMC_CCU4_SLICE_SetInterruptNode(CCU40_CC40, XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP, XMC_CCU4_SLICE_SR_ID_0); //auf die PWM SLice 0
-	NVIC_EnableIRQ(21);
-	NVIC_SetPriority(21, 0);
-	XMC_SCU_SetInterruptControl(21, XMC_SCU_IRQCTRL_CCU40_SR0_IRQ21);
 /************PWM INIT*************************************/
 
 
 	ccu4_pwm_init(P1_0, slice_number, period_);
 	ccu4_pwm_set_duty_cycle(slice_number, compare_);
+
+
+	XMC_CCU4_SLICE_EnableEvent(CCU40_CC40, XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP);//Auf die PWM SLice 0
+	XMC_CCU4_SLICE_SetInterruptNode(CCU40_CC40, XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP, XMC_CCU4_SLICE_SR_ID_0); //auf die PWM SLice 0
+	NVIC_EnableIRQ(21);
+	NVIC_SetPriority(21, 0);
+	XMC_SCU_SetInterruptControl(21, XMC_SCU_IRQCTRL_CCU40_SR0_IRQ21);
 
 /***********************LED_INIT****************************/
 
@@ -75,7 +73,7 @@ XMC_CCU4_SLICE_EVENT_CONFIG_t event0_config0 = {
 	};
 
 	XMC_GPIO_Init(P2_0, &led_config);
-
+	XMC_GPIO_SetOutputHigh(P2_0);
 
 /*******************Taster_INIT*******************************/
 
@@ -86,17 +84,21 @@ const	XMC_GPIO_CONFIG_t button_pin_config = {
 		};
 
 		XMC_GPIO_Init(P2_5, &button_pin_config);
-		XMC_GPIO_SetOutputHigh(P2_0);
+
 /*************************************************************/
 }
 
 void IRQ_Hdlr_21(void) {
 
 	x++;
-	if(x==10);
+logd("x:%d\n\r",x);
+	if(x==10)
 {
-	XMC_GPIO_SetOutputLow(P2_0);
+	XMC_GPIO_ToggleOutput(P2_0);
+	x=0;
 }
+
+
 }
 
 void a16pt_tick(void)

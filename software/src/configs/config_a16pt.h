@@ -24,11 +24,26 @@
 #define led_taster P1_4
 /*****************PWM_define**************************/
 #define  slice_number 0   //uint8_t
-#define  compare_ 23437  //uint16_t
-#define  period_ 46875  //uint16_t
+#define  compare_ 20000  //uint16_t
+#define  period_  40000  //uint16_t
 /*****************Counter_Compare_Interrupt_define**********/
 
+/*****************************PORT_US_Sensor****************/
+/*
+#define hb_phase  P4_4
+#define hb_reset  P4_5
+#define hb_mode   P2_1
+#define hb_enable P0_15
 
+#define led       P2_10
+#define led1      P2_11
+#define led2      P_12
 
+#define opv_aus_dig P0_2
+#define opv_aus_ang P2_2
+
+#define debug P0_5
+#define reset P0_7
+*/
 
 #endif
