@@ -18,11 +18,15 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
-
+#include "xmc_gpio.h"
 #ifndef CONFIG_A16PT_H
 #define CONFIG_A16PT_H
 #define led_taster P1_4
-
+/*****************PWM_define**************************/
+#define  slice_number 0   //uint8_t
+#define  compare_ 23437  //uint16_t
+#define  period_ 46875  //uint16_t
+/*****************Counter_Compare_Interrupt_define**********/
 
 
 

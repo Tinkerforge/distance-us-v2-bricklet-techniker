@@ -41,7 +41,7 @@ int main(void) {
 
 	while(true)
 {
-		ERU0_0_IRQHandler();
+		
 		a16pt_tick();
 		bootloader_tick();
 		communication_tick();

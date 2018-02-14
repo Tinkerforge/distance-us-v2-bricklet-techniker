@@ -7,7 +7,8 @@
 #include "xmc_eru.h"
 
 
-void eru_enable(XMC_ERU_t *const eru);
+
+void eru_enable();
 void event_request_unit_config();
 
 #endif

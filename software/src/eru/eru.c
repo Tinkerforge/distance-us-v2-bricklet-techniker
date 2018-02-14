@@ -3,16 +3,7 @@
 
 #include "eru.h"
 
-void eru_enable(XMC_ERU_t *const eru)
-{
-//XMC_ERU_Enable(XMC_ERU_t *const eru);
-}
-
-
-
-void event_request_unit_config()
-{
-  const XMC_ERU_ETL_CONFIG_t button_event_generator_config =
+const XMC_ERU_ETL_CONFIG_t button_event_generator_config =
 {
 .input = ERU0_ETL1_INPUTA_P2_5,
 .source = XMC_ERU_ETL_SOURCE_A,
@@ -28,6 +19,17 @@ const XMC_ERU_OGU_CONFIG_t button_event_detection_config =
 .service_request = XMC_ERU_OGU_SERVICE_REQUEST_ON_TRIGGER
 };
 
+void eru_enable(/*XMC_ERU_t *const eru*/)
+{
+	XMC_ERU_Enable(ERU0_ETL1);
+}
+
+
+
+void event_request_unit_config()
+{
+  
+
 const	XMC_GPIO_CONFIG_t button_pin_confi = {
 			.mode             = XMC_GPIO_MODE_INPUT_SAMPLING,
 			.output_level     = XMC_GPIO_OUTPUT_LEVEL_HIGH,
@@ -36,6 +38,6 @@ const	XMC_GPIO_CONFIG_t button_pin_confi = {
 
 		XMC_GPIO_Init(P2_5, &button_pin_confi);
 
-/*  XMC_ERU_ETL_Init(ERU0_ETL1, &button_event_generator_config);
-  XMC_ERU_OGU_Init(ERU0_OGU0, &button_event_detection_config); */
+  XMC_ERU_ETL_Init(ERU0_ETL1, &button_event_generator_config);
+  XMC_ERU_OGU_Init(ERU0_OGU0, &button_event_detection_config); 
 }

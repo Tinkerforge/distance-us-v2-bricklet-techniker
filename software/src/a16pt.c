@@ -24,29 +24,47 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-
+/**************Infineon***************/
 #include "xmc_gpio.h"
+#include "xmc_scu.h"
+#include "xmc1_ccu4_map.h"
+/************************************/
 #include "bricklib2/logging/logging.h"
 #include "system_timer/system_timer.h"
 #include "ccu4_pwm/ccu4_pwm.h"
 #include "configs/config_a16pt.h"
-#include "eru/eru.h"
+int x=0;
+
 
 
 
 void a16pt_init(void) {
+/************Counter_Compare_Interrupt*********************/
+// Set capture config for calculation of duty cycle
+XMC_CCU4_SLICE_EVENT_CONFIG_t event0_config0 = {
+		.mapped_input = XMC_CCU4_SLICE_INPUT_IN1BB,
+		.edge         = XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_RISING_EDGE,
+		.level        = XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_HIGH,
+		.duration     = XMC_CCU4_SLICE_EVENT_FILTER_DISABLED
+	};
+	XMC_CCU4_SLICE_ConfigureEvent(CCU40_CC40, XMC_CCU4_SLICE_EVENT_0, &event0_config0);
 
 
-event_request_unit_config();
 
+
+	//XMC_CCU4_SLICE_ConfigureEvent(CCU40_CC41, XMC_CCU4_SLICE_EVENT_0, &event0_config0); //countconfig
+	XMC_CCU4_SLICE_CountConfig(CCU40_CC40, XMC_CCU4_SLICE_EVENT_0); //countconfig
+	/*XMC_CCU4_SLICE_Capture1Config(CCU40_CC41, XMC_CCU4_SLICE_EVENT_1);*/
+	XMC_CCU4_SLICE_EnableEvent(CCU40_CC40, XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP);//Auf die PWM SLice 0
+	XMC_CCU4_SLICE_SetInterruptNode(CCU40_CC40, XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP, XMC_CCU4_SLICE_SR_ID_0); //auf die PWM SLice 0
+	NVIC_EnableIRQ(21);
+	NVIC_SetPriority(21, 0);
+	XMC_SCU_SetInterruptControl(21, XMC_SCU_IRQCTRL_CCU40_SR0_IRQ21);
 /************PWM INIT*************************************/
 
-uint8_t ccu4_slice_number=0;
-uint16_t compare_value=23437;
-uint16_t period_value=46875;
 
-	ccu4_pwm_init(P1_0, ccu4_slice_number, period_value);
-	ccu4_pwm_set_duty_cycle(ccu4_slice_number, compare_value);
+	ccu4_pwm_init(P1_0, slice_number, period_);
+	ccu4_pwm_set_duty_cycle(slice_number, compare_);
 
 /***********************LED_INIT****************************/
 
@@ -56,30 +74,34 @@ uint16_t period_value=46875;
 
 	};
 
-	XMC_GPIO_Init(P0_0, &led_config);
-	//XMC_GPIO_SetOutputLow(P0_0);
+	XMC_GPIO_Init(P2_0, &led_config);
 
-/*******************Taster_INIT_PUll_Up********************/
+
+/*******************Taster_INIT*******************************/
 
 const	XMC_GPIO_CONFIG_t button_pin_config = {
-			.mode             = XMC_GPIO_MODE_INPUT_PULL_UP,
+			.mode             = XMC_GPIO_MODE_INPUT_TRISTATE,
 			.output_level     = XMC_GPIO_OUTPUT_LEVEL_HIGH,
-			.input_hysteresis = XMC_GPIO_INPUT_HYSTERESIS_STANDARD
+
 		};
 
-		XMC_GPIO_Init(P2_2, &button_pin_config);
-
-/********************************************************/
-
+		XMC_GPIO_Init(P2_5, &button_pin_config);
+		XMC_GPIO_SetOutputHigh(P2_0);
+/*************************************************************/
 }
-void ERU0_0_IRQHandler(void)
+
+void IRQ_Hdlr_21(void) {
+
+	x++;
+	if(x==10);
 {
-		XMC_ERU_ETL_ClearStatusFlag(ERU0_ETL1);
-		XMC_GPIO_ToggleOutput(P0_0);
+	XMC_GPIO_SetOutputLow(P2_0);
+}
 }
 
 void a16pt_tick(void)
 {
+/*
 	if(XMC_GPIO_GetInput(P2_2)==1)
 	{
 		uint8_t ccu4_slice_number=0;
@@ -99,7 +121,7 @@ void a16pt_tick(void)
 			ccu4_pwm_set_duty_cycle(ccu4_slice_number, compare_value);
 			XMC_GPIO_SetOutputLow(P0_0);
 		}
-
+*/
 }
 
 
