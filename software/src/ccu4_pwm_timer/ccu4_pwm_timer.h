@@ -26,8 +26,12 @@
 
 #include "xmc_gpio.h"
 #include "xmc_ccu4.h"
+#include "xmc_scu.h"
 
 void ccu4_pwm_set_duty_cycle(const uint8_t ccu4_slice_number, const uint16_t compare_value);
 void ccu4_pwm_init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const uint8_t ccu4_slice_number, const uint16_t period_value);
+void count_init( const uint8_t ccu4_slice_number);
+void capture_init(const uint8_t ccu4_slice_number);
+void ccu4_timer_2_init(const uint8_t ccu4_slice_number);
 
 #endif
