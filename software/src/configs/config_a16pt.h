@@ -28,8 +28,10 @@ enum ccu40 {cc40,cc41,cc42,cc43,} ;
 
 /*****************PWM_define**************************/
 
-#define  compare_   9375//uint16_t
-#define  period_    18750  //uint16_t
+//#define  compare_   9375//uint16_t
+//#define  period_    18750  //uint16_t
+#define  compare_   1200//uint16_t
+#define  period_    2400  //uint16_t
 #define  pwm_port   P1_0
 
 
