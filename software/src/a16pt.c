@@ -110,6 +110,7 @@ pin_in_pullup_init(pullup_port);
 
 void a16pt_tick(void) {
 	static uint32_t debug_time = 0;
+	static uint32_t signal_time = 0;
 
 	// Print every 250ms
 	if(system_timer_is_time_elapsed_ms(debug_time, 250)) {
@@ -120,6 +121,13 @@ void a16pt_tick(void) {
 		uint32_t slice3 = XMC_CCU4_SLICE_GetTimerValue(CCU40_CC43);
 		logd("CCU40 s0: %d, s1: %d, s2: %d, s3: %d\n\r", slice0, slice1, slice2, slice3);
 	}
+
+	if(system_timer_is_time_elapsed_ms(signal_time, 33)) {
+		signal_time = system_timer_get_ms();
+		XMC_CCU4_SLICE_ClearTimer(CCU40_CC41);
+		XMC_CCU4_SLICE_StartTimer(CCU40_CC40);
+	}
+
 	/*
 	v1=XMC_CCU4_SLICE_GetTimerValue(CCU40_CC42);
 	logd("v1:%d\n\r",v1);
