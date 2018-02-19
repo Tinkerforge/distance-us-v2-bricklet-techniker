@@ -72,21 +72,21 @@ void a16pt_init(void) {
 /*****************Externe_Interrupt*******************/
 	eru_init(eru_port);
 
-/************Event_Config****************************/
-
-	count_init(cc41);
-	//capture_init(cc43);
 
 /************PWM_Init********************************/
 
 	ccu4_pwm_init(pwm_port, cc40, period_);
 	ccu4_pwm_set_duty_cycle(cc40, compare_);
 
+/************Event_Config****************************/
+
+	count_init(cc41);
+	capture_init(cc43);
 
 /*******************Timer_2_Init*******************/
 
-	//ccu4_timer_2_init(cc42);
-	//XMC_CCU4_SLICE_StartTimer(CCU40_CC42);
+	ccu4_timer_2_init(cc42);
+	XMC_CCU4_SLICE_StartTimer(CCU40_CC42);
 	/*
 	XMC_CCU4_SLICE_StopTimer(CCU40_CC42);
 	XMC_CCU4_SLICE_ClearTimer(CCU40_CC42);
