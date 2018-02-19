@@ -7,7 +7,7 @@ void eru_init(XMC_GPIO_PORT_t *const port, const uint8_t pin)
 {
 const XMC_GPIO_CONFIG_t sync_pin_config = {
 	.mode             = XMC_GPIO_MODE_INPUT_PULL_UP,
-	.input_hysteresis = XMC_GPIO_INPUT_HYSTERESIS_LARGE
+	.input_hysteresis = XMC_GPIO_INPUT_HYSTERESIS_STANDARD
 };
 XMC_GPIO_Init(port, pin, &sync_pin_config);
 

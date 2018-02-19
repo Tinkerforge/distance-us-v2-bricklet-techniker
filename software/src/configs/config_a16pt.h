@@ -21,22 +21,20 @@
 #include "xmc_gpio.h"
 #ifndef CONFIG_A16PT_H
 #define CONFIG_A16PT_H
-#define led_taster P1_4
-/*****************PWM_define**************************/
-#define  slice_number_ccu40_cc40 0   //uint8_t ccu40_cc40
-#define  compare_   9375//uint16_t
-#define  period_  18750  //uint16_t
-#define  pwm_port  P1_0
 
-/*****************Counter_Compare_Interrupt_define**********/
-#define slice_number_ccu40_cc41 1  //CCU40_CC41
-/*****************Period_Match_define***********************/
-#define slice_number_ccu40_cc43 3
-/*****************Timer_2***********************************/
-#define slice_number_ccu40_cc42 2
-/*****************************PORT_US_Sensor****************/
-#define eru_port P2_9
-#define pullup_port P2_5
+/*****************CCU40_Timer_Slice_Config*************/
+
+enum ccu40 {cc40,cc41,cc42,cc43,} ;
+
+/*****************PWM_define**************************/
+
+#define  compare_   9375//uint16_t
+#define  period_    18750  //uint16_t
+#define  pwm_port   P1_0
+
+
+#define eru_port       P2_9
+#define pullup_port    P2_5
 
 #define led_port       P2_10
 #define led_port1      P2_11
@@ -50,9 +48,7 @@
 
 #define hs_shdn   P2_0
 
-
-
-#define opv_aus_dig P0_2
+#define opv_aus_dig P0_2 //P2_9 wegen Externer Interrupt
 #define opv_aus_ang P2_2
 
 #define debug P0_5

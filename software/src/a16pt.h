@@ -24,8 +24,8 @@
 
 #include <stdint.h>
 
-void a16pt_init(void);
-void a16pt_tick(void);
-uint16_t a16pt_get_distance(void); 
+void a16pt_init(void);                //Funktionsdefinition
+void a16pt_tick(void);                //Funktionsdefinition
+uint16_t a16pt_get_distance(void);    //Funktionsdefinition
 
 #endif
