@@ -23,7 +23,7 @@
 #include <stdbool.h>
 
 #include "configs/config.h"
-
+/*************Eigene_Include_Dateien************/
 #include "bricklib2/bootloader/bootloader.h"
 #include "system_timer/system_timer.h"
 #include "bricklib2/logging/logging.h"
@@ -33,18 +33,18 @@
 
 int main(void) {
 	logging_init();
-	logd("Start Distance US V2 Bricklet\n\r");//Für den DBugModus!!!!!TXPin P0_12
+	logd("Start Distance US V2 Bricklet\n\r"); //Für den DBugModus TXPin P0_12
 
-	communication_init();
-	a16pt_init();
+	communication_init();											//Funktionsaufruf
+	a16pt_init();															//Funktionsaufruf
 
 
 	while(true)
 {
-		
-		a16pt_tick();
-		bootloader_tick();
-		communication_tick();
+
+		a16pt_tick(); 												//Funktionsaufruf
+		bootloader_tick();										//Funktionsaufruf
+		communication_tick();									//Funktionsaufruf
 
 }
 }

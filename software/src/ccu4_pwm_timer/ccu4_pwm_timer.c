@@ -96,13 +96,6 @@ XMC_CCU4_SLICE_COMPARE_CONFIG_t timer_config = {
 }
 
 
-
-
-
-
-
-
-
 // Compare value is a value from 0 to period_value (^= 0 to 100% duty cycle)
 void ccu4_pwm_set_duty_cycle(const uint8_t ccu4_slice_number, const uint16_t compare_value) {
 	XMC_CCU4_SLICE_SetTimerCompareMatch(slice[ccu4_slice_number], compare_value);
@@ -147,7 +140,7 @@ void ccu4_pwm_init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const uint8_t
 
 
 		XMC_GPIO_Init(port, pin, &gpio_out_config);
-
+		XMC_GPIO_SetOutputHigh(port,pin);
 		XMC_CCU4_SLICE_EnableEvent(slice[ccu4_slice_number], XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP);//Auf die PWM SLice 0
 		XMC_CCU4_SLICE_SetInterruptNode(slice[ccu4_slice_number], XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP, XMC_CCU4_SLICE_SR_ID_0); //auf die PWM SLice 0
 		NVIC_EnableIRQ(21);
@@ -155,6 +148,6 @@ void ccu4_pwm_init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const uint8_t
 		XMC_SCU_SetInterruptControl(21, XMC_SCU_IRQCTRL_CCU40_SR0_IRQ21);
 
 		XMC_CCU4_EnableClock(CCU40, ccu4_slice_number);
-    XMC_CCU4_SLICE_StartTimer(slice[ccu4_slice_number]);
+    //XMC_CCU4_SLICE_StartTimer(slice[ccu4_slice_number]);
 
 }

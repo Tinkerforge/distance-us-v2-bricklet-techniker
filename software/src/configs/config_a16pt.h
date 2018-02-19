@@ -23,17 +23,25 @@
 #define CONFIG_A16PT_H
 #define led_taster P1_4
 /*****************PWM_define**************************/
-#define  slice_number_ccu40 0   //uint8_t ccu40_cc40
-#define  compare_ 23437  //uint16_t
-#define  period_  46875  //uint16_t
+#define  slice_number_ccu40_cc40 0   //uint8_t ccu40_cc40
+#define  compare_   9375//uint16_t
+#define  period_  18750  //uint16_t
+#define  pwm_port  P1_0
 
 /*****************Counter_Compare_Interrupt_define**********/
-#define slice_number_ccu41 1  //CCU40_CC41
+#define slice_number_ccu40_cc41 1  //CCU40_CC41
 /*****************Period_Match_define***********************/
-#define slice_number_ccu43 3
+#define slice_number_ccu40_cc43 3
 /*****************Timer_2***********************************/
-#define slice_number_ccu42 2
+#define slice_number_ccu40_cc42 2
 /*****************************PORT_US_Sensor****************/
+#define eru_port P2_9
+#define pullup_port P2_5
+
+#define led_port       P2_10
+#define led_port1      P2_11
+#define led_port2      P_12
+
 /*
 #define hb_phase  P4_4
 #define hb_reset  P4_5
@@ -42,9 +50,7 @@
 
 #define hs_shdn   P2_0
 
-#define led       P2_10
-#define led1      P2_11
-#define led2      P_12
+
 
 #define opv_aus_dig P0_2
 #define opv_aus_ang P2_2

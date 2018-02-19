@@ -6,9 +6,6 @@
 #include "xmc_gpio.h"
 #include "xmc_eru.h"
 
-
-
-void eru_enable();
-void event_request_unit_config();
+void eru_init(XMC_GPIO_PORT_t *const port, const uint8_t pin);
 
 #endif

@@ -45,19 +45,24 @@ SET(SOURCES
 	"${PROJECT_SOURCE_DIR}/src/bricklib2/utility/communication_callback.c"
 	"${PROJECT_SOURCE_DIR}/src/bricklib2/utility/callback_value.c"
 
+	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc1_flash.c"
+
 	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc_gpio.c"
 	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc1_gpio.c"
 	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc_spi.c"
 	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc_usic.c"
-	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc1_scu.c"
-	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc1_flash.c"
-	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc_ccu4.c"
-	"${PROJECT_SOURCE_DIR}/src/ccu4_pwm_timer/ccu4_pwm_timer.c"
 
-	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc_eru.c"
-	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc1_eru.c"
 	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc1_scu.c"
 	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc4_scu.c"
+	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc_eru.c"
+	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc1_eru.c"
+	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc_ccu4.c"
+
+	"${PROJECT_SOURCE_DIR}/src/ccu4_pwm_timer/ccu4_pwm_timer.c"
+	"${PROJECT_SOURCE_DIR}/src/eru/eru.c"
+	"${PROJECT_SOURCE_DIR}/src/config_pin/config_pin.c"
+
+
 )
 
 MESSAGE(STATUS "\nFound following source files:\n ${SOURCES}\n")
