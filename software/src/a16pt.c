@@ -44,7 +44,7 @@ int zeit=0; int zeit1=0;
 /*************Interrupt_FUnktionen****************/
 void IRQ_Hdlr_8(void)
 {
-	XMC_GPIO_ToggleOutput(P2_0);
+	XMC_CCU4_SLICE_StopTimer(CCU40_CC40);
 }
 
 void IRQ_Hdlr_16(void)         //TIMER Überlauf Interrupt
