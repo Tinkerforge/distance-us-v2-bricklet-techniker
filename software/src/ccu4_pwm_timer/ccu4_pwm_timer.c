@@ -175,12 +175,11 @@ void ccu4_pwm_init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const uint8_t
     		                             (XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_0 << (ccu4_slice_number*4)));
 
 
-		XMC_GPIO_Init(port, pin, &gpio_out_config);
-		XMC_GPIO_SetOutputHigh(port,pin);
-		XMC_CCU4_SLICE_EnableEvent(slice[ccu4_slice_number], XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP);//Eingang für SLice 1
-		XMC_CCU4_SLICE_SetInterruptNode(slice[ccu4_slice_number], XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP, XMC_CCU4_SLICE_SR_ID_1); //auf die PWM SLice 1
+	XMC_GPIO_Init(port, pin, &gpio_out_config);
+	XMC_GPIO_SetOutputHigh(port,pin);
+	XMC_CCU4_SLICE_EnableEvent(slice[ccu4_slice_number], XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP);//Eingang für SLice 1
+	XMC_CCU4_SLICE_SetInterruptNode(slice[ccu4_slice_number], XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP, XMC_CCU4_SLICE_SR_ID_1); //auf die PWM SLice 1
 
-		XMC_CCU4_EnableClock(CCU40, ccu4_slice_number);
-    XMC_CCU4_SLICE_StartTimer(slice[ccu4_slice_number]);
+	XMC_CCU4_EnableClock(CCU40, ccu4_slice_number);
 
 }
