@@ -23,16 +23,12 @@
 #include "ccu4_pwm_timer.h"
 
 
-XMC_CCU4_SLICE_t *const slice[6] = {
+XMC_CCU4_SLICE_t *const slice[4] = {
 	
 	CCU41_CC40,
 	CCU41_CC41,
-	CCU40_CC42,
-	CCU40_CC43,
-	
-	CCU40_CC40,
-	CCU40_CC41,
-	
+	CCU41_CC42,
+	CCU41_CC43,
 };
 
 void count_init(const uint8_t ccu4_slice_number)
@@ -76,7 +72,7 @@ void count_init(const uint8_t ccu4_slice_number)
 	XMC_SCU_SetInterruptControl(21, XMC_SCU_IRQCTRL_CCU41_SR0_IRQ21);
 
 	// Request shadow transfer for the slice 1
-    XMC_CCU4_EnableShadowTransfer(CCU40, (XMC_CCU4_SHADOW_TRANSFER_SLICE_0 << (ccu4_slice_number*4)) |
+    XMC_CCU4_EnableShadowTransfer(CCU41, (XMC_CCU4_SHADOW_TRANSFER_SLICE_0 << (ccu4_slice_number*4)) |
     		                             (XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_0 << (ccu4_slice_number*4)));
 	// Enable clock for slice 1
 	XMC_CCU4_EnableClock(CCU41, 1);
@@ -122,17 +118,17 @@ XMC_CCU4_SLICE_COMPARE_CONFIG_t timer_config = {
 
 	XMC_CCU4_SLICE_SetTimerPeriodMatch(slice[ccu4_slice_number], 0xFFFF);
 
-	XMC_CCU4_EnableShadowTransfer(CCU40, (XMC_CCU4_SHADOW_TRANSFER_SLICE_0 << (ccu4_slice_number*4)) |
+	XMC_CCU4_EnableShadowTransfer(CCU41, (XMC_CCU4_SHADOW_TRANSFER_SLICE_0 << (ccu4_slice_number*4)) |
 	    		                             (XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_0 << (ccu4_slice_number*4)));
-	XMC_CCU4_EnableClock(CCU40, 2);
+	XMC_CCU4_EnableClock(CCU41, 2);
 
 
 
 	XMC_CCU4_SLICE_EnableEvent(slice[ccu4_slice_number], XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH);
 	XMC_CCU4_SLICE_SetInterruptNode(slice[ccu4_slice_number], XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH, XMC_CCU4_SLICE_SR_ID_2);
-	NVIC_EnableIRQ(16);
-	NVIC_SetPriority(16, 0);
-	XMC_SCU_SetInterruptControl(16, XMC_SCU_IRQCTRL_CCU40_SR2_IRQ16);
+	NVIC_EnableIRQ(23);
+	NVIC_SetPriority(23, 0);
+	XMC_SCU_SetInterruptControl(23, XMC_SCU_IRQCTRL_CCU41_SR2_IRQ23);
 
 }
 
