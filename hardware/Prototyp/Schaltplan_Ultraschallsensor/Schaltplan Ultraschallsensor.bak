@@ -840,7 +840,6 @@ Wire Wire Line
 Wire Wire Line
 	3550 2150 3400 2150
 NoConn ~ 5600 3550
-NoConn ~ 5600 3450
 NoConn ~ 5600 3350
 NoConn ~ 5600 3250
 Text GLabel 2550 3400 2    60   Input ~ 0
@@ -939,4 +938,8 @@ Wire Wire Line
 	8650 3050 8650 3150
 Wire Wire Line
 	8650 3150 8700 3150
+Text GLabel 5350 3450 0    60   Input ~ 0
+OPV-Aus
+Wire Wire Line
+	5600 3450 5350 3450
 $EndSCHEMATC
