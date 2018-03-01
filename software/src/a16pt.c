@@ -45,26 +45,36 @@ uint64_t zwischen1=0;
 uint64_t real_ticks=0;
 uint64_t strecke=0;
 /*************Interrupt_FUnktionen****************/
-void IRQ_Hdlr_21(void) // Compare Interrupt
+void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 {
-	XMC_CCU4_SLICE_StopTimer(CCU41_CC40);
-	XMC_CCU4_SLICE_StartTimer(CCU41_CC42);
+XMC_CCU4_SLICE_StopTimer(CCU41_CC40);
+XMC_CCU4_SLICE_StartTimer(CCU41_CC42);
+/*system_timer_sleep_ms(0.05);
+	XMC_GPIO_SetOutputHigh(P2_0);
 
+	system_timer_sleep_ms(0.05);
+	XMC_GPIO_SetOutputLow(P2_0);
+	*/
+	//XMC_GPIO_SetOutputHigh(P4_6);
 
 }
 
 void IRQ_Hdlr_23(void)     //TIMER_2 Überlauf Interrupt
 {
-	x++;
 }
 
 
-void IRQ_Hdlr_3(void) //ERU
-{	
+void IRQ_Hdlr_3(void) //ERU P2_9
+{
+x++;
+uint32_t slice2 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC42);
+		logd("X: %d , Timer: %d\n\r", x,slice2);
+/*	XMC_GPIO_ToggleOutput(P2_11);
+
 	XMC_CCU4_SLICE_StopTimer(CCU41_CC42);
-for (z=0;z<100;z++);
+//for (z=0;z<100;z++);
 	zeit_tick=XMC_CCU4_SLICE_GetTimerValue(CCU41_CC42);
-for (z=0;z<100;z++);
+//for (z=0;z<100;z++);
 	XMC_CCU4_SLICE_ClearTimer(CCU41_CC42);
 
 	if(zeit_tick>0)
@@ -73,11 +83,10 @@ for (z=0;z<100;z++);
 		real_ticks=((zeit_tick+(x*65535))/2);
 		zwischen1=real_ticks*108;
 		strecke=zwischen1/1000000;
-		logd("Strecke in M: %d \n\r", strecke);
+		
 		zeit_tick=0; real_ticks=0; x=0;zwischen1=0;
-	}
-
-}
+	logd("Strecke in M: %d \n\r", strecke);
+*/}
 
 
 
@@ -91,7 +100,7 @@ void a16pt_init(void) {
 
 /************PWM_Init********************************/
 
-	ccu4_pwm_init(pwm_port,cc40, period_);
+	ccu4_pwm_init(pwm_port,cc40, period_);//P4_4
 	ccu4_pwm_set_duty_cycle( cc40, compare_);
 	
 
@@ -103,11 +112,10 @@ void a16pt_init(void) {
 /*******************Timer_2_Init*******************/
 
 	ccu4_timer_2_init(cc42);
-	/*
-	XMC_CCU4_SLICE_StopTimer(CCU40_CC42);
+	
+	/*XMC_CCU4_SLICE_StopTimer(CCU40_CC42);
 	XMC_CCU4_SLICE_ClearTimer(CCU40_CC42);
 	*/
-
 /********************LED_INIT*********************/
 
 
@@ -115,9 +123,11 @@ pin_out_init(P2_11);
 pin_out_init(P2_12);
 pin_out_init(P2_0);
 
+pin_out_init(P4_6);
+XMC_GPIO_SetOutputLow(P2_0);//Entladen
 
-XMC_GPIO_SetOutputHigh(P2_0);
-XMC_GPIO_SetOutputLow(P2_11);
+XMC_GPIO_SetOutputLow(P4_6);//Switch Sender, Empfänger
+
 XMC_GPIO_SetOutputLow(P2_12);
 
 /**************Taster_INIT**********************/
@@ -137,20 +147,22 @@ void a16pt_tick(void)
 
 	
 // Print every 250ms
-	if(system_timer_is_time_elapsed_ms(debug_time, 250)) {
+	/*if(system_timer_is_time_elapsed_ms(debug_time, 250)) {
 		debug_time = system_timer_get_ms();
 		uint32_t slice0 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC40);
 		uint32_t slice1 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC41);
 		uint32_t slice2 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC42);
 		uint32_t slice3 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC43);
 		logd("CCU41  s0: %d,  s1: %d,s2: %d, s3: %d\n\r",slice0, slice1, slice2, slice3);
-	}
+	}*/
 
-	if(system_timer_is_time_elapsed_ms(signal_time, 33)) {
+	if(system_timer_is_time_elapsed_ms(signal_time,30)) {
 		signal_time = system_timer_get_ms();
-		XMC_CCU4_SLICE_ClearTimer(CCU41_CC41);
-		XMC_CCU4_SLICE_StartTimer(CCU41_CC40);
+		XMC_CCU4_SLICE_ClearTimer(CCU41_CC41);//counter auf 0 setzen
+		XMC_CCU4_SLICE_StartTimer(CCU41_CC40);//PWM Starten
 		//Hier den P2_9 Toggeln oder nur High/low setzen
+		//XMC_GPIO_SetOutputLow(P4_6);
+		
 	}
 
 

@@ -1,5 +1,4 @@
 EESchema Schematic File Version 2
-LIBS:tinkerforge
 LIBS:meine
 LIBS:power
 LIBS:device

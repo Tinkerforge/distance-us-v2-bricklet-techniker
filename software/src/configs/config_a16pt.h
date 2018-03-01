@@ -30,7 +30,7 @@ enum ccu41 {cc40=0,cc41=1,cc42,cc43} ;
 
 //#define  compare_   9375//uint16_t
 //#define  period_    18750  //uint16_t
-#define  compare_   1200//uint16_t
+#define  compare_   1200	//uint16_t
 #define  period_    2400  //uint16_t
 #define  pwm_port   P4_4
 

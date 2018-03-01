@@ -154,14 +154,14 @@ void ccu4_pwm_init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const uint8_t
 		.prescaler_initval   = XMC_CCU4_SLICE_PRESCALER_1,
 		.float_limit         = 0,
 		.dither_limit        = 0,
-		.passive_level       = XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL_LOW,
+		.passive_level       = XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL_HIGH,
 		.timer_concatenation = 0
 	};
 
 	const XMC_GPIO_CONFIG_t gpio_out_config	= {
 		.mode                = XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT9,
 		.input_hysteresis    = XMC_GPIO_INPUT_HYSTERESIS_STANDARD,
-		.output_level        = XMC_GPIO_OUTPUT_LEVEL_LOW,
+		.output_level        = XMC_GPIO_OUTPUT_LEVEL_HIGH,
 	};
 
     XMC_CCU4_Init(CCU41, XMC_CCU4_SLICE_MCMS_ACTION_TRANSFER_PR_CR);
