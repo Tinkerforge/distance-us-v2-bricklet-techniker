@@ -22,39 +22,29 @@
 #ifndef CONFIG_A16PT_H
 #define CONFIG_A16PT_H
 
-/*****************CCU40_Timer_Slice_Config*************/
-
-enum ccu41 {cc40=0,cc41=1,cc42,cc43} ;
+/*****************CCU_Timer_Slice_Config*************/
+enum ccu40 {cc40=0,cc41,cc42,cc43} ;
+//enum ccu41 {cc40=0,cc41,cc42,cc43} ;
 
 /*****************PWM_define**************************/
 
-//#define  compare_   9375//uint16_t
-//#define  period_    18750  //uint16_t
-#define  compare_   1200	//uint16_t
-#define  period_    2400  //uint16_t
-#define  pwm_port   P4_4
+#define  compare_0   1200    //uint16_t
+#define  period_0    2400  	//uint16_t
+#define  compare_1   1200	    //uint16_t
+#define  period_1    2400  	  //uint16_t
 
 
-#define eru_port       P2_9
-#define pullup_port    P2_5
+#define  pwm_port_0   P1_0  	//CCU40
+#define  pwm_port_1   P4_4 	//CCU41
 
-#define hs_shdn   P2_0
+
+#define eru_port       P2_9	//Ausgang Komperator Digital/Analog nur STD-IN
+
+
+#define hs_shdn        P2_0
+
 #define led_port1      P2_11
 #define led_port2      P2_12
 
-/*
-#define hb_phase  P4_4
-#define hb_reset  P4_5
-#define hb_mode   P2_1
-#define hb_enable P0_15
-
-
-
-#define opv_aus_dig P0_2 //P2_9 wegen Externer Interrupt
-#define opv_aus_ang P2_2
-
-#define debug P0_5
-#define reset P0_7
-*/
 
 #endif

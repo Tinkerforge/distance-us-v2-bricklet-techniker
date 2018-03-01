@@ -58,7 +58,9 @@ SET(SOURCES
 	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc1_eru.c"
 	"${PROJECT_SOURCE_DIR}/src/bricklib2/xmclib/XMCLib/src/xmc_ccu4.c"
 
-	"${PROJECT_SOURCE_DIR}/src/ccu4_pwm_timer/ccu4_pwm_timer.c"
+
+	"${PROJECT_SOURCE_DIR}/src/pwm_config/pwm_config.c"
+	"${PROJECT_SOURCE_DIR}/src/timer_config/timer_config.c"
 	"${PROJECT_SOURCE_DIR}/src/eru/eru.c"
 	"${PROJECT_SOURCE_DIR}/src/config_pin/config_pin.c"
 
