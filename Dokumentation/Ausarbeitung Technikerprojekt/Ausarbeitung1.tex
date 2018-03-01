@@ -1,0 +1,190 @@
+%Einfache Vorlage für eine mit Latex realisierte Hausarbeit von http://www.studieren-info.de
+%Du kannst diese Vorlage für deine Hausarbeit beliebig anpassen%
+
+
+%-------------------
+%Beginn des Kopfbereiches
+%-------------------
+
+%Wir verwenden eine DIN-A4-Seite und die Schriftgröße 12.
+\documentclass [11pt,a4paper,bibliography=totoc]{scrreprt}%Einfaches Dokument{article, scrartcl} komplexere Dokumente/Studienarbeiten {report, scrreprt} Bücher {book, scrbook} Präsentationen {beamer, seminar, texpower} Briefe {g-brief, scrlttr2}
+
+%Diese drei Pakete benötigen wir für die Umlaute, Deutsche Silbentrennung etc.
+%Apple-Nutzer sollten anstelle von \usepackage[latin1]{inputenc} das Paket \usepackage[applemac]{inputenc} verwenden
+\usepackage[utf8]{inputenc}%[utf8] Umlaute direkt eingabe [latin1] für unixoide und windows
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+%Verwendung von vielen Farben
+%\usepackage[usenames,dvipsnames]{color}
+\usepackage{color}
+% deutsches Literaturverzeichnis
+\usepackage{bibgerm}
+\usepackage{listings}%um Quellcode vernünftig einpflegen zu können
+\lstset{language=C} 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+ 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=mystyle}
+
+
+%nutzung der verlinkten formeln
+\usepackage{amsmath}
+%Das Paket erzeugt ein anklickbares Verzeichnis in der PDF-Datei.
+\usepackage{hyperref}
+%Das Paket wird für die anderthalb-zeiligen Zeilenabstand benötigt
+\usepackage{setspace}
+
+%erweitrte mathematische Tabellenformatierung
+\usepackage{array}
+% Grafiken verwenden
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{struktex}
+%Funktion zum skallieren
+\makeatletter
+\def\ScaleIfNeeded{%
+\ifdim\Gin@nat@width>\linewidth
+\linewidth
+\else
+\Gin@nat@width
+\fi
+}
+\makeatother
+
+%\tiny{winzig}
+%\small{klein}
+%\large{groß}
+%\Large{bisschen größer}
+%\huge{riesig}
+%\Huge{Riesig}
+
+%\textbf{Fett}
+%\textit{Kursiv}
+%\emph{Kursiv}	
+%\textsl{schief}
+%\textsc{Kapit\"alchen}
+%\textsf{Sans Serif}
+%\textrm{Roman}
+%\texttt{Schreibmaschine}
+%\textnormal{Normale Schrift}
+%\underline{unterstrichen}
+%\footnote{XXX}
+%\includegraphics[width=80pt]{Unterschrift.jpg}
+
+%\textcolor{white}{bla...}
+%{GreenYellow, Yellow, Goldenrod, Dandelion, Apricot, Peach, Melon, YellowOrange, Orange, BurntOrange, Bittersweet, RedOrange, Mahogany, Maroon, BrickRed, Red, OrangeRed, RubineRed, WildStrawberry, Salmon, CarnationPink, Magenta, VioletRed, Rhodamine, Mulberry, RedViolet, Fuchsia, Lavender, Thistle, Orchid, DarkOrchid, Purple, Plum, Violet, RoyalPurple, BlueViolet, Periwinkle, CadetBlue, CornflowerBlue, MidnightBlue, NavyBlue, RoyalBlue, blue, Blue, Cerulean, Cyan, ProcessBlue, SkyBlue, Turquoise, TealBlue, Aquamarine, BlueGreen, Emerald, JungleGreen, SeaGreen, Green, ForestGreen, PineGreen, LimeGreen, YellowGreen, SpringGreen, OliveGreen, RawSienna, Sepia, Brown, Tan, Gray}
+
+%Einrückung eines neuen Absatzes
+\setlength{\parindent}{0em}
+%Definition der Ränder
+\usepackage[paper=a4paper,left=2.5cm, right=2.0cm, top=2.5cm, bottom=2.0cm]{geometry}
+%anpassung der Farben der Überschriften
+\addtokomafont{disposition}{\color{black}}
+%Abstand der Fußnoten
+\deffootnote{1em}{1em}{\textsuperscript{\thefootnotemark\ }}
+
+\addtolength{\footskip}{-1cm}% Fußbereich 1 cm höher setzen
+%section size 
+%\usepackage{titlesec}
+%\titleformat{\chapter}[display]
+%{\normalfont%
+%    \huge% %change this size to your needs for the first line
+%    \bfseries}{\chaptertitlename\ \thechapter}{15pt}{%
+%    \Huge %change this size to your needs for the second line
+%    }
+%%\titleformat*{\chapter}{\fontsize{15}{20}\selectfont}
+%\titleformat*{\section}{\fontsize{13}{20}\selectfont}
+%\titleformat*{\subsection}{\fontsize{12}{17}\selectfont}
+
+%Regeln, bis zu welcher Tiefe (section,subsection,subsubsection) überschriften angezeigt werden sollen (Anzeige der überschriften im Verzeichnis / Anzeige der Nummerierung)
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+%-------------------
+%Ende des Kopfbereiches
+%-------------------
+
+
+
+%-------------------
+%Hier beginnt der Text deiner Hausarbeit
+%-------------------
+\begin{document}
+
+
+%Beginn der Titelseite
+\thispagestyle{empty}
+\input{0_Titelseite}
+\newpage
+\thispagestyle{empty}
+\input{1_Persönliche_Erklärung}
+%				Inhaltsverzeichnis
+\setcounter{page}{0}
+\newpage 
+\pagenumbering{roman} 
+\tableofcontents 
+\newpage
+%				Start der eigentlichen Arbeit
+\newpage
+\setcounter{page}{0}
+\pagenumbering{arabic}
+
+\chapter{Lasten und Pflichtenheft}
+\input{2_Lasten_und_Pflichtenheft}
+\chapter{Management des Projektes}
+\input{3_Management_des_Projektes}
+\chapter{Recherche der Funktionsweise}
+\input{4_Recherche_der_Funktionsweise}
+\chapter{Wahl sowie alternative Bauteile}
+Für den Prototypen wurden mehrere verschiedene Ultraschallkapseln verwendet, um einen Vergleich der Qualität der Bauteile herstellen zu können. Für die Operationsverstärker wurde das IC LS232 verwendet, da dieses IC bereits zwei OPV's enthält.
+\chapter{Open Source CAD-Programm Packet zur Erstellung von elektronischen Leiterplatten}
+\input{5_Open_Source_CAD-Programm}
+\chapter{Entwicklung der Software zum Betrieb des Prototypen}
+\input{6_Entwicklung_der_Software}
+\chapter{Messungen und Auswertung der Ergebnisse}
+\input{7_Messungen_und_Auswertung}
+\chapter{Ergebnisse der Forschung}
+\input{8_Ergebnisse}
+\chapter{Fazit aus den Ergebnissen für denAuftraggeber}
+\input{9_Fazit_Auftraggeber}
+\chapter{Reflektion über den Projektablauf}
+\input{10_Reflektion_Ablauf}
+\chapter{Anhänge}
+\section{Schaltpläne}
+
+\section{Platinenlayout}
+
+\section{Quellcode}
+Hier könnte Ihr Quellcode (inklusive Werbung) stehen\\
+%\input{12_Quellcode}
+
+
+weitere Abbildungen
+\listoffigures
+\listoftables
+
+
+\end{document}
+
+

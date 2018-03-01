@@ -1,0 +1,34 @@
+\section{Lastenheft}
+\subsection{Über Tinkerforge}
+Die  Tinkerforge  GmbH  wurde  Ende  2011  mit  dem  Ziel  gegründet,  die  Handhabung eingebetteter  Systeme  zu  vereinfachen.  Das  Tinkerforge  Baukastensystem  besteht  aus aktuell fast 80 verschiedenen Modulen, die vom Anwender flexibel für die jeweilige Aufgabe  kombiniert  werden  können.  Zu  den  Modulen  zählen  diverse  Sensor-  Aktor-  und Schnittstellenmodule, die alle über Hochsprachen wie C\#, Python und Java gesteuert werden können. Tinkerforge unterstützt aktuell 17 verschiedene Programmiersprachen. Sowohl Hardware als auch die Software aller Module sind OpenSource. Die Stärke des Baukastensystems  ist  aus  Anwendersicht  die  enorme  Flexibilität,  die  Einfachheit  und
+die Schnelligkeit mit der Projekte realisiert werden können. Es eignet sich daher besonders im Bereich Rapid Prototyping. Daher findet das Tinkerforge Baukastensystem Anwendung in vielen Forschungsinstituten, in diversen Entwicklungsabteilungen bekannter Automobilhersteller und Ingenieurbüros.
+\subsection{Motivation}
+Diese Technikerarbeit soll die Grundlage zur Entwicklung eines Entfernungssensors für das Baukastensystem bilden, der auf einer Ultraschall-Entfernungsmessung basiert. Das Baukastensystem verfügt aktuell über so einen Sensor. Bei diesem handelt es sich aber im wesentlichen um ein zugekauftes Modul, welches nicht die gewünschten Leistungen liefert. Daher soll an einem zu entwerfenden Prototypen Forschung betrieben werden, um eine eigene Lösung entwerfen zu können.
+\subsection{Aufgabenbeschreibung}
+Innerhalb dieser Arbeit soll der Entwurf eines Prototypen des Entfernungssensors und die damit verbundene Forschung durchgeführt werden. Dabei ist durch Recherche zu erarbeiten, welche Möglichkeiten zur Realisierung zur Verfügung stehen. Durch Messungen am Prototypen soll festgestellt werden, welche dieser Möglichkeiten funktional und finanziell realisierbar sind, um ein eigenes Produkt zu erstellen. Sollte im Anschluss noch die Möglichkeit bestehen, sind die Ergebnisse in ein serienreifes Modul umzusetzen.
+\newline\newline
+Diverse Teilaufgaben sind zu erledigen: \newline
+\begin{itemize}
+\item \textbf{Recherche}\newline
+Zu  Anfang  muss  recherchiert  werden,  welche  Möglichkeiten  es  gibt  mittels  Ultraschall eine Entfernung zu ermitteln und wie diese technisch umgesetzt werden können. Zusätzlich müssen die Techniker sich mit dem Tinkerforge Baukastensystem und seiner internen Funktionsweise vertraut machen.
+\item \textbf{Bauteilauswahl}\newline
+Abhängig  von  der  gewählten  technischen  Umsetzung  müssen  geeignete  Komponenten ausgewählt werden. Die Auswahl sollte auch unter dem Gesichtspunkten Preis, der Bauteilverfügbarkeit und der technischen Anforderungen erfolgen.\\
+\item \textbf{Schaltplanentwurf und Layouterstellung}\newline
+Von  Tinkerforge  wird  das  Open  Source  CAD  Programm  KiCad  verwendet.  Mit diesem Programm ist ein Schaltplan für den Prototypen und anschließend ein Leiterplattenlayout zu erstellen.
+\item \textbf{Leiterplattenbestückung}\\
+Die erstellte Leiterplatte wird von Tinkerforge in Auftrag gegeben. Diese muss mit den gewählten Komponenten bestückt werden. Die Tinkerforge GmbH stellt dazu die notwendigen Werkzeuge bereit.
+\item \textbf{Einrichten und Einarbeitung in die Tinkerforge Toolchain}\\
+Viele  Softwarekomponenten  werden  von  der  Tinkerforge  Toolchain  automatisch generiert. Um diese Nutzen zu können muss ein Linux System %in einer virtuellen Maschine
+eingerichtet werden. Anschließend muss sich mit der Funktionsweise des Generators und der Softwareversionsverwaltung"Git" vertraut gemacht werden.
+\item \textbf{Testsoftware und Forschung}\\
+Um Messungen an der Hardware durchführen zu können gilt es Programmblöcke zu entwerfen, mit denen die einzelnen Funktionen der Baugruppen getestet werden können. So soll ermittelt werden, wie zum einen das Ultraschallsignal effektiv ausgegeben werden kann und wie sich die Signalamplitude auf die Reichweite auswirkt und zum anderen wie das zurückkommende Signal verarbeitet werden kann. Auch soll erarbeitet werden, wie gut das Signal unter verschiedenen Bedingungen verarbeitet werden kann und ob eine zuverlässige Verarbeitungsqualität ohne großen Aufwand realisierbar ist.
+\end{itemize}
+\section{Lösungsansatz}
+\begin{itemize}
+\item Zur Recherche werden alle verfügbaren Quellen genutzt, um vergleichbare, existierende Systeme zu studieren und Datenblätter zu den verwendbaren Bauteilen zu erhalten. Auch werden verschiedene Alternativen verglichen, um eine, nach den vorhandenen Bedingungen, optimale Bauteilauswahl zu gewährleisten. Die Bauteile haben sowohl günstig, als auch qualitativ ausreichend zu sein, um bei den gegebenen Frequenzen schnell genug zu arbeiten und keine Störungen zu erzeugen.
+\item Zur Einarbeitung in das Open Source CAD Programm KiCad werden bereits vorhandene Pläne studiert und auf Basis dieser eigene Schaltpläne und Platinenlayouts entworfen. So wird durch die Übung sichergestellt, dass beim Entwurf der finalen Schaltpläne die Qualität der Pläne und des Platinenlayouts der gewünschten Norm entsprechen.
+\item Sobald die Leiterplatte und die benötigten Materialien geliefert werden, wird die Leiterplatte mit Hilfe der vorhandenen Werkzeuge bestückt. Dabei gilt es auf die Bauteilausrichtung und die maximalen Löttemperaturen der Bauteile zu achten. Auch sollten keines der Bauteile einer dauerhaften mechanischen Belastung ausgesetzt werden.
+\item Einen größeren Aufwand wird die Einarbeitung in die Toolchain, sowie die Programmierung bilden, da an den Schulen nicht die Zeit vorhanden ist, um tief in die komplexe Programmierung eingestiegen zu können, wie sie in derartigen Anwendungen anzutreffen ist. Entsprechend wird es in diesem Bereich viel zu lernen , zu üben, zu korrigieren und zu optimieren geben.
+\item Nach der Einarbeitung in die Programmierung wird eine Testsoftware zu entwickeln sein, um die verschiedenen Hardwarekomponenten zu testen und um Messungen an den Komponenten bei verschiedenen Zuständen durchführen zu können. Auch gilt es dann die eingehenden Signale mit Messgeräten zu kontrollieren und die Software zur Auswertung dieser anzupassen, um ein möglichst optimales Resultat zu erzielen.
+\item Als Resultat aus den Messungen gilt es festzulegen, ob und auf welche Weise sich das gewünschte Modul zur Entfernungsmessung realisieren lässt. Mit diesen Grundlagen kann die Tinkerforge GmbH einen  Ultraschallsensor für die eigenene Produktpalette entwerfen. Die Entscheidungen werden durch die ausgewerteten Messergebnisse begründet und gefestigt.
+\end{itemize}
