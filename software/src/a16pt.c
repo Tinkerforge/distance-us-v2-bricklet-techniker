@@ -183,15 +183,6 @@ void a16pt_tick(void)
 	if(system_timer_is_time_elapsed_ms(signal_time,30)) {
 		signal_time = system_timer_get_ms();
 
-
-		XMC_GPIO_CONFIG_t gpio_out_config_0	= {
-		.mode                = XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT9,
-		.input_hysteresis    = XMC_GPIO_INPUT_HYSTERESIS_STANDARD,
-		.output_level        = XMC_GPIO_OUTPUT_LEVEL_LOW,
-		};
-
-		XMC_GPIO_Init(P4_6, &gpio_out_config_0);
-
 		XMC_CCU4_SLICE_ClearTimer(CCU41_CC41);//counter auf 0 setzen
 
 
