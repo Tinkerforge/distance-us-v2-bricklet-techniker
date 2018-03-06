@@ -194,13 +194,10 @@ void a16pt_tick(void)
 
 		XMC_CCU4_SLICE_ClearTimer(CCU41_CC41);//counter auf 0 setzen
 
-		XMC_CCU4_SLICE_StartTimer(CCU41_CC42);
-		XMC_CCU4_SLICE_StartTimer(CCU41_CC40);
-		//XMC_SCU_SetCcuTriggerHigh(XMC_SCU_CCU_TRIGGER_CCU41);
 
+		// Start timer of slice 0 and 2
+		XMC_SCU_SetCcuTriggerHigh(XMC_SCU_CCU_TRIGGER_CCU41);
 	}
-
-
 }
 
 
