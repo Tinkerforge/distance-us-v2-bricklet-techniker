@@ -28,9 +28,10 @@ enum ccu40 {cc40=0,cc41,cc42,cc43} ;
 
 /*****************PWM_define**************************/
 
-#define  compare_0   1200    //uint16_t
+#define  gap_between_pwm 75
+#define  compare_0   (1200 + gap_between_pwm)    //uint16_t
 #define  period_0    2400  	//uint16_t
-#define  compare_1   1200    //uint16_t
+#define  compare_1   (1200 + gap_between_pwm)    //uint16_t
 #define  period_1    2400  	  //uint16_t
 
 
