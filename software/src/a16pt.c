@@ -47,19 +47,26 @@ uint64_t zeit_tick=0;
 uint64_t zwischen1=0;
 uint64_t real_ticks=0;
 uint64_t strecke=0;
-/*************Interrupt_FUnktionen****************/
+/*************Interrupt_Funktionen****************/
+
 void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 {
 
-XMC_CCU4_SLICE_StopTimer(CCU40_CC40);
+pin_out_init(P4_6);
+
+XMC_CCU4_SLICE_StopTimer(CCU41_CC42);
 
 XMC_CCU4_SLICE_StopTimer(CCU41_CC40);
-//XMC_CCU4_SLICE_StartTimer(CCU41_CC42);
+XMC_SCU_SetCcuTriggerLow(XMC_SCU_CCU_TRIGGER_CCU41);
+
+
+
 
 }
 
 void IRQ_Hdlr_23(void)     //TIMER_2 Überlauf Interrupt
 {
+	XMC_CCU4_SLICE_StartTimer(CCU40_CC40);
 
 }
 
@@ -100,38 +107,39 @@ void a16pt_init(void) {
 
 /************PWM_Init********************************/
 
-	ccu4_pwm_init(pwm_port_0,cc40, period_0);			//P1_0
+	ccu4_pwm_init(pwm_port_0,cc40, period_0);	//P4_4
 	ccu4_pwm_set_duty_cycle( cc40, compare_0);
 
-		XMC_CCU4_SLICE_StartTimer(CCU40_CC40);
 
-	ccu4_pwm_init_1(pwm_port_1,cc40, period_1);		//P4_4
-	ccu4_pwm_set_duty_cycle_1( cc40, compare_1);
+
+	ccu4_pwm_init_1(pwm_port_1,cc42, period_1);		//P4_6
+	ccu4_pwm_set_duty_cycle_1( cc42, compare_1);
 
 
 /************Event_Config****************************/
 
 	count_init(cc41);
-	capture_init(cc43);
+	//capture_init(cc43);
 
 /*******************Timer_2_Init*******************/
 
+	/*
 	ccu4_timer_2_init(cc42);
 
-	/*XMC_CCU4_SLICE_StopTimer(CCU40_CC42);
+	XMC_CCU4_SLICE_StopTimer(CCU40_CC42);
 	XMC_CCU4_SLICE_ClearTimer(CCU40_CC42);
 	*/
 /********************OUT_INIT*********************/
 
 
-pin_out_init(led_port1 ); 		//P2_11
-pin_out_init(led_port2); 		//P2_12
-pin_out_init(hs_shdn);			//P2_0
+	pin_out_init(led_port1 ); 		//P2_11
+	pin_out_init(led_port2); 		//P2_12
+	pin_out_init(hs_shdn);			//P2_0
 
 
-XMC_GPIO_SetOutputLow(hs_shdn);
-XMC_GPIO_SetOutputLow(led_port1);
-XMC_GPIO_SetOutputLow(led_port2);
+	XMC_GPIO_SetOutputLow(hs_shdn);
+	XMC_GPIO_SetOutputLow(led_port1);
+	XMC_GPIO_SetOutputLow(led_port2);
 
 /**************IN_INIT**********************/
 
@@ -161,12 +169,21 @@ void a16pt_tick(void)
 
 	if(system_timer_is_time_elapsed_ms(signal_time,30)) {
 		signal_time = system_timer_get_ms();
-		XMC_CCU4_SLICE_ClearTimer(CCU41_CC41);//counter auf 0 setzen
-		XMC_CCU4_SLICE_StartTimer(CCU41_CC40);//PWM Starten
-		XMC_CCU4_SLICE_StartTimer(CCU40_CC40);
 
-		//Hier den P2_9 Toggeln oder nur High/low setzen
-		//XMC_GPIO_SetOutputLow(P4_6);
+
+		XMC_GPIO_CONFIG_t gpio_out_config_0	= {
+		.mode                = XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT9,
+		.input_hysteresis    = XMC_GPIO_INPUT_HYSTERESIS_STANDARD,
+		.output_level        = XMC_GPIO_OUTPUT_LEVEL_LOW,
+		};
+
+		XMC_GPIO_Init(P4_6, &gpio_out_config_0);
+
+		XMC_CCU4_SLICE_ClearTimer(CCU41_CC41);//counter auf 0 setzen
+
+		XMC_CCU4_SLICE_StartTimer(CCU41_CC42);
+		XMC_CCU4_SLICE_StartTimer(CCU41_CC40);
+		//XMC_SCU_SetCcuTriggerHigh(XMC_SCU_CCU_TRIGGER_CCU41);
 
 	}
 

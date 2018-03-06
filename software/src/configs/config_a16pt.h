@@ -30,12 +30,12 @@ enum ccu40 {cc40=0,cc41,cc42,cc43} ;
 
 #define  compare_0   1200    //uint16_t
 #define  period_0    2400  	//uint16_t
-#define  compare_1   1200	    //uint16_t
+#define  compare_1   1200    //uint16_t
 #define  period_1    2400  	  //uint16_t
 
 
-#define  pwm_port_0   P1_0  	//CCU40
-#define  pwm_port_1   P4_4 	//CCU41
+#define  pwm_port_0   P4_4  	//CCU41
+#define  pwm_port_1   P4_6 	//CCU41
 
 
 #define eru_port       P2_9	//Ausgang Komperator Digital/Analog nur STD-IN
