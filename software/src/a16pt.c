@@ -51,16 +51,25 @@ uint64_t strecke=0;
 
 void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 {
+	// Disable IRQs so we can't be interrupted
+	__disable_irq();
 
-pin_out_init(P4_6);
+	// Set CCU trigger to low, otherwise ccu counter is restarted
+	XMC_SCU_SetCcuTriggerLow(XMC_SCU_CCU_TRIGGER_CCU41);
 
-XMC_CCU4_SLICE_StopTimer(CCU41_CC42);
+	// Stop slice 2
+	XMC_CCU4_SLICE_StopClearTimer(CCU41_CC42);
 
-XMC_CCU4_SLICE_StopTimer(CCU41_CC40);
-XMC_SCU_SetCcuTriggerLow(XMC_SCU_CCU_TRIGGER_CCU41);
+	// For slice 1 we wait until PWM is run through (to get exactly 10 pwm peaks on P4_4 and P4_6)
+	while(XMC_CCU4_SLICE_GetTimerValue(CCU41_CC40) > compare_1) {
+		__NOP();
+	}
 
+	// Stop slice 0
+	XMC_CCU4_SLICE_StopClearTimer(CCU41_CC40);
 
-
+	// Enable IRQs again
+	__enable_irq();
 
 }
 
