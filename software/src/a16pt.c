@@ -116,13 +116,17 @@ void a16pt_init(void) {
 
 /************PWM_Init********************************/
 
+	XMC_CCU4_Init(CCU41, XMC_CCU4_SLICE_MCMS_ACTION_TRANSFER_PR_CR_PCMP);
+	XMC_CCU4_StartPrescaler(CCU41);
+
 	ccu4_pwm_init(pwm_port_0,cc40, period_0);	//P4_4
 	ccu4_pwm_set_duty_cycle( cc40, compare_0);
 
+	ccu4_pwm_init(pwm_port_1,cc42, period_1);	//P4_6
+	ccu4_pwm_set_duty_cycle( cc42, compare_1);
 
-
-	ccu4_pwm_init_1(pwm_port_1,cc42, period_1);		//P4_6
-	ccu4_pwm_set_duty_cycle_1( cc42, compare_1);
+	XMC_CCU4_SLICE_EnableEvent(CCU41_CC40, XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP);
+	XMC_CCU4_SLICE_SetInterruptNode(CCU41_CC40, XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP, XMC_CCU4_SLICE_SR_ID_1);
 
 
 /************Event_Config****************************/
