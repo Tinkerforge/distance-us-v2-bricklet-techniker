@@ -85,29 +85,6 @@ void count_init(const uint8_t ccu4_slice_number)
 }
 
 
-void capture_init(const uint8_t ccu4_slice_number)
-{
-	XMC_CCU4_SLICE_CAPTURE_CONFIG_t capture_config = {
-		.fifo_enable         = 0,
-		.timer_clear_mode    = XMC_CCU4_SLICE_TIMER_CLEAR_MODE_ALWAYS,
-		.same_event          = 0,
-		.ignore_full_flag    = 0,
-		.prescaler_mode      = XMC_CCU4_SLICE_PRESCALER_MODE_NORMAL,
-		.prescaler_initval   = 1,
-		.float_limit         = 1,
-		.timer_concatenation = false
-	};
-	XMC_CCU4_SLICE_CaptureInit(slice_0_timer[ccu4_slice_number], &capture_config);
-	XMC_CCU4_SLICE_Capture0Config(slice_0_timer[ccu4_slice_number], XMC_CCU4_SLICE_EVENT_1);
-
-
-	NVIC_EnableIRQ(7);
-	NVIC_SetPriority(7, 0);
-	XMC_SCU_SetInterruptControl(7, XMC_SCU_IRQCTRL_CCU40_SR1_IRQ7);
-
-}
-
-
 void ccu4_timer_2_init(const uint8_t ccu4_slice_number)
 {
 XMC_CCU4_SLICE_COMPARE_CONFIG_t timer_config = {
@@ -132,7 +109,7 @@ XMC_CCU4_SLICE_COMPARE_CONFIG_t timer_config = {
 
 
 	XMC_CCU4_EnableShadowTransfer(CCU40, (XMC_CCU4_SHADOW_TRANSFER_SLICE_0 << (ccu4_slice_number*4)) |
-	    		                             (XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_0 << (ccu4_slice_number*4)));
+	    		                             (XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_1 << (ccu4_slice_number*4)));
 
 	XMC_CCU4_StartPrescaler(CCU40);
 	XMC_CCU4_EnableClock(CCU40, ccu4_slice_number);
@@ -140,6 +117,28 @@ XMC_CCU4_SLICE_COMPARE_CONFIG_t timer_config = {
 
 
 	XMC_CCU4_SLICE_EnableEvent(slice_0_timer[ccu4_slice_number], XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH);
-	XMC_CCU4_SLICE_SetInterruptNode(slice_0_timer[ccu4_slice_number], XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH, XMC_CCU4_SLICE_SR_ID_1);
+	XMC_CCU4_SLICE_SetInterruptNode(slice_0_timer[ccu4_slice_number], XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH, XMC_CCU4_SLICE_SR_ID_0);
 
 }
+void capture_init(const uint8_t ccu4_slice_number)
+{
+	XMC_CCU4_SLICE_CAPTURE_CONFIG_t capture_config = {
+		.fifo_enable         = 0,
+		.timer_clear_mode    = XMC_CCU4_SLICE_TIMER_CLEAR_MODE_ALWAYS,
+		.same_event          = 0,
+		.ignore_full_flag    = 0,
+		.prescaler_mode      = XMC_CCU4_SLICE_PRESCALER_MODE_NORMAL,
+		.prescaler_initval   = 1,
+		.float_limit         = 1,
+		.timer_concatenation = false
+	};
+	XMC_CCU4_SLICE_CaptureInit(slice_0_timer[ccu4_slice_number], &capture_config);
+	XMC_CCU4_SLICE_Capture0Config(slice_0_timer[ccu4_slice_number], XMC_CCU4_SLICE_EVENT_2);
+
+
+	NVIC_EnableIRQ(8);
+	NVIC_SetPriority(8, 0);
+	XMC_SCU_SetInterruptControl(8, XMC_SCU_IRQCTRL_CCU40_SR0_IRQ8);
+
+}
+

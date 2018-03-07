@@ -41,7 +41,7 @@
 #include "config_pin/config_pin.h"
 
 uint32_t x=0;
-uint32_t v=0;
+int Stand_Timer[100];
 int zeit1=0;
 uint64_t zeit_tick=0;
 uint64_t zwischen1=0;
@@ -51,7 +51,7 @@ uint64_t strecke=0;
 
 void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 {
-	XMC_CCU4_SLICE_StartTimer(CCU40_CC40);
+	
 	// Disable IRQs so we can't be interrupted
 	__disable_irq();
 
@@ -71,14 +71,14 @@ void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 
 	// Enable IRQs again
 	__enable_irq();
-
+	XMC_CCU4_SLICE_StartTimer(CCU40_CC40);
 
 }
 
-void IRQ_Hdlr_7(void)     //TIMER_2 Überlauf Interrupt
+void IRQ_Hdlr_8(void)     //TIMER_2 Überlauf Interrupt
 {
 		x++;
-		logd("x: %d \n\r", x);
+		/*logd("x: %d \n\r", x);*/
 
 }
 
@@ -86,10 +86,10 @@ void IRQ_Hdlr_7(void)     //TIMER_2 Überlauf Interrupt
 void IRQ_Hdlr_3(void) //ERU P2_9
 {
 //x++;
-uint32_t slice2 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC42);
+/*uint32_t slice2 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC42);
 		logd("X: %d , Timer: %d\n\r", x,slice2);
 
-/*	XMC_GPIO_ToggleOutput(P2_11);
+	XMC_GPIO_ToggleOutput(P2_11);
 
 	XMC_CCU4_SLICE_StopTimer(CCU41_CC42);
 
@@ -169,16 +169,16 @@ void a16pt_tick(void)
 		uint32_t slice1 = XMC_CCU4_SLICE_GetTimerValue(CCU40_CC41);
 		//uint32_t slice2 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC42);
 		//uint32_t slice3 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC43);
-		logd("CCU41  s0: %d,  s1: %d,\n \r",slice0, slice1);
-	}*/
-
+		logd("CCU40  s0: %d,  s1: %d,\n \r",slice0, slice1);
+	}
+*/
 	if(system_timer_is_time_elapsed_ms(signal_time,30)) {
 		signal_time = system_timer_get_ms();
-
+		logd("x: %d \n\r", x);
+		x=0;
 		XMC_CCU4_SLICE_ClearTimer(CCU41_CC41);//counter auf 0 setzen
 		XMC_CCU4_SLICE_StopTimer(CCU40_CC40);
 		XMC_CCU4_SLICE_ClearTimer(CCU40_CC40);
-		x=0;
 		// Set starting values of pwm counters.
 		// Start slice 2 with compare value to get offset between the two PWMs
 		XMC_CCU4_SLICE_ClearTimer(CCU41_CC40);
