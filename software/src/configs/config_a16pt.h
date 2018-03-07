@@ -23,7 +23,7 @@
 #define CONFIG_A16PT_H
 
 /*****************CCU_Timer_Slice_Config*************/
-enum ccu40 {cc40=0,cc41,cc42,cc43} ;
+enum ccu {cc40=0,cc41,cc42,cc43} ;
 //enum ccu41 {cc40=0,cc41,cc42,cc43} ;
 
 /*****************PWM_define**************************/

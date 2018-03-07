@@ -40,7 +40,7 @@
 #include "timer_config/timer_config.h"
 #include "config_pin/config_pin.h"
 
-int x=0;int z=0;
+uint32_t x=0;
 uint32_t v=0;
 int zeit1=0;
 uint64_t zeit_tick=0;
@@ -51,6 +51,7 @@ uint64_t strecke=0;
 
 void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 {
+	XMC_CCU4_SLICE_StartTimer(CCU40_CC40);
 	// Disable IRQs so we can't be interrupted
 	__disable_irq();
 
@@ -71,18 +72,20 @@ void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 	// Enable IRQs again
 	__enable_irq();
 
+
 }
 
-void IRQ_Hdlr_23(void)     //TIMER_2 Überlauf Interrupt
+void IRQ_Hdlr_7(void)     //TIMER_2 Überlauf Interrupt
 {
-	XMC_CCU4_SLICE_StartTimer(CCU40_CC40);
+		x++;
+		logd("x: %d \n\r", x);
 
 }
 
 
 void IRQ_Hdlr_3(void) //ERU P2_9
 {
-x++;
+//x++;
 uint32_t slice2 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC42);
 		logd("X: %d , Timer: %d\n\r", x,slice2);
 
@@ -107,9 +110,9 @@ uint32_t slice2 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC42);
 
 
 
-void a16pt_init(void) {
+void a16pt_init(void)
+{
 
-//int messwerte[10]={};
 /*****************Externe_Interrupt*******************/
 
 	eru_init(eru_port);
@@ -128,27 +131,20 @@ void a16pt_init(void) {
 	XMC_CCU4_SLICE_EnableEvent(CCU41_CC40, XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP);
 	XMC_CCU4_SLICE_SetInterruptNode(CCU41_CC40, XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP, XMC_CCU4_SLICE_SR_ID_1);
 
-
 /************Event_Config****************************/
 
-	count_init(cc41);
-	//capture_init(cc43);
+	count_init(cc41); 			//CCU41
+	capture_init(cc41);			//CCU40
 
 /*******************Timer_2_Init*******************/
 
-	/*
-	ccu4_timer_2_init(cc42);
+	ccu4_timer_2_init(cc40);
 
-	XMC_CCU4_SLICE_StopTimer(CCU40_CC42);
-	XMC_CCU4_SLICE_ClearTimer(CCU40_CC42);
-	*/
 /********************OUT_INIT*********************/
-
 
 	pin_out_init(led_port1 ); 		//P2_11
 	pin_out_init(led_port2); 		//P2_12
 	pin_out_init(hs_shdn);			//P2_0
-
 
 	XMC_GPIO_SetOutputLow(hs_shdn);
 	XMC_GPIO_SetOutputLow(led_port1);
@@ -156,16 +152,12 @@ void a16pt_init(void) {
 
 /**************IN_INIT**********************/
 
-
-
 }
 
 
 
 void a16pt_tick(void)
 {
-	//logd("Strecke in M: %d \n\r", x);
-
 	static uint32_t debug_time = 0;
 	static uint32_t signal_time = 0;
 
@@ -173,18 +165,20 @@ void a16pt_tick(void)
 // Print every 250ms
 	/*if(system_timer_is_time_elapsed_ms(debug_time, 250)) {
 		debug_time = system_timer_get_ms();
-		uint32_t slice0 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC40);
-		uint32_t slice1 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC41);
-		uint32_t slice2 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC42);
-		uint32_t slice3 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC43);
-		logd("CCU41  s0: %d,  s1: %d,s2: %d, s3: %d\n\r",slice0, slice1, slice2, slice3);
+		uint32_t slice0 = XMC_CCU4_SLICE_GetTimerValue(CCU40_CC40);
+		uint32_t slice1 = XMC_CCU4_SLICE_GetTimerValue(CCU40_CC41);
+		//uint32_t slice2 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC42);
+		//uint32_t slice3 = XMC_CCU4_SLICE_GetTimerValue(CCU41_CC43);
+		logd("CCU41  s0: %d,  s1: %d,\n \r",slice0, slice1);
 	}*/
 
 	if(system_timer_is_time_elapsed_ms(signal_time,30)) {
 		signal_time = system_timer_get_ms();
 
 		XMC_CCU4_SLICE_ClearTimer(CCU41_CC41);//counter auf 0 setzen
-
+		XMC_CCU4_SLICE_StopTimer(CCU40_CC40);
+		XMC_CCU4_SLICE_ClearTimer(CCU40_CC40);
+		x=0;
 		// Set starting values of pwm counters.
 		// Start slice 2 with compare value to get offset between the two PWMs
 		XMC_CCU4_SLICE_ClearTimer(CCU41_CC40);

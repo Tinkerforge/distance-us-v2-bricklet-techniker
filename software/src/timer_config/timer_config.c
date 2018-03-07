@@ -95,10 +95,15 @@ void capture_init(const uint8_t ccu4_slice_number)
 		.prescaler_mode      = XMC_CCU4_SLICE_PRESCALER_MODE_NORMAL,
 		.prescaler_initval   = 1,
 		.float_limit         = 1,
-		.timer_concatenation = 0U
+		.timer_concatenation = false
 	};
-	XMC_CCU4_SLICE_CaptureInit(slice_1_timer[ccu4_slice_number], &capture_config);
-	XMC_CCU4_SLICE_Capture0Config(slice_1_timer[ccu4_slice_number], XMC_CCU4_SLICE_EVENT_0);
+	XMC_CCU4_SLICE_CaptureInit(slice_0_timer[ccu4_slice_number], &capture_config);
+	XMC_CCU4_SLICE_Capture0Config(slice_0_timer[ccu4_slice_number], XMC_CCU4_SLICE_EVENT_1);
+
+
+	NVIC_EnableIRQ(7);
+	NVIC_SetPriority(7, 0);
+	XMC_SCU_SetInterruptControl(7, XMC_SCU_IRQCTRL_CCU40_SR1_IRQ7);
 
 }
 
@@ -113,26 +118,28 @@ XMC_CCU4_SLICE_COMPARE_CONFIG_t timer_config = {
 		.dither_duty_cycle     = false,
 		.prescaler_mode        = XMC_CCU4_SLICE_PRESCALER_MODE_NORMAL,
 		.mcm_enable            = false,
-		.prescaler_initval     = XMC_CCU4_SLICE_PRESCALER_4096,
+		.prescaler_initval     = XMC_CCU4_SLICE_PRESCALER_1,
 		.float_limit           = XMC_CCU4_SLICE_PRESCALER_32768,
 		.dither_limit          = 0,
 		.passive_level         = XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL_LOW,
 		.timer_concatenation   = false
 	};
 	XMC_CCU4_SLICE_CompareInit(slice_0_timer[ccu4_slice_number], &timer_config);
+	XMC_CCU4_Init(CCU40, XMC_CCU4_SLICE_MCMS_ACTION_TRANSFER_PR_CR);
 
 	XMC_CCU4_SLICE_SetTimerPeriodMatch(slice_0_timer[ccu4_slice_number], 0xFFFF);
+	XMC_CCU4_SLICE_SetTimerCompareMatch(slice_0_timer[ccu4_slice_number], 0);
+
 
 	XMC_CCU4_EnableShadowTransfer(CCU40, (XMC_CCU4_SHADOW_TRANSFER_SLICE_0 << (ccu4_slice_number*4)) |
 	    		                             (XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_0 << (ccu4_slice_number*4)));
+
+	XMC_CCU4_StartPrescaler(CCU40);
 	XMC_CCU4_EnableClock(CCU40, ccu4_slice_number);
 
 
 
 	XMC_CCU4_SLICE_EnableEvent(slice_0_timer[ccu4_slice_number], XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH);
-	XMC_CCU4_SLICE_SetInterruptNode(slice_0_timer[ccu4_slice_number], XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH, XMC_CCU4_SLICE_SR_ID_2);
-	//NVIC_EnableIRQ(23);
-	//NVIC_SetPriority(23, 0);
-	//XMC_SCU_SetInterruptControl(23, XMC_SCU_IRQCTRL_CCU41_SR2_IRQ23);
+	XMC_CCU4_SLICE_SetInterruptNode(slice_0_timer[ccu4_slice_number], XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH, XMC_CCU4_SLICE_SR_ID_1);
 
 }
