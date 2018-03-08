@@ -1116,8 +1116,6 @@ F 3 "" H 7450 3100 60  0000 C CNN
 	1    7450 3100
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	6550 1300 7150 1300
 Text GLabel 6100 1550 0    60   Input ~ 0
 PWM-1-OUT
 Text GLabel 5100 5800 2    60   Input ~ 0
@@ -1248,10 +1246,6 @@ Wire Wire Line
 	6500 700  7450 700 
 Wire Wire Line
 	6550 700  6550 750 
-Wire Wire Line
-	7450 700  7450 1100
-Wire Wire Line
-	7450 1500 7450 2350
 $Comp
 L MOSFET_N_P_CH Q3
 U 1 1 5A98E910
@@ -1267,12 +1261,12 @@ $Comp
 L MOSFET_N_P_CH Q3
 U 2 1 5A98ECF2
 P 7350 1300
-F 0 "Q3" H 7250 1450 60  0000 C CNN
+F 0 "Q3" H 7200 1100 60  0000 C CNN
 F 1 "DMG6602SVT-7DICT-ND" H 7200 1600 60  0001 C CNN
 F 2 "kicad-libraries:SOT23-6" H 7250 1300 60  0001 C CNN
 F 3 "" H 7250 1300 60  0001 C CNN
 	2    7350 1300
-	1    0    0    -1  
+	1    0    0    1   
 $EndComp
 Wire Wire Line
 	6100 1550 6250 1550
@@ -1568,4 +1562,10 @@ F 3 "" H 1500 2900 60  0000 C CNN
 	1    1500 2900
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	6550 1300 7150 1300
+Wire Wire Line
+	7450 700  7450 1100
+Wire Wire Line
+	7450 1500 7450 2350
 $EndSCHEMATC

@@ -51,23 +51,23 @@ void a16pt_tick(void); //Funktionsdefinition
 uint16_t a16pt_get_distance(void); //Funktionsdefinition
 \end{lstlisting}
 
-
+\begin{minipage}{1\textwidth}
 \begin{struktogramm}(120,75)
 \forever
 \assign{\#include aufrufe}
 \while[8]{int main (void)}
  \sub{Logging init()}
- \sub{logd(\"start Diistance us v2 Bricklet\")}
+ \sub{logd(\ "start Diistance us v2 Bricklet\" )}
  \sub{Communication init()}
  \sub{a16pt init()}
-\whileend
-\while[8]{int main (void)}
+\while[8]{while (1)}
  \sub{a16pt\_tick()}
  \sub{bootloader\_tick()}
  \sub{Communication\_tick()}
 \whileend
+\whileend
 \foreverend
-%\caption{Struktogramm der main}\label{fig:Struktogramm der main}
+
 %  \ifthenelse{10}{4}{Bedingung 1}{ja}{nein}
 %    \ifthenelse{6}{6}{Bedingung 2}{ja}{nein}
 %      \assign{Anweisungsblock 1}
@@ -79,7 +79,8 @@ uint16_t a16pt_get_distance(void); //Funktionsdefinition
 %  \ifend
 %\sub{bla}
 \end{struktogramm}
-
+\captionof{figure}{Struktogramm der main}\label{fig:Struktogramm der main}
+\end{minipage}
 Im Main stehen vor allem die Aufrufe der verschiedenen benötigten Funktionen. Diese Aufteilung auf verschiedene Blöcke(und in diesem Falle auch Dateien) dient der Vereinfachung der Abläufe und der Übersicht. So sieht man in der Main jetzt deutlich, welche Funktionen beim Starten initialisiert werden, und welche Unterprogramme regelmäßig aufgerufen werden. Auch vereinfacht diese Struktur gerade bei Prototypen das Testen der Funktion, so kann im Falle einerfehlerhaften Funktion einfach der Aufruf auskommentiert werden um zu testen, ob der Fehler wirklich von der Funktion herrührt. Dadurch müssen nicht etliche Zeilen Programmcode der Funktion auskommentiert werden, wodurch schnell Fehler entstehen könnten, durch übriggebliebene Zeichen, oder gar beim entfernen der Auskommentierung gelöschte Zeichen.\\%\newpage
 %\begin{figure}[H]
 %\includegraphics[width=1.0\textwidth]{Struktogramme/a16pt.png}\caption{Struktogramm der a16.pt}\label{fig:Bild2}
