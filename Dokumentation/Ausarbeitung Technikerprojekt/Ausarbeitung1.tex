@@ -14,7 +14,8 @@
 \usepackage[utf8]{inputenc}%[utf8] Umlaute direkt eingabe [latin1] für unixoide und windows
 \usepackage[ngerman]{babel}
 \usepackage[T1]{fontenc}
-
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
 %\usepackage{scrhack}
 \usepackage[margin=9pt,font=small,labelfont=bf,textfont=it,belowskip=.3cm]{caption}
 %Verwendung von vielen Farben
@@ -121,8 +122,8 @@
 %\titleformat*{\subsection}{\fontsize{12}{17}\selectfont}
 
 %Regeln, bis zu welcher Tiefe (section,subsection,subsubsection) überschriften angezeigt werden sollen (Anzeige der überschriften im Verzeichnis / Anzeige der Nummerierung)
-\setcounter{tocdepth}{3}
-\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
 
 %-------------------
 %Ende des Kopfbereiches
@@ -153,26 +154,31 @@
 \setcounter{page}{0}
 \pagenumbering{arabic}
 
-\chapter{Lasten und Pflichtenheft}
-\input{2_Lasten_und_Pflichtenheft}
-\chapter{Management des Projektes}
-\input{3_Management_des_Projektes}
-\chapter{Recherche der Funktionsweise}
+\chapter{Einleitung}
+%\input{2_Lasten_und_Pflichtenheft}
+\section{Management des Projektes}
+%\input{3_Management_des_Projektes}
+\section{Open Source CAD-Programm Paket zur Erstellung von elektronischen Leiterplatten}
+%\input{6_Open_Source_CAD-Programm}
+
+
+\chapter{Vorbereitung}
+\section{Recherche der Funktionsweise}
 \input{4_Recherche_der_Funktionsweise}
-\chapter{Verwendete sowie Dimensionierung der Bauteile}
-\input{5_Verwendete_Bauteile}
-\chapter{Open Source CAD-Programm Packet zur Erstellung von elektronischen Leiterplatten}
-\input{6_Open_Source_CAD-Programm}
-\chapter{Entwicklung der Software zum Betrieb des Prototypen}
-\input{7_Entwicklung_der_Software}
-\chapter{Messungen und Auswertung der Ergebnisse}
+\section{Verwendete sowie Dimensionierung der Bauteile}
+%\input{5_Verwendete_Bauteile}
+\section{Entwicklung der Software zum Betrieb des Prototypen}
+%\input{7_Entwicklung_der_Software}
+
+\chapter{HAUPTTEIL}
+\section{Messungen und Auswertung der Ergebnisse}
 \input{8_Messungen_und_Auswertung}
-%\chapter{Ergebnisse der Forschung}
+\section{Ergebnisse der Forschung}
 %\input{9_Ergebnisse}
-\chapter{Fazit aus den Ergebnissen für denAuftraggeber}
-\input{10_Fazit_Auftraggeber}
+\section{Fazit aus den Ergebnissen für denAuftraggeber}
+%\input{10_Fazit_Auftraggeber}
 \chapter{Reflektion über den Projektablauf}
-\input{11_Reflektion_Ablauf}
+%\input{11_Reflektion_Ablauf}
 \chapter{Anhänge}
 \section{Schaltpläne}
 

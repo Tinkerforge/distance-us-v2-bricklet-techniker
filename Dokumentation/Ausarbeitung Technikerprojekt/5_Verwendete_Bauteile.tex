@@ -1,7 +1,7 @@
-\section{Sender}
+\subsection{Sender}
 Für den Sender (und empfänger) wurden auf Pietzomodulen basierende Kapsellautsprecher verwendet. Dabei wurden für den Prototypen mehrere Kapseln vereschiedener Hersteller bestellt. Dieses geschah um Unterschiede der verschiedenpreisigen Bauteile zu ermitteln und festzustellen, welches Preissegment die nötige Qualität für die vorliegende Anwendung erfüllt. Wichtig sind bei der Überprüfung das nachschwingen der Kapsel, nach Ende des zu sendenden Signals, die Empfindlichkeit auf eingehende Störfrequenzen und die zu erreichende Reichweite mit verschiedenen Signalstärken.
 
-\section{Umschaltung}
+\subsection{Umschaltung}
 Da der Sende-, und der Empfangsbetrieb über eine Kapsel laufen sollen und die beiden Betriebsarten mit verschiedenen Spannungspegeln arbeiten, ist eine Umschaltung zwischen den Anschlüssen notwendig.\\
 Zu Beginn wurde eine H-Brücke als optionale Lösung des Problems ins Auge genommen. Dafür wurde das IC A5950 verwendet. Wie in Abbildung \ref{fig:} zu sehen ist, kann die H-Brücke eine angeschlossene Last mit einer Wechselspannung versorgen, deren Frequenz über das Signal am Anschluss PHASE vorgegeben werden kann.
 
@@ -10,7 +10,7 @@ Später wurde auf eine Halbbrücke umgeschwenkt, bei der die MOSFETs einzeln ans
 %Die Kapsel wird mit einer Frequenz von 40kHz und einer Amplitude von bis zu 20V P betrieben. Um ein positives sowie negatives Rechtecksignal zu generieren wird eine H-Brücke verwendet. Sie Abb.x Funktion Block Diagramm vom IC A5950\\
 %In der Abb. Funktion Block Diagramm vom IC A5950 wird an OUT 1 sowie an OUT 2 eine Stromumkehrung erzielt, durch die Ansteuerung von den MOS-FET von dem Control Logic. Eine genaue Funktionsanalyse ist nicht erforderlich, weil an der H-Brücke nur ein Ultraschallsensor
 %angeschlossen wird. Wichtig für die H-Brücke ist das sie mit 40kHz schalten kann die am Eingang. Ausgründen der internen Beschaltung und Toleranzen sind am Ausgang nicht die vollen 40kHz zu erwarten, sondern ein Verzug was später im Kapitel X.X behandelt wird.
-\section{Empfänger}
+\subsection{Empfänger}
 Die Abbildung \ref{fig:empfängerschaltung} zeigt die Enpfängerschaltung. Durch diese Verschaltung von Operationsverstärkern(OPVs) wird das ankommende Sinusförmige Signal verstärkt und in ein digitales Signal umgewandelt. Die Schaltung wurde mit einem Hochpassfilter (CR Glied) bestückt bestehend aus C12 und R5 um unerwünschte Signalanteile mit Frequenzen, die unter 40kHz liegen, zu unterdrücken. Der Widerstand wurde nach der e24 Reihe, anhand der folgende Berechnung, ausgewählt:
 \onehalfspacing \\
 \(\displaystyle C=\frac{1}{2*pi*fg*R}\Rightarrow\frac{1}{2*pi*40kHz*C12*100 Ohm}\approx40pF \)
@@ -25,14 +25,14 @@ Wenn eine Gleichspannung anliegt, wirkt der Kondensator (C10) in der Operationsv
 Die Z-Diode D2 ist für die Spannungsstabilisierung und als Sicherung da.\\
 Für die Umwandlung des Analogen Signales in ein Digitales wurde der Operationsverstärker TLC272 U2C als Komparator geschaltet. Beim auftreten von Differenzen zwischen den eingangs Signalen, wechselt der Ausgang des Komparators zwischen Low (0 Volt) auf High (3,3 Volt).
 
-\section{Hochsetzsteller}
+\subsection{Hochsetzsteller}
 Der Hochsetzsteller dient dazu, aus den 5V Versorgungsspannung eine (für die Versuche variable) höhere Spannung für den Sendebetrieb zu schaffen. So kann der Schalldruck der ausgegeben wird erhöht werden(größere Reichweite/größeres Rücksignal)\\
 Die Funktionsweise des Hochsetzstellers (Spannungspumpe/Aufwärtswandler/Aufwärtsregler) ist relativ simpel und findet in vielen Bereichen Anwendung. Grundsätzlich wird eine Induktivität in Reihe mit einer Freilaufdiode vor einen Ladecondensator geschaltet. Dieser liegt parallel zum Ausgang. Zwischen der Spule und der Diode ist ein Schalter angeschlossen, der die Spule gegen Masse schaltet. So läd sich die Spule bei Betätigung des Schalters auf (durch den Stromfluss entsteht ein Magnetfeld) und beim Öffnen steigt die Spannung am sekundären Ende der Spule, durch das zusammenbrechende Magnetfeld, an und läd den Kondensator auf. Dieser Vorgang wird wiederholt, bis der Kondensator so weit aufgeladen ist, dass die Ausgangsspannung den gewünschten Wert hält. Dann wird die Schaltfrequenz auf das mindestmaß verringert, um den Wert zu halten. Natürlich ist die mögliche Ausgangsspannung nicht unbegrenzt über das Schaltspiel regelbar, sondern ist auch von den Baugrößen der Bauteile abhängig. Mit einer Induktivität von 10mH und einem Kapazität von 40uF lässt sich die Ausgangsspannung bei 5v Eingangsspannung zwischen 6v und 20v einstellen.
 \onehalfspacing \\
 \(\displaystyle R1=R2*\left(\frac{Vout}{1,23}-1\right)\Rightarrow Vout=\left(\frac{R1}{R2}+1\right)*1,23\) 
 \singlespacing
 
-\section{Mikroprozessor}
+\subsection{Mikroprozessor}
 Der Infineon XMC 1xxx48 gehört zu der Familie der ARM Cortex -M0 Prozessoren und ist ein 32-bit Industrial Microcontroller und wird mit 48MHz externer Clock betrieben. Die 48 im Namen des Prozessors steht für die Anzahl der Pins. Der interne Timer läuft mit 96Mhz. Außerdem bietet der XMC einen 12 bit A/D Wandler, welcher für die Analogmessung eine viel genauere Auflösung bieten kann als ein 8 bit A/D Wandler. Die Betriebsspannung des Prozessors beträgt 3,3V.\\
 https://www.infineon.com/cms/en/product/microcontroller/32-bit- industrial-microcontroller- based-
 on-arm- cortex-m/32- bit-xmc1000- industrial-microcontroller- arm-cortex- m0/\#\\
