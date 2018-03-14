@@ -13,7 +13,7 @@ Später wurde auf eine Halbbrücke umgeschwenkt, bei der die MOSFETs einzeln ans
 \subsection{Empfänger}
 Die Abbildung \ref{fig:empfängerschaltung} zeigt die Enpfängerschaltung. Durch diese Verschaltung von Operationsverstärkern(OPVs) wird das ankommende Sinusförmige Signal verstärkt und in ein digitales Signal umgewandelt. Die Schaltung wurde mit einem Hochpassfilter (CR Glied) bestückt bestehend aus C12 und R5 um unerwünschte Signalanteile mit Frequenzen, die unter 40kHz liegen, zu unterdrücken. Der Widerstand wurde nach der e24 Reihe, anhand der folgende Berechnung, ausgewählt:
 \onehalfspacing \\
-\(\displaystyle C=\frac{1}{2*pi*fg*R}\Rightarrow\frac{1}{2*pi*40kHz*C12*100 Ohm}\approx40pF \)
+\(\displaystyle C12=\frac{1}{2*pi*fg*R}\Rightarrow\frac{1}{2*pi*40kHz*100 Ohm}\approx40pF \)
 \singlespacing
 Die Kapazität des Kondensators C12 wurde an die Grenzfrequenz von 40 kHz und den Widerstand angepasst.\\
 Für die Verstärkung der Amplitude so wie der Umwandlung des analogen Signals in ein Rechtecksignal mit 40 KHz  dienen die Operationsverstärker des Bausteines TLC272. Die Versorgungsspannung der OPV's von 3,3V wird durch den Kondensator C16 (EMV Störfilter) stabilisiert.\\
