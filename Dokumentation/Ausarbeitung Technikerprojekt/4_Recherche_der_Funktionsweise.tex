@@ -1,6 +1,6 @@
-\tikzstyle{block} = [draw, fill=blue!20, rectangle, 
+\tikzstyle{block} = [draw, fill=white!20, rectangle, 
     minimum height=3em, minimum width=6em]
-\tikzstyle{block1} = [draw, fill=blue!20, rectangle, 
+\tikzstyle{block1} = [draw, fill=white!20, rectangle, 
     minimum height=3em, minimum width=10em]
 \tikzstyle{pinstyle} = [pin edge={to-,think,black}]
 \tikzstyle{input} = [coordinate]
@@ -11,12 +11,13 @@
 
 \begin{tikzpicture}[auto, node distance=2cm,>=latex']
 \begin{picture}(250,100)
-\put(-38,-95){\dashbox{2.5}(220,45)[rb] {Empfänger}}
+\put(-38,-122){\dashbox{2.5}(210,45)[rb] {Empfänger}}
+%\put(-38-122){\text{Empfänger}}
 \node [block](controller){Controller};
 \node [block, right of=controller, node distance=4.5cm] (sender)  {Sender};
 \node [block, above of=sender, node distance=2cm] (hochsetzsteller) {Hochsetzsteller};
 \node [block, right of=sender, node distance=4.5cm] (ultraschallkapsel)  {Ultraschallkapsel};
-\node [block, below of=ultraschallkapsel, node distance=2.5cm] (filterung)  {Filterung};
+\node [block, below of=ultraschallkapsel, node distance=3.5cm] (filterung)  {Filterung};
 \node [block, left of=filterung, node distance=4.5cm] (verstaerker)  {Verstaerker};
 \node [block, left of=verstaerker, node distance=4.5cm] (komperrator)  {Komperrator};
 
