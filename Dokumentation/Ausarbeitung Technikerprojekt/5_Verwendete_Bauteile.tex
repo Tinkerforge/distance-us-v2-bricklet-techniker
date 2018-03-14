@@ -11,20 +11,19 @@ Später wurde auf eine Halbbrücke umgeschwenkt, bei der die MOSFETs einzeln ans
 %In der Abb. Funktion Block Diagramm vom IC A5950 wird an OUT 1 sowie an OUT 2 eine Stromumkehrung erzielt, durch die Ansteuerung von den MOS-FET von dem Control Logic. Eine genaue Funktionsanalyse ist nicht erforderlich, weil an der H-Brücke nur ein Ultraschallsensor
 %angeschlossen wird. Wichtig für die H-Brücke ist das sie mit 40kHz schalten kann die am Eingang. Ausgründen der internen Beschaltung und Toleranzen sind am Ausgang nicht die vollen 40kHz zu erwarten, sondern ein Verzug was später im Kapitel X.X behandelt wird.
 \subsection{Empfänger}
-Die Abbildung \ref{fig:empfängerschaltung} zeigt die Enpfängerschaltung. Durch diese Verschaltung von Operationsverstärkern(OPVs) wird das ankommende Sinusförmige Signal verstärkt und in ein digitales Signal umgewandelt. Die Schaltung wurde mit einem Hochpassfilter (CR Glied) bestückt bestehend aus C12 und R5 um unerwünschte Signalanteile mit Frequenzen, die unter 40kHz liegen, zu unterdrücken. Der Widerstand wurde nach der e24 Reihe, anhand der folgende Berechnung, ausgewählt:
+Die Abbildung \ref{fig:empfängerschaltung} zeigt die Empfängerschaltung. Durch diese Verschaltung von Operationsverstärkern(OPVs) wird das ankommende Sinusförmige Signal verstärkt und in ein digitales Signal umgewandelt. Die Schaltung wurde mit einem Hochpassfilter (CR Glied) bestückt bestehend aus C12 und R5 um unerwünschte Signalanteile mit Frequenzen, die unter 40kHz liegen, zu unterdrücken. Der Widerstand wurde nach der e24 Reihe ausgewählt.
+Die Kapazität des Kondensators C12 wurde an die Grenzfrequenz von 40 kHz und den Widerstand angepasst.
 \onehalfspacing \\
-\(\displaystyle C=\frac{1}{2*pi*fg*R}\Rightarrow\frac{1}{2*pi*40kHz*C12*100 Ohm}\approx40pF \)
+\(\displaystyle C12=\frac{1}{2*pi*fg*R}\Rightarrow\frac{1}{2*pi*40kHz*100 Ohm}\approx40pF \)
 \singlespacing
-Die Kapazität des Kondensators C12 wurde an die Grenzfrequenz von 40 kHz und den Widerstand angepasst.\\
-Für die Verstärkung der Amplitude so wie der Umwandlung des analogen Signals in ein Rechtecksignal mit 40 KHz  dienen die Operationsverstärker des Bausteines TLC272. Die Versorgungsspannung der OPV's von 3,3V wird durch den Kondensator C16 (EMV Störfilter) stabilisiert.\\
+Durch nachträgliche Versuche wurde festgestellt, dass durch das erhöhen der Kapazität auch die Qualität der Filterung des Signals sich verbessert, in den folgenden Abbildungen\ref{fig:Hochpass 40pF} ,\ref{fig:Hochpass 100nF} sind die Unterschiede zusehen. \\
+Für die Verstärkung der Amplitude so wie der Umwandlung des analogen Signals in ein Rechtecksignal mit 40 KHz standen zwei Operationsverstärker zur Auswahl, LT1112 mit einem Stückpreis von 4,80\euro\  und den TLC272 mit einem Stückpreis von 0,88\euro\  trotz der besseren Performanz, wurde der TLC272 für die Prototypen ausgewählt um die preislich günstigen Möglichkeiten zu prüfen. Die Versorgungsspannung der OPV's von 3,3V wird durch den Kondensator C16 (EMV Störfilter) stabilisiert.\\
 Für die Verstärkung der Amplitude ist der Operationsverstärker TLC272 U2B als  nicht invertierender Verstärker geschaltet.
-Wenn eine Gleichspannung anliegt, wirkt der Kondensator (C10) in der Operationsverstärkerschaltung als Impedanzwandler, also mit einer Verstärkung von eins, geht nun die Eingangsfrequenz hoch, nimmt der widerstand des Kondensators (C10) ab, somit beginnt der Operationsverstärker auch zu verstärken, und zwar mit zunehmender Verstärkung, bis irgendwann die Impedanz des Kondensators vernachlässigt werden kann und die Verstärkung nur noch durch das Verhältnis der Widerstände beeinflusst wird, R6 ist zudem notwendig um das schwingen der Amplitude zu verhindern, somit kann die Verstärkung mit folgender Formel berechnet werden:
+Wenn eine Gleichspannung anliegt, wirkt der Kondensator (C10) in der Operationsverstärkerschaltung als Impedanzwandler, also mit einer Verstärkung von eins, geht nun die Eingangsfrequenz hoch, nimmt der Widerstand des Kondensators (C10) ab, somit beginnt der Operationsverstärker auch zu verstärken, und zwar mit zunehmender Verstärkung, bis irgendwann die Impedanz des Kondensators vernachlässigt werden kann und die Verstärkung nur noch durch das Verhältnis der Widerstände beeinflusst wird, R6 ist zudem notwendig um das schwingen der Amplitude zu verhindern, somit kann die Verstärkung mit folgender Formel berechnet werden:
 \onehalfspacing \\
 \(\displaystyle Vu=R6+R8+\frac{R12}{R6} .\) 
 \singlespacing
-Die Z-Diode D2 ist für die Spannungsstabilisierung und als Sicherung da.\\
 Für die Umwandlung des Analogen Signales in ein Digitales wurde der Operationsverstärker TLC272 U2C als Komparator geschaltet. Beim auftreten von Differenzen zwischen den eingangs Signalen, wechselt der Ausgang des Komparators zwischen Low (0 Volt) auf High (3,3 Volt).
-\subsection{Filter}
 
 \subsection{Hochsetzsteller}
 
