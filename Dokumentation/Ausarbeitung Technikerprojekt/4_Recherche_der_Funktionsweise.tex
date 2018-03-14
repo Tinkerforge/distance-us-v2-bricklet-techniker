@@ -11,7 +11,7 @@
 
 \begin{tikzpicture}[auto, node distance=2cm,>=latex']
 \begin{picture}(250,100)
-\put(-38,-95){\dashbox{2.5}(220,45)[rb] {sender}}
+\put(-38,-95){\dashbox{2.5}(220,45)[rb] {Empfänger}}
 \node [block](controller){Controller};
 \node [block, right of=controller, node distance=4.5cm] (sender)  {Sender};
 \node [block, above of=sender, node distance=2cm] (hochsetzsteller) {Hochsetzsteller};
@@ -46,15 +46,21 @@ Das Blockschaltbild, siehe Abbildung\ref{fig:Blockschaltbild1}, zeigt eine verei
 
 \subsection{Controller}
 Der Controller soll eine stabile PWM ausgeben können sowie die Berechnung; Analaog und Digital, der Entfernungsmessung beherrschen. Die Ausgabe der Entfernung erfolgt an einer Universellen-Schnittstelle. 
-\subsection{Hochsetzsteller}
-Der Hochsetzsteller dient dazu, aus den 5V Versorgungsspannung eine (für die Versuche variable) höhere Spannung für den Sendebetrieb zu schaffen. So kann der Schalldruck der ausgegeben wird erhöht werden(größere Reichweite/größeres Rücksignal)\\
-Die Funktionsweise des Hochsetzstellers (Spannungspumpe/Aufwärtswandler/Aufwärtsregler) ist relativ simpel und findet in vielen Bereichen Anwendung. Grundsätzlich wird eine Induktivität in Reihe mit einer Freilaufdiode vor einen Ladecondensator geschaltet. Dieser liegt parallel zum Ausgang. Zwischen der Spule und der Diode ist ein Schalter angeschlossen, der die Spule gegen Masse schaltet. So läd sich die Spule bei Betätigung des Schalters auf (durch den Stromfluss entsteht ein Magnetfeld) und beim Öffnen steigt die Spannung am sekundären Ende der Spule, durch das zusammenbrechende Magnetfeld, an und läd den Kondensator auf. Dieser Vorgang wird wiederholt, bis der Kondensator so weit aufgeladen ist, dass die Ausgangsspannung den gewünschten Wert hält. Dann wird die Schaltfrequenz auf das mindestmaß verringert, um den Wert zu halten. Natürlich ist die mögliche Ausgangsspannung nicht unbegrenzt über das Schaltspiel regelbar, sondern ist auch von den Baugrößen der Bauteile abhängig. Mit einer Induktivität von 10mH und einem Kapazität von 40uF lässt sich die Ausgangsspannung bei 5v Eingangsspannung zwischen 6v und 20v einstellen.
+
 \subsection{Sender}
 Der Sender soll Schallwellen im Ultraschallbereich aussenden, die einen ausreichenden Schalldruck haben, um von Hindernissen, die bis zu mehrere Meter entfernt sind ein Echo erhalten zu können.
 Dafür muss die Lautsprecherkapsel mit einem Sinusähnlichen Signal angesteuert werden, dessen Amplitude angemessen hoch ist, um den gewünschten Schalldruck zu erzeugen. Mit dem Mikrocontroller kann ein Rechtecksignal erzeugt werden, bei dem die Pulsweite variierbar ist (PWM). Der Nachteil ist, dass der Mikrocontroller nur auf seine Spannungsebene von 3,3V begrenzt ist und durch höhere Spannungen zerstört würde.
 Um höhere Spannungen an der Lautsprecherkapsel realisieren zu können, muss ein weiteres Bauteil dazwischen geschaltet werden. Dieses zusätzliche Bauteil dient als Trennung zwischen den 3,3V des Mikrocontrollers und der höheren Spannungsebene der Lautsprecherkapsel. Dabei wird darauf zu achten sein, dass dieser Schalter schnell genug arbeitet, um die 40kHz (Frequenz von Ultraschall) auch sauber schalten zu können.
+
+\subsection{Hochsetzsteller}
+Der Hochsetzsteller dient dazu, aus den 5V Versorgungsspannung eine (für die Versuche variable) höhere Spannung für den Sendebetrieb zu schaffen. So kann der Schalldruck der ausgegeben wird erhöht werden(größere Reichweite/größeres Rücksignal)\\
+Die Funktionsweise des Hochsetzstellers (Spannungspumpe/Aufwärtswandler/Aufwärtsregler) ist relativ simpel und findet in vielen Bereichen Anwendung. Grundsätzlich wird eine Induktivität in Reihe mit einer Freilaufdiode vor einen Ladecondensator geschaltet. Dieser liegt parallel zum Ausgang. Zwischen der Spule und der Diode ist ein Schalter angeschlossen, der die Spule gegen Masse schaltet. So läd sich die Spule bei Betätigung des Schalters auf (durch den Stromfluss entsteht ein Magnetfeld) und beim Öffnen steigt die Spannung am sekundären Ende der Spule, durch das zusammenbrechende Magnetfeld, an und läd den Kondensator auf. Dieser Vorgang wird wiederholt, bis der Kondensator so weit aufgeladen ist, dass die Ausgangsspannung den gewünschten Wert hält. Dann wird die Schaltfrequenz auf das mindestmaß verringert, um den Wert zu halten. Natürlich ist die mögliche Ausgangsspannung nicht unbegrenzt über das Schaltspiel regelbar, sondern ist auch von den Baugrößen der Bauteile abhängig. 
+\subsection{Ultraschallkapsel}
+
+\subsection{Filter}
+Die Fitlerschaltung soll am Eingang des Empfängers mögliche Störfrequenzen herrausfiltern um eine Verfälschung der gemessenen Strecke zu vermeiden, da die Lautsprecherkapsel nicht ausschließlich Ultraschallsignale aufnimmt.
+
 \subsection{Empfänger}
 Im Empfangsbetrieb werden die zurückkommenden Schallsignale, die auf die Lautsprecherkapsel treffen in Sinusförmige Spannungssignale umgewandelt. Die Amplitude dieser Signale hängt von dem Schalldruck der empfangenen Signale ab und ist deutlich nieriger als die Amplitude der gesendeten Signale. Diese Signale müssen anschließend verstärkt werden, um sie mit dem Mikrocontroller auswerten zu können. Zur Vereinfachung der Auswertung macht es auch Sinn, das eingehende analoge Signal in ein Digitales Signal umzuwandeln, dies kann einiges an Verarbeitungsaufwand einsparen. Um die qualität der gemessenen Entfernung besser zu beurteilen sollte auch das Analogesignal ausgewertet und verglichen werden mit dem umgewandelten Digitalen Signal. Es dient unteranderem nämlich dazu wie die spätere Software auszusehen hat, denn die Auswertung eines Analogensignals erfordert mehr Programmieraufwand als die Auswertung eines Digitalensignals. Um ein Digitales Signal auszuwerten reicht es im Grunde genommen auf den ersten Impuls zu warten, die Wartezeit wird in die entfernungsmessung mit einbezogen und somit ergibt sich die Entfernung. Bei der Analogen Auswertung muss mit dem gesendet mit dem empfangenen Signal verglichen und überprüft ob es sich um die 40kHz handelt oder nur eine Störung ist.
 Mit der Zeit, die zwischen dem gesendeten Signal und dem empfangenen Signal vergeht, muss letztendlich der Abstand zwischen dem Sensor und dem Hinderniss berechnet werden.
-\subsection{Filter}
-Die Fitlerschaltung soll am Eingang des Empfängers mögliche Störfrequenzen herrausfiltern um eine Verfälschung der gemessenen Strecke zu vermeiden, da die Lautsprecherkapsel nicht ausschließlich Ultraschallsignale aufnimmt.
+
