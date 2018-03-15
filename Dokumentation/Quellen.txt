@@ -3,3 +3,5 @@ http://rn-wissen.de/wiki/index.php/Abblockkondensator  //Abblockkondensator
 https://www.elektronikpraxis.vogel.de/sieben-suenden-beim-leiterplatten-design-a-356703/
 https://www.mikrocontroller.net/articles/Richtiges_Designen_von_Platinenlayouts
 https://www.mikrocontroller.net/articles/Schaltplan_richtig_zeichnen//(Part Schaltplan 1.3.1) 15.03.2018
+https://www.infineon.com/cms/en/product/microcontroller/32-bit- industrial-microcontroller- based-
+on-arm- cortex-m/32- bit-xmc1000- industrial-microcontroller- arm-cortex- m0/\#\\
