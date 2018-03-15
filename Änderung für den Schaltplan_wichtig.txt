@@ -1,2 +1,4 @@
 -Den Debug Pin einpflegen
 -Sender Schaltung ändern IXDn
+
+-neuer Test
