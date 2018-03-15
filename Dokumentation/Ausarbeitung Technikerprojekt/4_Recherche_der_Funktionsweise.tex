@@ -67,9 +67,10 @@ Im Empfangsbetrieb werden die zurückkommenden Schallsignale, die auf die Lautsp
 Mit der Zeit, die zwischen dem gesendeten Signal und dem empfangenen Signal vergeht, muss letztendlich der Abstand zwischen dem Sensor und dem Hinderniss berechnet werden.
 \subsection{Besonderheit der Software}
 %EventuellVerschieben
-Eine besonderheit 
-Um die die Lesbarkeit des Programms zu fördern wurden APIs (Application Programming Interface) verwendet anstatt jedes Register einzeln anzusprechen.
-Siehe Abb x.x Pull-Up
+
+\\
+\begin{minipage}{1\textwidth}
+\begin{lstlisting}
 Code vom Infineon Prozessor XMC 1xxx48 mit der API:
 void pin_in_pullup_init(XMC_GPIO_PORT_t *const port, const uint8_t pin)
 {
@@ -85,19 +86,32 @@ void pin_in_pullup_init(XMC_GPIO_PORT_t *const port, const uint8_t pin)
  * Also configures alternate function outputs and clears hardware port control for selected \a port and \a pin .
  * It configures hardware registers Pn_IOCR,Pn_OUT,Pn_OMR,Pn_PDISC and Pn_PDR.\n
 }
+\end{lstlisting}
+\captionof{figure}{Die API für ein Programmbeispiel anhand einer PULL-UP Initialisierung}
+\label{fig:API}
+\end{minipage}
 
 
-Code vom Infineon ohne API:
 
+\\
+\begin{minipage}{1\textwidth}
+\begin{lstlisting}
+Code vom Infineon Prozessor XMC 1xxx48 mit ohne API:
 Pn_IOCR= 	Pn_IOCR & ~ (1<<Port); 	
 Pn_OUT= 	Pn_OUT | (1<<Port);	
 Pn_OMR=	Pn_OMR | (1<<Port);
 Pn_PDISC=	Pn_PDISC | (1<<Port);
 Pn_PDR=	Pn_PDR 	 | (1<<Port);
+\end{lstlisting}
+\captionof{figure}{Ohne API für ein Programmbeispiel anhand einer PULL-UP Initialisierung}
+\label{fig:oAPI}
+\end{minipage}
 
-
-
-Die einzelen Funktion werden in der Infineon Header Datei beschrieben, siehe auch Anlage:Infineon Lib. SO kann z.B. der .mode jetzt als PULL-UP verwendet werden siehe dazu den Vergleich zum Comde vom Infineon ohne API  x.x woder jeder einzelne Port mit den Register definiert werden muss. Mit der API Reicht es eine Knofiguration fertig zu stellen und somit jeden einezlen Port einfach zu Initialisieren. Für den ganzen Code siehe dazu Anlage: Software 
+Eine besonderheit 
+Um die die Lesbarkeit des Programms zu fördern wurden APIs (Application Programming Interface) verwendet anstatt jedes Register einzeln anzusprechen.Das erlaubt Programme leichter zuwarten.
+Siehe\ref{API} : Die API für ein Programmbeispiel anhand einer PULL-UP Initialisierung. 
+Die API nimmt die mühe volle suche der einzelnen Register ab somit spart "man" sich die Zeit und das Programmieren geht zügiger voran. Die Einstellung und konifugration wird in der XMC Lib siehe dazu den Anhang wo es detalierter beschrieben wird
+Die Dartselungsform erlaubt es ein bessere Verständis der einzelnen Einstellungspunkte als jedes Register einzeln anzusprechen was schnell zu unbersichtlichkit führen kann siehe\ref{oAPI}:Ohne API für ein Programmbeispiel anhand einer PULL-UP Initialisierung. Somit ist die Ansteuerung einzelner Register nur von Vorteilhaft fals keine API Vorhanden ist.
 
 
 
