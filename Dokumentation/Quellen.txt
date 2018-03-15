@@ -1,0 +1,4 @@
+https://www.eurocircuits.com/pcb-design-guidelines/ //PCB RUles
+http://rn-wissen.de/wiki/index.php/Abblockkondensator  //Abblockkondensator
+https://www.elektronikpraxis.vogel.de/sieben-suenden-beim-leiterplatten-design-a-356703/
+https://www.mikrocontroller.net/articles/Richtiges_Designen_von_Platinenlayouts
