@@ -66,3 +66,45 @@ Die Filterschaltung soll am Eingang des Empfängers mögliche Störfrequenzen he
 Im Empfangsbetrieb werden die zurückkommenden Schallsignale, die auf die Lautsprecherkapsel treffen in Sinusförmige Spannungssignale umgewandelt. Die Amplitude dieser Signale hängt von dem Schalldruck der empfangenen Signale ab und ist deutlich nieriger als die Amplitude der gesendeten Signale. Diese Signale müssen anschließend verstärkt werden, um sie mit dem Mikrocontroller auswerten zu können. Zur Vereinfachung der Auswertung macht es auch Sinn, das eingehende analoge Signal in ein Digitales Signal umzuwandeln, dies kann einiges an Verarbeitungsaufwand einsparen. Um die qualität der gemessenen Entfernung besser zu beurteilen sollte auch das Analogesignal ausgewertet und verglichen werden mit dem umgewandelten Digitalen Signal. Es dient unter anderem nämlich dazu wie die spätere Software auszusehen hat, denn die Auswertung eines Analogensignals erfordert mehr Programmieraufwand als die Auswertung eines Digitalensignals. Um ein Digitales Signal auszuwerten reicht es im Grunde genommen auf den ersten Impuls zu warten, die Wartezeit wird in die entfernungsmessung mit einbezogen und somit ergibt sich die Entfernung. Bei der Analogen Auswertung muss mit dem gesendet mit dem empfangenen Signal verglichen und überprüft ob es sich um die 40kHz handelt oder nur eine Störung ist.
 Mit der Zeit, die zwischen dem gesendeten Signal und dem empfangenen Signal vergeht, muss letztendlich der Abstand zwischen dem Sensor und dem Hinderniss berechnet werden.
 \subsection{Besonderheit der Software}
+%EventuellVerschieben
+Eine besonderheit 
+Um die die Lesbarkeit des Programms zu fördern wurden APIs (Application Programming Interface) verwendet anstatt jedes Register einzeln anzusprechen.
+Siehe Abb x.x Pull-Up
+Code vom Infineon Prozessor XMC 1xxx48 mit der API:
+void pin_in_pullup_init(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+{
+  const	XMC_GPIO_CONFIG_t pin_in_config = {
+  			.mode             = XMC_GPIO_MODE_INPUT_PULL_UP, /**< Defines the direction and characteristics of a pin */
+  			.output_level     = XMC_GPIO_OUTPUT_LEVEL_HIGH, /**< Defines output level of a pin */
+  			.input_hysteresis	= XMC_GPIO_INPUT_HYSTERESIS_STANDARD /**< Defines input pad hysteresis of a pin */
+  		};
+
+  XMC_GPIO_Init(port, pin, &pin_in_config);
+
+ * Initializes input / output mode settings like, pull up / pull down devices,push pull /open drain, and pad driver mode.
+ * Also configures alternate function outputs and clears hardware port control for selected \a port and \a pin .
+ * It configures hardware registers Pn_IOCR,Pn_OUT,Pn_OMR,Pn_PDISC and Pn_PDR.\n
+}
+
+
+Code vom Infineon ohne API:
+
+Pn_IOCR= 	Pn_IOCR & ~ (1<<Port); 	
+Pn_OUT= 	Pn_OUT | (1<<Port);	
+Pn_OMR=	Pn_OMR | (1<<Port);
+Pn_PDISC=	Pn_PDISC | (1<<Port);
+Pn_PDR=	Pn_PDR 	 | (1<<Port);
+
+
+
+Die einzelen Funktion werden in der Infineon Header Datei beschrieben, siehe auch Anlage:Infineon Lib. SO kann z.B. der .mode jetzt als PULL-UP verwendet werden siehe dazu den Vergleich zum Comde vom Infineon ohne API  x.x woder jeder einzelne Port mit den Register definiert werden muss. Mit der API Reicht es eine Knofiguration fertig zu stellen und somit jeden einezlen Port einfach zu Initialisieren. Für den ganzen Code siehe dazu Anlage: Software 
+
+
+
+
+
+
+
+
+
+
