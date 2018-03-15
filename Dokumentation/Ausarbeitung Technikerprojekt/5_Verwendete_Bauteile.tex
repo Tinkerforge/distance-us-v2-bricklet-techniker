@@ -1,7 +1,6 @@
 \subsection{Controller}
 Der Infineon XMC 1xxx48 gehört zu der Familie der ARM Cortex -M0 Prozessoren und ist ein 32-bit Industrial Microcontroller und wird mit 48MHz externer Clock betrieben. Die 48 im Namen des Prozessors steht für die Anzahl der Pins. Der interne Timer läuft mit 96Mhz. Außerdem bietet der XMC einen 12 bit A/D Wandler, welcher für die Analogmessung eine viel genauere Auflösung bieten kann als ein 8 bit A/D Wandler. Die Betriebsspannung des Prozessors beträgt 3,3V. Die Auswahl des Controller wurde getroffen, weil der standardmäßig auch schon bei Tinkerforge eingsetz wird und uns für den Prototypen vorgeben wurde.\
-https://www.infineon.com/cms/en/product/microcontroller/32-bit- industrial-microcontroller- based-
-on-arm- cortex-m/32- bit-xmc1000- industrial-microcontroller- arm-cortex- m0/\#\\
+
 
 \subsection{Sender}
 Die Auswahl für die Sender Schaltung ,mit internen MOS-Fets die Schaltzyklen mit 40kHz erlauben:eine Brückenschaltung mit internem Controller dafür eignete sich das IC A5950.
@@ -9,7 +8,7 @@ Die Auswahl für die Sender Schaltung ,mit internen MOS-Fets die Schaltzyklen mi
 Siehe den Anhang für das Datenblatt des ICA5950 um die genauere Beschaltung des ICs
 
 \subsection{Hochsetzsteller}
-Mit einer Induktivität von 10mH und einem Kapazität von 40uF lässt sich die Ausgangsspannung bei 5v Eingangsspannung zwischen 6v und 20v einstellen.
+Mit einer Induktivität von 10mH und einem Kapazität von 40uF lässt sich die Ausgangsspannung bei 5V Eingangsspannung zwischen 6V und 20v einstellen.
 \onehalfspacing \\
 \(\displaystyle R1=R2*\left(\frac{Vout}{1,23}-1\right)\Rightarrow Vout=\left(\frac{R1}{R2}+1\right)*1,23\) 
 \singlespacing
