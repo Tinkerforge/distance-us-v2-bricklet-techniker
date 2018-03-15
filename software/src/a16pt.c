@@ -47,11 +47,12 @@ uint64_t zeit_tick=0;
 uint64_t zwischen1=0;
 uint64_t real_ticks=0;
 uint64_t strecke=0;
+uint16_t s=0;
 /*************Interrupt_Funktionen****************/
 
 void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 {
-	
+
 	// Disable IRQs so we can't be interrupted
 	__disable_irq();
 
@@ -59,19 +60,36 @@ void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 	XMC_SCU_SetCcuTriggerLow(XMC_SCU_CCU_TRIGGER_CCU41);
 
 	// Stop slice 2
-	XMC_CCU4_SLICE_StopClearTimer(CCU41_CC42);
-
-	// For slice 1 we wait until PWM is run through (to get exactly 10 pwm peaks on P4_4 and P4_6)
-	while(XMC_CCU4_SLICE_GetTimerValue(CCU41_CC40) > compare_1) {
-		__NOP();
-	}
-
-	// Stop slice 0
 	XMC_CCU4_SLICE_StopClearTimer(CCU41_CC40);
 
+	// For slice 1 we wait until PWM is run through (to get exactly 10 pwm peaks on P4_4 and P4_6)
+	while(XMC_CCU4_SLICE_GetTimerValue(CCU41_CC42) > compare_1) {
+
+		__NOP();
+	}
+	const XMC_GPIO_CONFIG_t pin_out_config	= {
+			.mode                = XMC_GPIO_MODE_OUTPUT_PUSH_PULL,
+			.output_level        = XMC_GPIO_OUTPUT_LEVEL_HIGH,
+		};
+
+	  XMC_GPIO_Init(P4_6, &pin_out_config);
+	for(s=0; s<50; s++)
+		{
+			__NOP();
+		}
+	// Stop slice 0
+	XMC_CCU4_SLICE_StopClearTimer(CCU41_CC42);
+
+	const XMC_GPIO_CONFIG_t gpio_out_config1	= {
+		.mode                = XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT9,
+		.input_hysteresis    = XMC_GPIO_INPUT_HYSTERESIS_STANDARD,
+		.output_level        = XMC_GPIO_OUTPUT_LEVEL_LOW,
+	};
+
+	XMC_GPIO_Init(P4_6, &gpio_out_config1);
 	// Enable IRQs again
 	__enable_irq();
-	XMC_CCU4_SLICE_StartTimer(CCU40_CC40);
+	//XMC_CCU4_SLICE_StartTimer(CCU40_CC40);
 
 }
 
@@ -122,14 +140,16 @@ void a16pt_init(void)
 	XMC_CCU4_Init(CCU41, XMC_CCU4_SLICE_MCMS_ACTION_TRANSFER_PR_CR_PCMP);
 	XMC_CCU4_StartPrescaler(CCU41);
 
-	ccu4_pwm_init(pwm_port_0,cc40, period_0);	//P4_4
-	ccu4_pwm_set_duty_cycle( cc40, compare_0);
+	ccu4_pwm_init(pwm_port_0,cc40, period_1);	//P4_4
+	ccu4_pwm_set_duty_cycle( cc40, compare_1);
 
-	ccu4_pwm_init(pwm_port_1,cc42, period_1);	//P4_6
-	ccu4_pwm_set_duty_cycle( cc42, compare_1);
+	ccu4_pwm_init(pwm_port_1,cc42, period_0);	//P4_6
+	ccu4_pwm_set_duty_cycle( cc42, compare_0);
 
-	XMC_CCU4_SLICE_EnableEvent(CCU41_CC40, XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP);
-	XMC_CCU4_SLICE_SetInterruptNode(CCU41_CC40, XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP, XMC_CCU4_SLICE_SR_ID_1);
+
+
+	XMC_CCU4_SLICE_EnableEvent(CCU41_CC42, XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP);
+	XMC_CCU4_SLICE_SetInterruptNode(CCU41_CC42, XMC_CCU4_SLICE_IRQ_ID_COMPARE_MATCH_UP, XMC_CCU4_SLICE_SR_ID_1);
 
 /************Event_Config****************************/
 
@@ -177,12 +197,12 @@ void a16pt_tick(void)
 		logd("x: %d \n\r", x);
 		x=0;
 		XMC_CCU4_SLICE_ClearTimer(CCU41_CC41);//counter auf 0 setzen
-		XMC_CCU4_SLICE_StopTimer(CCU40_CC40);
-		XMC_CCU4_SLICE_ClearTimer(CCU40_CC40);
+		//XMC_CCU4_SLICE_StopTimer(CCU40_CC40);
+		//XMC_CCU4_SLICE_ClearTimer(CCU40_CC40);
 		// Set starting values of pwm counters.
 		// Start slice 2 with compare value to get offset between the two PWMs
-		XMC_CCU4_SLICE_ClearTimer(CCU41_CC40);
-		XMC_CCU4_SLICE_SetTimerValue(CCU41_CC42, compare_0-gap_between_pwm);
+		XMC_CCU4_SLICE_ClearTimer(CCU41_CC42);
+		XMC_CCU4_SLICE_SetTimerValue(CCU41_CC40, compare_0-gap_between_pwm);
 
 		// Start timer of slice 0 and 2
 		XMC_SCU_SetCcuTriggerHigh(XMC_SCU_CCU_TRIGGER_CCU41);
