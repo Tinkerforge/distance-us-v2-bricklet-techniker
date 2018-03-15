@@ -6,7 +6,7 @@ Um das Programm zu erstellen werden Kenntnisse z.B. für die Timer CCU4x sowie d
 Auch für die Programmierung waren diverse Berechnungen notwendig. So musste zur Erzeugung der Ultraschallimpulse ein Pulsweitenmoduliertes Rechteck signal geschaffen werden. Dafür wurde ein Timer der CCU4x auf einen Takt von 40kHz eingestellt. So musste bei eiem Timertakt von 96MHz eine Periodendauer von 2400 Takten, siehe unten die Berechnung und ein Compare-Wert von 1200 Takten eingestellt werden. Im Zählvorgang des Timers wird der Ausgang nach erreichen des Compare-Wertes auf 1, und nach erreichen der Periodendauer wieder auf 0 gesetzt. Dadurch ergibt sich eine Periodendauer von 25us, was einer Frequenz von 40kHz entspricht.\\
 Auch zur Erfassung der Zeit, die vergeht bis das Echo des Ultraschall-Impulses zurück kommt wird über einen Timer der CCU4x erfasst. 
 \onehalfspacing \\ \\
-\(\displaystyle Periodendauer=\frac{96MHz}{40kHz} = 2400 \) 
+\(\displaystyle Periodendauer=\frac{96MHz}{40kHz} = 2400 \)  \  \  \    \(\displaystyle Compare-Wert=\frac{2400}{2} = 1200 \) 
 \singlespacing
 \subsubsection{Einstellung im Programm}
 
@@ -14,9 +14,9 @@ Auch zur Erfassung der Zeit, die vergeht bis das Echo des Ultraschall-Impulses z
 Um Fehler in der Zeitnahme zu verringern sollten Zeitwerte, die ausgelesen werden sollen direkt am Anfang des Interrupts in Variablen gespeichert werden und nicht erst innerhalb anderer Anweisungen oder Schleifen, da das schon deutliche Abweichungen mit sich bringt.\\
 
 Programmstruktur:
-Anstatt alles in der main.c an siehe Abbildung \ref{fig:main.c1} Programmcode zu verfassen was bei sehr komplexen Programmen schnell zu unübersichtlichkeit führt hat das Auslagern den Vorteil das der Quellcode Logisch getrennt werden kann und so einer verschlankerung des Codes mit sich bringt. 
+Anstatt alles in der main.c an ,siehe Abbildung \ref{fig:main.c1}, Programmcode zu verfassen was bei sehr komplexen Programmen schnell zu unübersichtlichkeit führt hat das Auslagern den Vorteil das der Quellcode Logisch getrennt werden kann und so einer verschlankerung des Codes mit sich bringt. 
 Somit stehen in der Main  vor allem die Aufrufe der verschiedenen benötigten Funktionen. So sieht man in der Main jetzt deutlich, welche Funktionen beim Starten initialisiert werden, und welche Unterprogramme regelmäßig aufgerufen werden. Auch vereinfacht diese Struktur gerade bei Prototypen das Testen der Funktion, so kann im Falle einerfehlerhaften Funktion einfach der Aufruf auskommentiert werden um zu testen, ob der Fehler wirklich von der Funktion herrührt. Dadurch müssen nicht etliche Zeilen Programmcode der Funktion auskommentiert werden, wodurch schnell Fehler entstehen könnten, durch übriggebliebene Zeichen, oder gar beim entfernen der Auskommentierung gelöschte Zeichen.\\
-\begin{minipage}{0.75\textwidth}
+\begin{minipage}{1\textwidth}
 \begin{lstlisting}
 #include <stdio.h>
 #include <stdbool.h>
@@ -30,14 +30,14 @@ Somit stehen in der Main  vor allem die Aufrufe der verschiedenen benötigten Fu
 int main(void)
 { 
 	logging_init(); 
-	logd("Start Distance US V2 Bricklet/n/r"); Fuer den DBugModus TXPin P0_12 
-	communication_init(); //Funktionsaufruf
-	a16pt_init(); //Funktionsaufruf	
+	logd("Start Distance US V2 Bricklet/n/r");  	//For the Debugmodus
+	communication_init(); 					//Function call
+	a16pt_init(); 								//Function call	
 	while(true)
 	{
-		a16pt_tick(); 				//Funktionsaufruf
-		bootloader_tick(); 			//Funktionsaufruf
-		communication_tick(); 		//Funktionsaufruf
+		a16pt_tick(); 						//Function call
+		bootloader_tick(); 					//Function call
+		communication_tick(); 				//Function call
 		
 	}
 }
@@ -45,17 +45,21 @@ int main(void)
 \captionof{figure}{main.c}
 \label{fig:main.c1}
 \end{minipage}\\
-Um die Funktionsaufrufe zu verstehen muss die a16pt.h näher betrachtet werden.
+Um die Function call zu verstehen muss die Abbildung \ref{fig:a16pt.h}: a16pt.h näher betrachtet werden.
 In der der a16pt.h werden die Funktionen definiert die dann in der main.c aufgerufen werden und die Funktionsanweisungen stehen dafür in der a16pt.c.\\
+\begin{minipage}{1\textwidth}
 \begin{lstlisting}
 #ifndef A16PT_H
 #define A16PT_H
 #include <stdint.h>
-void a16pt_init(void);				//Funktionsdefinition
-void a16pt_tick(void); 			//Funktionsdefinition
-uint16_t a16pt_get_distance(void); //Funktionsdefinition
+void a16pt_init(void);				//Functional definition
+void a16pt_tick(void); 			//Functional definition
+uint16_t a16pt_get_distance(void); //Functional definition
 \end{lstlisting}
-
+\captionof{figure}{a16pt.h}
+\label{fig:a16pt.h}
+\end{minipage}
+%\newpage
 %\begin{minipage}{1\textwidth}Eventuell wo anders hin
 %\begin{struktogramm}(120,75)
 %\forever
@@ -91,4 +95,41 @@ uint16_t a16pt_get_distance(void); //Funktionsdefinition
 %\begin{figure}[H]
 %\includegraphics[width=1.0\textwidth]{Struktogramme/a16pt.png}\caption{Struktogramm der a16.pt}\label{fig:Bild2}
 %\end{figure}
-In der a16pt werden die für die Entfernungsmessung notwendigen Funktionen und die Interrupt anweisungen abgearbeitet, außerdem werden die Ein- und Ausgangsports hier geschaltet.\\
+In der Abbildung \ref{fig:a16pt.c1} :a16pt.c werden die für die Entfernungsmessung notwendigen Funktionen und die Interrupt anweisungen, in dem Fall die IRQ21 abgearbeitet, außerdem werden die Timer Synchron abgeschaltet.
+\\
+\begin{minipage}{1\textwidth}
+\begin{lstlisting}
+%WICHTIG ÄNDERN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
+{
+	
+	// Disable IRQs so we can't be interrupted
+	__disable_irq();
+
+	// Set CCU trigger to low, otherwise ccu counter is restarted
+	XMC_SCU_SetCcuTriggerLow(XMC_SCU_CCU_TRIGGER_CCU41);
+
+	// Stop slice 2
+	XMC_CCU4_SLICE_StopClearTimer(CCU41_CC42);
+
+	// For slice 1 we wait until PWM is run through (to get exactly 10 pwm peaks on P4_4 and P4_6)
+	while(XMC_CCU4_SLICE_GetTimerValue(CCU41_CC40) > compare_1) {
+		__NOP();
+	}
+
+	// Stop slice 0
+	XMC_CCU4_SLICE_StopClearTimer(CCU41_CC40);
+
+	// Enable IRQs again
+	__enable_irq();
+	XMC_CCU4_SLICE_StartTimer(CCU40_CC40);
+
+}
+\end{lstlisting}
+\captionof{figure}{a16pt.c}
+\label{fig:a16pt.c1}
+\end{minipage}
+
+
+
+
