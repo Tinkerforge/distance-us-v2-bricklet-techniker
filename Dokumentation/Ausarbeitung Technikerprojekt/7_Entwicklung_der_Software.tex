@@ -98,11 +98,13 @@ uint16_t a16pt_get_distance(void); //Functional definition
 In der Abbildung \ref{fig:a16pt.c1} :a16pt.c werden die für die Entfernungsmessung notwendigen Funktionen und die Interrupt anweisungen, in dem Fall die IRQ21 abgearbeitet, außerdem werden die Timer Synchron abgeschaltet.
 \\
 \begin{minipage}{1\textwidth}
-\begin{lstlisting}
-%WICHTIG ÄNDERN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+\begin{lstlisting}%WICHTIGÄNDERN
+
+/*************Interrupt_Funktionen****************/
+
 void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 {
-	
+
 	// Disable IRQs so we can't be interrupted
 	__disable_irq();
 
@@ -110,19 +112,36 @@ void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 	XMC_SCU_SetCcuTriggerLow(XMC_SCU_CCU_TRIGGER_CCU41);
 
 	// Stop slice 2
-	XMC_CCU4_SLICE_StopClearTimer(CCU41_CC42);
-
-	// For slice 1 we wait until PWM is run through (to get exactly 10 pwm peaks on P4_4 and P4_6)
-	while(XMC_CCU4_SLICE_GetTimerValue(CCU41_CC40) > compare_1) {
-		__NOP();
-	}
-
-	// Stop slice 0
 	XMC_CCU4_SLICE_StopClearTimer(CCU41_CC40);
 
+	// For slice 1 we wait until PWM is run through (to get exactly 10 pwm peaks on P4_4 and P4_6)
+	while(XMC_CCU4_SLICE_GetTimerValue(CCU41_CC42) > compare_1) {
+
+		__NOP();
+	}
+	const XMC_GPIO_CONFIG_t pin_out_config	= {
+			.mode                = XMC_GPIO_MODE_OUTPUT_PUSH_PULL,
+			.output_level        = XMC_GPIO_OUTPUT_LEVEL_HIGH,
+		};
+
+	  XMC_GPIO_Init(P4_6, &pin_out_config);
+	for(s=0; s<50; s++)
+		{
+			__NOP();
+		}
+	// Stop slice 0
+	XMC_CCU4_SLICE_StopClearTimer(CCU41_CC42);
+
+	const XMC_GPIO_CONFIG_t gpio_out_config1	= {
+		.mode                = XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT9,
+		.input_hysteresis    = XMC_GPIO_INPUT_HYSTERESIS_STANDARD,
+		.output_level        = XMC_GPIO_OUTPUT_LEVEL_LOW,
+	};
+
+	XMC_GPIO_Init(P4_6, &gpio_out_config1);
 	// Enable IRQs again
 	__enable_irq();
-	XMC_CCU4_SLICE_StartTimer(CCU40_CC40);
+	//XMC_CCU4_SLICE_StartTimer(CCU40_CC40);
 
 }
 \end{lstlisting}
