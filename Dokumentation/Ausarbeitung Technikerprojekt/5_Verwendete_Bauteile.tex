@@ -3,9 +3,8 @@ Der Infineon XMC 1xxx48 gehört zu der Familie der ARM Cortex -M0 Prozessoren un
 
 
 \subsection{Sender}
-Die Auswahl für die Sender Schaltung ,mit internen MOS-Fets die Schaltzyklen mit 40kHz erlauben:eine Brückenschaltung mit internem Controller dafür eignete sich das IC A5950.
- Wie in Abbildung \ref{fig:} zu sehen ist, kann die H-Brücke eine angeschlossene Last mit einer Wechselspannung versorgen, deren Frequenz über das Signal am Anschluss PHASE vorgegeben werden kann. 
-Siehe den Anhang für das Datenblatt des ICA5950 um die genauere Beschaltung des ICs
+Um eine Trennung zwischen des CPU Kreises (3,3V) und des Hochsetzstellers (6V-20V) dessen Aufgabe ist höhere Spannung an der Ultraschallkapsel zur erzielen, eignete sich das IC A5950 (Voll Brücke).
+Wie in Abbildung \ref{fig:} zu sehen ist, kann die H-Brücke eine angeschlossene Last mit der Vom Hochsetzstellers erzeugten Spannung versorgen, deren Frequenz über das Signal an der Anschluss Phase der CPU vorgegeben werden an Out1 und Out2 wird das Ausgangssignal abgegriffen. Für die genaue Beschaltung des ICs siehe Anhang Datenblatt “Schimatic A5950“.
 
 \subsection{Hochsetzsteller}
 Mit einer Induktivität von \(\displaystyle 10mH\) und einem Kapazität von \(\displaystyle 40uF\) lässt sich die Ausgangsspannung bei 5V Eingangsspannung zwischen 6V und 20V einstellen.
