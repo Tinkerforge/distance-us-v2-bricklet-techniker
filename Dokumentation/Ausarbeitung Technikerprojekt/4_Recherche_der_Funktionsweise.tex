@@ -46,28 +46,32 @@
 Das Blockschaltbild, siehe Abbildung\ref{fig:Blockschaltbild1}, zeigt eine vereinfachte Funktionsübersicht. Der Schaltplan befindet in den Anlagen.
 
 \subsection{Controller}
-Der Controller soll eine stabile PWM ausgeben können sowie die Berechnung; Analog und Digital, der Entfernungsmessung beherrschen. Die Ausgabe der Entfernung erfolgt an einer Universellen-Schnittstelle. 
+Der Controller soll eine stabile und variable PWM ausgeben können. Es werden für die Zeiterfassung und die PWM Ausgabe mehrere Timer benötigt die Intern und von der Hardware gesteuert werden können. Ein Analog/Digital Wandler sollte vorhanden sein.
 
 \subsection{Sender}
-Der Sender soll Schallwellen im Ultraschallbereich aussenden, die einen ausreichenden Schalldruck haben, um von Hindernissen, die bis zu mehrere Meter entfernt sind ein Echo erhalten zu können.
-Dafür muss die Lautsprecherkapsel mit einem Sinusähnlichen Signal angesteuert werden, dessen Amplitude angemessen hoch ist, um den gewünschten Schalldruck zu erzeugen. Mit dem Mikrocontroller kann ein Rechtecksignal erzeugt werden, bei dem die Pulsweite variabler ist (PWM). Der Nachteil ist, dass der Mikrocontroller nur auf seine Spannungsebene von 3,3V begrenzt ist und durch höhere Spannungen zerstört würde.
-Um höhere Spannungen an der Lautsprecherkapsel realisieren zu können, muss ein weiteres Bauteil dazwischen geschaltet werden. Dieses zusätzliche Bauteil dient als Trennung zwischen den 3,3V des Mikrocontrollers und der höheren Spannungsebene der Lautsprecherkapsel. Dabei wird darauf zu achten sein, dass dieser Schalter schnell genug arbeitet, um die 40kHz (Frequenz von Ultraschall) auch sauber schalten zu können.
+Der Sender soll Schallwellen im Ultraschallbereich(40kHz) aussenden, die einen ausreichenden Schalldruck haben, um von Hindernissen, die bis zu mehrere Meter entfernt sind ein Echo erhalten zu können.
+Dafür muss die Lautsprecherkapsel mit einem Sinusähnlichen Signal angesteuert werden, dessen Amplitude angemessen hoch ist, um den gewünschten Schalldruck zu erzeugen. Der Nachteil ist, dass der Mikrocontroller nur auf seine Spannungsebene von 3,3V begrenzt ist und durch höhere Spannungen zerstört würde.
+Um höhere Spannungen an der Ultraschallkapsel realisieren zu können, muss ein weiteres Bauteil dazwischen geschaltet werden. Dieses zusätzliche Bauteil dient als Trennung zwischen den 3,3V des Mikrocontrollers und der höheren Spannungsebene der Lautsprecherkapsel. Dabei wird darauf zu achten sein, dass dieser Schalter schnell genug arbeitet, um die 40kHz (Frequenz von Ultraschall) auch sauber schalten zu können.
 
 \subsection{Hochsetzsteller}
-Der Hochsetzsteller dient dazu, aus den 5V Versorgungsspannung eine (für die Versuche variable) höhere Spannung für den Sendebetrieb zu schaffen. So kann der Schalldruck der ausgegeben wird erhöht werden(größere Reichweite/größeres Rücksignal)\\
+Der Hochsetzsteller dient dazu, aus den 5V Versorgungsspannung eine (für die Versuche variable) höhere Spannung für den Sendebetrieb zu schaffen. So kann der Schalldruck der ausgegeben wird erhöht werden(größere Reichweite/größeres Rücksignal)siehe Kaptiel:Messungen\\%Wichtig KapitelAnpassen
 Die Funktionsweise des Hochsetzstellers (Spannungspumpe/Aufwärtswandler/Aufwärtsregler) ist relativ simpel und findet in vielen Bereichen Anwendung. Grundsätzlich wird eine Induktivität in Reihe mit einer Freilaufdiode vor einen Ladekondensator geschaltet. Dieser liegt parallel zum Ausgang. Zwischen der Spule und der Diode ist ein Schalter angeschlossen, der die Spule gegen Masse schaltet. So lädt sich die Spule bei Betätigung des Schalters auf (durch den Stromfluss entsteht ein Magnetfeld) und beim Öffnen steigt die Spannung am sekundären Ende der Spule, durch das zusammenbrechende Magnetfeld, an und lädt den Kondensator auf. Dieser Vorgang wird wiederholt, bis der Kondensator so weit aufgeladen ist, dass die Ausgangsspannung den gewünschten Wert hält. Dann wird die Schaltfrequenz auf das Mindestmaß verringert, um den Wert zu halten. Natürlich ist die mögliche Ausgangsspannung nicht unbegrenzt über das Schaltspiel regelbar, sondern ist auch von den Baugrößen der Bauteile abhängig. 
 
 \subsection{Ultraschallkapsel}
-Für den Sender (und Empfänger) wurden auf Piezomodulen basierende Kapsellautsprecher verwendet.  Wichtig sind bei der Überprüfung das nachschwingen der Kapsel, nach Ende des zu sendenden Signals, die Empfindlichkeit auf eingehende Störfrequenzen und die zu erreichende Reichweite mit verschiedenen Signalstärken. Es sollte auch überprüft werden welche Kapseln sich für ein stand-alone Betrieb am geeignetsten ist.
+Für den Sender (und Empfänger) wurden auf Piezomodulen basierende Ultraschallkapseln verwendet, weil Sie die Möglichkeit haben ein Signal auszugeben sowie zu empfangen und sind in Kleinbauform erhältlich. Wichtig sind bei der Überprüfung das nach schwingen der Kapsel, nach Ende des zu sendenden Signals, die Empfindlichkeit auf eingehende Störfrequenzen und die zu erreichende Reichweite mit verschiedenen Signalstärken. Es sollte auch überprüft werden welche Kapseln sich für ein stand-alone Betrieb am geeignetsten ist.
+
 \subsection{Filter}
-Die Filterschaltung soll am Eingang des Empfängers mögliche Störfrequenzen herrausfiltern um eine Verfälschung der gemessenen Strecke zu vermeiden, da die Lautsprecherkapsel nicht ausschließlich Ultraschallsignale aufnimmt.
+Die Filterschaltung soll am Eingang des Empfängers mögliche Störfrequenzen herauszufiltern um eine Verfälschung der gemessenen Strecke zu vermeiden, da die Ultraschallkapsel nicht ausschließlich Ultraschallsignale aufnimmt.
 
 \subsection{Empfänger}
-Im Empfangsbetrieb werden die zurückkommenden Schallsignale, die auf die Lautsprecherkapsel treffen in Sinusförmige Spannungssignale umgewandelt. Die Amplitude dieser Signale hängt von dem Schalldruck der empfangenen Signale ab und ist deutlich nieriger als die Amplitude der gesendeten Signale. Diese Signale müssen anschließend verstärkt werden, um sie mit dem Mikrocontroller auswerten zu können. Zur Vereinfachung der Auswertung macht es auch Sinn, das eingehende analoge Signal in ein Digitales Signal umzuwandeln, dies kann einiges an Verarbeitungsaufwand einsparen. Um die qualität der gemessenen Entfernung besser zu beurteilen sollte auch das Analogesignal ausgewertet und verglichen werden mit dem umgewandelten Digitalen Signal. Es dient unter anderem nämlich dazu wie die spätere Software auszusehen hat, denn die Auswertung eines Analogensignals erfordert mehr Programmieraufwand als die Auswertung eines Digitalensignals. Um ein Digitales Signal auszuwerten reicht es im Grunde genommen auf den ersten Impuls zu warten, die Wartezeit wird in die entfernungsmessung mit einbezogen und somit ergibt sich die Entfernung. Bei der Analogen Auswertung muss mit dem gesendet mit dem empfangenen Signal verglichen und überprüft ob es sich um die 40kHz handelt oder nur eine Störung ist.
-Mit der Zeit, die zwischen dem gesendeten Signal und dem empfangenen Signal vergeht, muss letztendlich der Abstand zwischen dem Sensor und dem Hinderniss berechnet werden.
+Im Empfangsbetrieb werden die zurückkommenden Schallsignale, die auf die Ultraschallkapsel treffen in Sinusförmige Spannungssignale umgewandelt. Die Amplitude dieser Signale hängt von dem Schalldruck der empfangenen Signale ab und ist deutlich nieriger als die Amplitude der gesendeten Signale. Diese Signale müssen anschließend verstärkt werden, um sie mit dem Mikrocontroller auswerten zu können. Zur Vereinfachung der Auswertung macht es auch Sinn, das eingehende analoge Signal in ein Digitales Signal umzuwandeln, dies kann einiges an Verarbeitungsaufwand einsparen. Um die qualität der gemessenen Entfernung besser zu beurteilen sollte auch das Analogesignal ausgewertet und verglichen werden mit dem umgewandelten Digitalen Signal. Es dient unter anderem nämlich dazu wie die spätere Software auszusehen hat, denn die Auswertung eines Analogensignals erfordert mehr Programmieraufwand als die Auswertung eines Digitalensignals. Um ein Digitales Signal auszuwerten reicht es im Grunde genommen auf den ersten Impuls zu warten, die Wartezeit wird in die entfernungsmessung mit einbezogen und somit ergibt sich die Entfernung. Bei der Analogen Auswertung muss mit dem gesendet mit dem empfangenen Signal verglichen und überprüft ob es sich um die 40kHz handelt oder nur eine Störung ist.
+Mit der Zeit, die zwischen dem gesendeten Signal und dem empfangenen Signal vergeht, muss letztendlich der Abstand zwischen dem Sensor und dem Hindernis berechnet werden.
 \subsection{Besonderheit der Software}
 %EventuellVerschieben
-
+Um die die Lesbarkeit des Programms zu fördern wurden APIs (Application Programming Interface) verwendet die schon das passende Register ansteuern anstatt per Hand aus dem Reference Manuel jedes einzelne Register mühevoll rauszusuchen. Das erlaubt Programme leichter zuwarten und zu optimieren.
+Um .mode zu bearbeiten und nach der erforderten Funktion zu konfigurieren reicht es die  \textit {xmc1-gpio.h} zu betrachten. Somit reicht es in das Feld .mode=gewünschte Funktion ein zu eintragen ,in diesem Beispiel ist es \textit{XMC GPIO MODE NPUT PULL UP}.
+Siehe\ref{fig:API} : Die API für ein Programmbeispiel anhand einer PULL-UP Initialisierung.
+\\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
 Code vom Infineon Prozessor XMC 1xxx48 mit der API:
@@ -80,35 +84,63 @@ void pin_in_pullup_init(XMC_GPIO_PORT_t *const port, const uint8_t pin)
   		};
 
   XMC_GPIO_Init(port, pin, &pin_in_config);
-
+/*
  * Initializes input / output mode settings like, pull up / pull down devices,push pull /open drain, and pad driver mode.
  * Also configures alternate function outputs and clears hardware port control for selected \a port and \a pin .
  * It configures hardware registers Pn_IOCR,Pn_OUT,Pn_OMR,Pn_PDISC and Pn_PDR.\n
+*/
 }
 \end{lstlisting}
 \captionof{figure}{Die API für ein Programmbeispiel anhand einer PULL-UP Initialisierung}
 \label{fig:API}
 \end{minipage}
 
+ In der\ref{fig:oAPI} xmc1-gpio.c, veranschaulicht gut was hinter API passiert. Es erfordert viel Einarbeitung in den Prozessor um die einzelnen Funktionsaufrufe zu verstehen, somit erleichter die API immens die Programmierarbeit und ist zeitgleich Anwenderfreundlich.
 
+
+%Code vom Infineon Prozessor XMC 1xxx48 mit ohne API:
+%Pn_IOCR= 	Pn_IOCR & ~ (1<<Port); 	// Input/Output Control
+%Pn_OUT= 	Pn_OUT | (1<<Port);		//Port Output Register
+%Pn_OMR=	Pn_OMR | (1<<Port);		//Port Output Modification
+%Pn_PDISC=	Pn_PDISC &~ (1<<Port);	//Pin Function Decsision Control Register
+%Pn_PDR=	Pn_PDR 	 | (1<<Port);	
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
-Code vom Infineon Prozessor XMC 1xxx48 mit ohne API:
-Pn_IOCR= 	Pn_IOCR & ~ (1<<Port); 	
-Pn_OUT= 	Pn_OUT | (1<<Port);	
-Pn_OMR=	Pn_OMR | (1<<Port);
-Pn_PDISC=	Pn_PDISC | (1<<Port);
-Pn_PDR=	Pn_PDR 	 | (1<<Port);
+void XMC_GPIO_Init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const XMC_GPIO_CONFIG_t *const config)
+{
+  XMC_ASSERT("XMC_GPIO_Init: Invalid port", XMC_GPIO_CHECK_PORT(port));
+  XMC_ASSERT("XMC_GPIO_Init: Invalid mode", XMC_GPIO_IsModeValid(config->mode));
+  XMC_ASSERT("XMC_GPIO_Init: Invalid input hysteresis", XMC_GPIO_CHECK_INPUT_HYSTERESIS(config->input_hysteresis));
+  
+  /* Switch to input */
+  port->IOCR[pin >> 2U] &= ~(uint32_t)((uint32_t)PORT_IOCR_PC_Msk << (PORT_IOCR_PC_Size * (pin & 0x3U)));
+
+  /* HW port control is disabled */
+  port->HWSEL &= ~(uint32_t)((uint32_t)PORT_HWSEL_Msk << ((uint32_t)pin << 1U));
+
+  /* Set input hysteresis */
+  port->PHCR[(uint32_t)pin >> 3U] &= ~(uint32_t)((uint32_t)PORT_PHCR_Msk << ((uint32_t)PORT_PHCR_Size * ((uint32_t)pin & 0x7U)));
+  port->PHCR[(uint32_t)pin >> 3U] |= (uint32_t)config->input_hysteresis << ((uint32_t)PORT_PHCR_Size * ((uint32_t)pin & 0x7U));
+    
+  /* Enable digital input */
+  if (XMC_GPIO_CHECK_ANALOG_PORT(port))
+  {    
+    port->PDISC &= ~(uint32_t)((uint32_t)0x1U << pin);
+  }
+  /* Set output level */
+  port->OMR = (uint32_t)config->output_level << pin;
+  
+  /* Set mode */
+  port->IOCR[pin >> 2U] |= (uint32_t)config->mode << (PORT_IOCR_PC_Size * (pin & 0x3U));
+}
 \end{lstlisting}
-\captionof{figure}{Ohne API für ein Programmbeispiel anhand einer PULL-UP Initialisierung}
+\captionof{figure}{xmc1 gpio.c}
 \label{fig:oAPI}
 \end{minipage}
 
-Eine besonderheit 
-Um die die Lesbarkeit des Programms zu fördern wurden APIs (Application Programming Interface) verwendet anstatt jedes Register einzeln anzusprechen.Das erlaubt Programme leichter zuwarten.
-Siehe\ref{API} : Die API für ein Programmbeispiel anhand einer PULL-UP Initialisierung. 
-Die API nimmt die mühe volle suche der einzelnen Register ab somit spart "man" sich die Zeit und das Programmieren geht zügiger voran. Die Einstellung und konifugration wird in der XMC Lib siehe dazu den Anhang wo es detalierter beschrieben wird
-Die Dartselungsform erlaubt es ein bessere Verständis der einzelnen Einstellungspunkte als jedes Register einzeln anzusprechen was schnell zu unbersichtlichkit führen kann siehe\ref{oAPI}:Ohne API für ein Programmbeispiel anhand einer PULL-UP Initialisierung. Somit ist die Ansteuerung einzelner Register nur von Vorteilhaft fals keine API Vorhanden ist.
+xmc1-gpio.c sowie xmc-gpio.h lassen sich in der XMC Libary im Anhang finden.
+%Die API nimmt die mühe volle suche der einzelnen Register ab somit spart "man" sich die Zeit und das Programmieren geht zügiger voran. Die Einstellung und konifugration wird in der XMC Lib siehe dazu den Anhang wo es detalierter beschrieben wird
+%Die Dartselungsform erlaubt es ein bessere Verständis der einzelnen Einstellungspunkte als jedes Register einzeln anzusprechen was schnell zu unbersichtlichkit führen kann siehe\ref{fig:oAPI}:Ohne API für ein Programmbeispiel anhand einer PULL-UP Initialisierung. Somit ist die Ansteuerung einzelner Register nur von Vorteilhaft fals keine API Vorhanden ist.
 
 
 

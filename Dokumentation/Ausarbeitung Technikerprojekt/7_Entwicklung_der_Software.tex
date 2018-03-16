@@ -1,5 +1,5 @@
 \subsection{Benötigte Kenntnisse}
-Die Variable x=0-3.
+Die Variable x=0-3 dient als Index.
 Um das Programm zu erstellen werden Kenntnisse z.B. für die Timer CCU4x sowie deren Slices CC40-43 benötigt. Die Funktionen der CCU4x wird in der Reference Manuel beschrieben, siehe dazu Anhang, um die Timer zu Initialisieren wird die XMC LIb benötigt die eine fertige API mit bringt, siehe Kapitel Besonderheiten der Software, so wird nur noch die API mit den richtigigen Parametern beschrieben um die Timer lauffähig zu kriegen. 
 
 \subsubsection{Durchgeführte Berechnungen}
@@ -13,7 +13,7 @@ Auch zur Erfassung der Zeit, die vergeht bis das Echo des Ultraschall-Impulses z
 \subsection{Quellcodeentwurf}
 Um Fehler in der Zeitnahme zu verringern sollten Zeitwerte, die ausgelesen werden sollen direkt am Anfang des Interrupts in Variablen gespeichert werden und nicht erst innerhalb anderer Anweisungen oder Schleifen, da das schon deutliche Abweichungen mit sich bringt.\\
 
-Programmstruktur:
+\textbf{Programmstruktur:}
 Anstatt alles in der main.c an ,siehe Abbildung \ref{fig:main.c1}, Programmcode zu verfassen was bei sehr komplexen Programmen schnell zu unübersichtlichkeit führt hat das Auslagern den Vorteil das der Quellcode Logisch getrennt werden kann und so einer verschlankerung des Codes mit sich bringt. 
 Somit stehen in der Main  vor allem die Aufrufe der verschiedenen benötigten Funktionen. So sieht man in der Main jetzt deutlich, welche Funktionen beim Starten initialisiert werden, und welche Unterprogramme regelmäßig aufgerufen werden. Auch vereinfacht diese Struktur gerade bei Prototypen das Testen der Funktion, so kann im Falle einerfehlerhaften Funktion einfach der Aufruf auskommentiert werden um zu testen, ob der Fehler wirklich von der Funktion herrührt. Dadurch müssen nicht etliche Zeilen Programmcode der Funktion auskommentiert werden, wodurch schnell Fehler entstehen könnten, durch übriggebliebene Zeichen, oder gar beim entfernen der Auskommentierung gelöschte Zeichen.\\
 \begin{minipage}{1\textwidth}
@@ -23,7 +23,7 @@ Somit stehen in der Main  vor allem die Aufrufe der verschiedenen benötigten Fu
 #include "bricklib2/logging/logging.h"
 #include "bricklib2/bootloader/bootloader.h"
 #include "communication.h"
-/****Eigene Include Dateien****/
+/****Eigene Include Dateien*******/
 #include "configs/config.h"
 #include "system_timer/system_timer.h"
 #include "a16pt.h"
@@ -95,7 +95,7 @@ uint16_t a16pt_get_distance(void); //Functional definition
 %\begin{figure}[H]
 %\includegraphics[width=1.0\textwidth]{Struktogramme/a16pt.png}\caption{Struktogramm der a16.pt}\label{fig:Bild2}
 %\end{figure}
-In der Abbildung \ref{fig:a16pt.c1} :a16pt.c werden die für die Entfernungsmessung notwendigen Funktionen und die Interrupt anweisungen, in dem Fall die IRQ21 abgearbeitet, außerdem werden die Timer Synchron abgeschaltet.
+In der Abbildung \ref{fig:a16pt.c1} :a16pt.c ,ein Teilauschnitt des Codes, werden die für die Entfernungsmessung notwendigen Funktionen und die Interrupt anweisungen, in dem Fall die IRQ21, abgearbeitet außerdem werden die Timer Synchron abgeschaltet und aus experementellen gründen wurde ein weitere Impuls generiert um zu beobachten wie sich das nachschwingen verhält bei einer längeren Kurzschlusszeit an der Ultraschallkapsell.
 \\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}%WICHTIGÄNDERN
@@ -119,19 +119,23 @@ void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 
 		__NOP();
 	}
+	
+	//new pin configuration
 	const XMC_GPIO_CONFIG_t pin_out_config	= {
 			.mode                = XMC_GPIO_MODE_OUTPUT_PUSH_PULL,
 			.output_level        = XMC_GPIO_OUTPUT_LEVEL_HIGH,
 		};
 
-	  XMC_GPIO_Init(P4_6, &pin_out_config);
+	 XMC_GPIO_Init(P4_6, &pin_out_config);
+	//Creat a high impulse
 	for(s=0; s<50; s++)
 		{
 			__NOP();
 		}
 	// Stop slice 0
 	XMC_CCU4_SLICE_StopClearTimer(CCU41_CC42);
-
+	
+	//pin configuration back to the PWM-Mode
 	const XMC_GPIO_CONFIG_t gpio_out_config1	= {
 		.mode                = XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT9,
 		.input_hysteresis    = XMC_GPIO_INPUT_HYSTERESIS_STANDARD,
@@ -141,7 +145,7 @@ void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 	XMC_GPIO_Init(P4_6, &gpio_out_config1);
 	// Enable IRQs again
 	__enable_irq();
-	//XMC_CCU4_SLICE_StartTimer(CCU40_CC40);
+
 
 }
 \end{lstlisting}
