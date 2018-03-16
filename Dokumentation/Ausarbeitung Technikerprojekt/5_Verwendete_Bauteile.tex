@@ -2,31 +2,30 @@
 Der Infineon XMC 1xxx48 gehört zu der Familie der ARM Cortex -M0 Prozessoren und ist ein 32-bit Industrial Microcontroller und wird mit 48MHz externer Clock betrieben. Die 48 im Namen des Prozessors steht für die Anzahl der Pins. Der interne Timer läuft mit 96Mhz. Unteranderem besitzt die CCU4 von dem Prozessor 2x4 16 bit Timer. Außerdem bietet der XMC einen 12 bit A/D Wandler, welcher für die Analogmessung eine viel genauere Auflösung bieten kann als ein 8 bit A/D Wandler. Die Betriebsspannung des Prozessors beträgt 3,3V. Die Auswahl des Controller wurde getroffen, weil der standardmäßig auch schon bei Tinkerforge eingsetz wird und uns für den Prototypen vorgeben wurde.\
 
 
-\subsection{Sender}
-Um eine Trennung zwischen des CPU Kreises (3,3V) und des Hochsetzstellers (6V-20V) dessen Aufgabe ist höhere Spannung an der Ultraschallkapsel zur erzielen, eignete sich das IC A5950 (Voll Brücke).
-Wie in Abbildung \ref{fig:} zu sehen ist, kann die H-Brücke eine angeschlossene Last mit der Vom Hochsetzstellers erzeugten Spannung versorgen, deren Frequenz über das Signal an der Anschluss Phase der CPU vorgegeben werden an Out1 und Out2 wird das Ausgangssignal abgegriffen. Für die genaue Beschaltung des ICs siehe Anhang Datenblatt “Schimatic A5950“.
+\subsection{Sender}%Bearbeiten
+Um eine Trennung zwischen des CPU Kreises (3,3V) und des Hochsetzstellers (6V-20V) dessen Aufgabe ist eine höhere Spannung an der Ultraschallkapsel zur erzielen, dafür eignete sich das IC A5950 (Voll Brücke).
+Wie in Abbildung \ref{fig:} zu sehen ist, kann die H-Brücke eine angeschlossene Last mit der vom Hochsetzstellers erzeugten Spannung versorgen, deren Frequenz über das Signal an der Anschluss Phase der CPU vorgegeben werden an Out1 und Out2 wird das Ausgangssignal abgegriffen. Für die genaue Beschaltung des ICs siehe Anhang Datenblatt “Schimatic A5950“.
 
-\subsection{Hochsetzsteller}
-Mit einer Induktivität von \(\displaystyle 10mH\) und einem Kapazität von \(\displaystyle 40uF\) lässt sich die Ausgangsspannung bei 5V Eingangsspannung zwischen 6V und 20V einstellen.
+\subsection{Hochsetzsteller}%Dannat
+%Mit einer Induktivität von \(\displaystyle 10mH\) und einem Kapazität von \(\displaystyle 4,7uF\) lässt sich die Ausgangsspannung bei 5V Eingangsspannung zwischen 6V und 20V einstellen.
+Tinkerforge nutzt schon eine Variante eines Hochsetzstellers auf ihren Platinen somit konnte der Aufbau und die Bauteilauswahl nur auf die Varible Ausgangspannungs  erweitert werden.
+Die Standardschaltung, von Tinkerforge, wurde an dem Eingang der Feedbackspannung mit einem Potentiometer erweiter um die gewünschte Variablespannung zubekommen.  
 \onehalfspacing \\
 \(\displaystyle R1=R2*\left(\frac{Vout}{1,23}-1\right)\Rightarrow Vout=\left(\frac{R1}{R2}+1\right)*1,23\) 
 \singlespacing
 
 
-\subsection{Ultraschallkapsel}
+\subsection{Ultraschallkapsel}%bearbeiten
 Für den Prototypen wurden mehrere Kapseln vereschiedener Hersteller bestellt. Dieses geschah um Unterschiede der verschiedenpreisigen Bauteile zu ermitteln und festzustellen, welches Preissegment die nötige Qualität für die vorliegende Anwendung erfüllt.
 
 
-
-
-\subsection{Filter}
-
-Die Empfänger Schaltung wurde mit einem Hochpassfilter (CR Glied) bestückt bestehend aus C12 und R5 um unerwünschte Signalanteile mit Frequenzen, die unter 40kHz liegen, zu unterdrücken. Der Widerstand wurde nach der e24 Reihe ausgewählt.
+\subsection{Filter}%bearbeiten
+Die Filterschaltung wurde mit einem Hochpassfilter (CR Glied) bestückt bestehend aus C12 und R5 um unerwünschte Signalanteile mit Frequenzen, die unter 40kHz liegen, zu unterdrücken. Der Widerstand wurde nach der e24 Reihe ausgewählt.
 Die Kapazität des Kondensators C12 wurde an die Grenzfrequenz von 40 kHz und den Widerstand angepasst.
 \onehalfspacing \\
 \(\displaystyle C12=\frac{1}{2*pi*fg*R}\Rightarrow\frac{1}{2*pi*40kHz*100 K\Omega}\approx40pF \)
 \singlespacing
-Durch nachträgliche Versuche wurde festgestellt, dass durch das erhöhen der Kapazität auch die Qualität der Filterung des Signals sich verbessert, in den folgenden Abbildungen\ref{fig:Ohne Filter}, \ref{fig:Hochpass 40pF} ,\ref{fig:Hochpass 100nF} sind die Unterschiede zusehen.
+Anhand der Berechnung wurde ein Kondensator mit 39pF genommen für den Hochpassfilter
 
 \subsection{Empfänger}
 Die Abbildung \ref{fig:empfängerschaltung} zeigt die Empfängerschaltung. Durch diese Verschaltung von Operationsverstärkern(OPVs) wird das ankommende Sinusförmige Signal verstärkt und in ein digitales Signal umgewandelt. 
@@ -40,8 +39,6 @@ Für die Umwandlung des Analogen Signales in ein Digitales wurde der Operationsv
 \onehalfspacing \\
 \(\displaystyle Uref=\frac{Uges*R9}{R8+R9}\Rightarrow\frac{3,3V*120K\Omega}{100K\Omega+120K\Omega}=1,8V \)
 \singlespacing
-
-
 
 
 
