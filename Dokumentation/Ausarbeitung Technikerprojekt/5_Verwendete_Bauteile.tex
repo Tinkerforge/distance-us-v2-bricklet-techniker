@@ -40,5 +40,77 @@ Für die Umwandlung des Analogen Signales in ein Digitales wurde der Operationsv
 \(\displaystyle Uref=\frac{Uges*R9}{R8+R9}\Rightarrow\frac{3,3V*120K\Omega}{100K\Omega+120K\Omega}=1,8V \)
 \singlespacing
 
+\subsection{Besonderheit der Software}
+%EventuellVerschieben
+Um die die Lesbarkeit des Programms zu fördern wurden APIs (Application Programming Interface) verwendet die schon das passende Register ansteuern anstatt per Hand aus dem Reference Manuel jedes einzelne Register mühevoll rauszusuchen. Das erlaubt Programme leichter zuwarten und zu optimieren.
+Um .mode zu bearbeiten und nach der erforderten Funktion zu konfigurieren reicht es die  \textit {xmc1-gpio.h} zu betrachten. Somit reicht es in das Feld .mode=gewünschte Funktion ein zu eintragen ,in diesem Beispiel ist es \textit{XMC GPIO MODE NPUT PULL UP}.
+Siehe\ref{fig:API} : Die API für ein Programmbeispiel anhand einer PULL-UP Initialisierung.
+\\
+\begin{minipage}{1\textwidth}
+\begin{lstlisting}
+Code vom Infineon Prozessor XMC 1xxx48 mit der API:
+void pin_in_pullup_init(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+{
+  const	XMC_GPIO_CONFIG_t pin_in_config = {
+  			.mode             = XMC_GPIO_MODE_INPUT_PULL_UP, /**< Defines the direction and characteristics of a pin */
+  			.output_level     = XMC_GPIO_OUTPUT_LEVEL_HIGH, /**< Defines output level of a pin */
+  			.input_hysteresis	= XMC_GPIO_INPUT_HYSTERESIS_STANDARD /**< Defines input pad hysteresis of a pin */
+  		};
 
+  XMC_GPIO_Init(port, pin, &pin_in_config);
+/*
+ * Initializes input / output mode settings like, pull up / pull down devices,push pull /open drain, and pad driver mode.
+ * Also configures alternate function outputs and clears hardware port control for selected \a port and \a pin .
+ * It configures hardware registers Pn_IOCR,Pn_OUT,Pn_OMR,Pn_PDISC and Pn_PDR.\n
+*/
+}
+\end{lstlisting}
+\captionof{figure}{Die API für ein Programmbeispiel anhand einer PULL-UP Initialisierung}
+\label{fig:API}
+\end{minipage}
+
+ In der\ref{fig:oAPI} xmc1-gpio.c, veranschaulicht gut was hinter API passiert. Es erfordert viel Einarbeitung in den Prozessor um die einzelnen Funktionsaufrufe zu verstehen, somit erleichter die API immens die Programmierarbeit und ist zeitgleich Anwenderfreundlich.
+
+
+%Code vom Infineon Prozessor XMC 1xxx48 mit ohne API:
+%Pn_IOCR= 	Pn_IOCR & ~ (1<<Port); 	// Input/Output Control
+%Pn_OUT= 	Pn_OUT | (1<<Port);		//Port Output Register
+%Pn_OMR=	Pn_OMR | (1<<Port);		//Port Output Modification
+%Pn_PDISC=	Pn_PDISC &~ (1<<Port);	//Pin Function Decsision Control Register
+%Pn_PDR=	Pn_PDR 	 | (1<<Port);	
+\begin{minipage}{1\textwidth}
+\begin{lstlisting}
+void XMC_GPIO_Init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const XMC_GPIO_CONFIG_t *const config)
+{
+  XMC_ASSERT("XMC_GPIO_Init: Invalid port", XMC_GPIO_CHECK_PORT(port));
+  XMC_ASSERT("XMC_GPIO_Init: Invalid mode", XMC_GPIO_IsModeValid(config->mode));
+  XMC_ASSERT("XMC_GPIO_Init: Invalid input hysteresis", XMC_GPIO_CHECK_INPUT_HYSTERESIS(config->input_hysteresis));
+  
+  /* Switch to input */
+  port->IOCR[pin >> 2U] &= ~(uint32_t)((uint32_t)PORT_IOCR_PC_Msk << (PORT_IOCR_PC_Size * (pin & 0x3U)));
+
+  /* HW port control is disabled */
+  port->HWSEL &= ~(uint32_t)((uint32_t)PORT_HWSEL_Msk << ((uint32_t)pin << 1U));
+
+  /* Set input hysteresis */
+  port->PHCR[(uint32_t)pin >> 3U] &= ~(uint32_t)((uint32_t)PORT_PHCR_Msk << ((uint32_t)PORT_PHCR_Size * ((uint32_t)pin & 0x7U)));
+  port->PHCR[(uint32_t)pin >> 3U] |= (uint32_t)config->input_hysteresis << ((uint32_t)PORT_PHCR_Size * ((uint32_t)pin & 0x7U));
+    
+  /* Enable digital input */
+  if (XMC_GPIO_CHECK_ANALOG_PORT(port))
+  {    
+    port->PDISC &= ~(uint32_t)((uint32_t)0x1U << pin);
+  }
+  /* Set output level */
+  port->OMR = (uint32_t)config->output_level << pin;
+  
+  /* Set mode */
+  port->IOCR[pin >> 2U] |= (uint32_t)config->mode << (PORT_IOCR_PC_Size * (pin & 0x3U));
+}
+\end{lstlisting}
+\captionof{figure}{xmc1 gpio.c}
+\label{fig:oAPI}
+\end{minipage}
+
+xmc1-gpio.c sowie xmc-gpio.h lassen sich in der XMC Libary im Anhang finden.
 
