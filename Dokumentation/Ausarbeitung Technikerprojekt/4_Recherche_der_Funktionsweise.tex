@@ -46,11 +46,11 @@
 Das Blockschaltbild, siehe Abbildung\ref{fig:Blockschaltbild1}, zeigt eine vereinfachte Funktionsübersicht. Der Schaltplan befindet in den Anlagen.
 
 \subsection{Controller}
-Der Controller soll eine stabile und variable PWM ausgeben können. Es werden für die Zeiterfassung und die PWM Ausgabe mehrere Timer benötigt die Intern und von der Hardware gesteuert werden können. Ein Analog/Digital Wandler sollte vorhanden sein.
+Der Controller soll eine stabile und variable PWM ausgeben können. Es werden für die Zeiterfassung und die PWM Ausgabe mehrere Timer benötigt, die Intern und von der Hardware gesteuert werden können. Ein Analog/Digital Wandler sollte vorhanden sein.
 
 \subsection{Sender}
 Der Sender soll Schallwellen im Ultraschallbereich (40 kHz) aussenden, die einen ausreichenden Schalldruck haben, um von Hindernissen, die mehrere Meter entfernt sind, ein Echo erhalten zu können.
-Dafür muss die Lautsprecherkapsel mit einem sinusähnlichen Signal angesteuert werden, dessen Amplitude angemessen hoch ist, um den gewünschten Schalldruck zu erzeugen. Der Nachteil ist, dass der Mikrocontroller nur auf seine Spannungsebene von 3,3 V begrenzt ist und durch höhere Spannungen zerstört würde.
+Dafür muss die Ultraschallkapsel mit einem sinusähnlichen Signal angesteuert werden, dessen Amplitude angemessen hoch ist, um den gewünschten Schalldruck zu erzeugen. Der Nachteil ist, dass der Mikrocontroller nur auf seine Spannungsebene von 3,3 V begrenzt ist und durch höhere Spannungen zerstört werden würde.
 Um höhere Spannungen an der Ultraschallkapsel realisieren zu können, muss ein Schalter als weiteres Bauteil dazwischen geschaltet werden. Dieses zusätzliche Bauteil dient als Trennung zwischen den 3,3 V des Mikrocontrollers und der höheren Spannungsebene der Lautsprecherkapsel. Dabei wird darauf zu achten sein, dass der Schalter schnell genug arbeitet, um die 40 kHz auch zuverlässig schalten zu können.
 
 \subsection{Hochsetzsteller}
