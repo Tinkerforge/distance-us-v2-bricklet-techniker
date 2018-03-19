@@ -14,7 +14,7 @@ Siehe Kapitel Messungen am Ausgang des Controller für das PWM Signal sowie die 
 \subsection{Quellcodeentwurf}
 
 \textbf{Programmstruktur:}
-Anstatt alles in der main.c an, siehe Abbildung \ref{fig:main.c1}, Programmcode zu verfassen was bei sehr komplexen Programmen schnell zu Unübersichtlichkeit führt hat das Auslagern den Vorteil das der Quellcode Logisch getrennt werden kann und so einer verschlankerung des Codes mit sich bringt. 
+Anstatt alles in der Distance US main.c ,siehe Abbildung \ref{fig:main.c1}, an Programmcode zu verfassen was bei sehr komplexen Programmen schnell zu Unübersichtlichkeit führt hat das Auslagern den Vorteil das der Quellcode Logisch getrennt werden kann und so einer verschlankerung des Codes mit sich bringt. 
 Somit stehen in der Main  vor allem die Aufrufe der verschiedenen benötigten Funktionen. So sieht man in der Main jetzt deutlich, welche Funktionen beim Starten initialisiert werden, und welche Unterprogramme regelmäßig aufgerufen werden. Auch vereinfacht diese Struktur gerade bei Prototypen das Testen der Funktion, so kann im Falle einerfehlerhaften Funktion einfach der Aufruf auskommentiert werden um zu testen, ob der Fehler wirklich von der Funktion herrührt. Dadurch müssen nicht etliche Zeilen Programmcode der Funktion auskommentiert werden, wodurch schnell Fehler entstehen könnten, durch übriggebliebene Zeichen, oder gar beim entfernen der Auskommentierung gelöschte Zeichen.\\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
@@ -45,7 +45,7 @@ int main(void)
 \captionof{figure}{Die main.c des Distance US}
 \label{fig:main.c1}
 \end{minipage}\\
-Um die Function call zu verstehen muss die Abbildung \ref{fig:a16pt.h}: a16pt.h näher betrachtet werden.
+Um die FUnktionsaufrufe zu verstehen muss die Abbildung \ref{fig:a16pt.h}: config a16pt.h näher betrachtet werden.
 In der der a16pt.h werden die Funktionen definiert die dann in der main.c aufgerufen werden und die Funktionsanweisungen stehen dafür in der a16pt.c. \ref{fig:a16pt.c}\\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
@@ -57,7 +57,7 @@ void a16pt_tick(void); 			//Functional definition
 uint16_t a16pt_get_distance(void); //Functional definition
 #endif
 \end{lstlisting}
-\captionof{figure}{a16pt.h}
+\captionof{figure}{config a16pt.h}
 \label{fig:a16pt.h}
 \end{minipage}\\
 \\
@@ -95,7 +95,7 @@ void a16pt_init(void)
 
 
 \textbf{Interrupt Aufruf:}
-In der Abbildung \ref{fig:a16pt.c1} :a16pt.c Interrupt Aufruf, werden die für die Entfernungsmessung notwendigen Funktionen und die Interrupt anweisungen, in dem Fall die IRQ21, abgearbeitet außerdem werden die Timer Synchron abgeschaltet und aus experementellen gründen wurde ein weitere Impuls generiert um zu beobachten wie sich das nachschwingen verhält bei einer längeren Kurzschlusszeit an der Ultraschallkapsell. Die IRQ21 wird vom Counter aufgerufen nach dem 10 PWM Impuls erreicht wurde.
+In der Abbildung \ref{fig:a16pt.c1} :a16pt.c Interrupt Aufruf, werden die für die Entfernungsmessung notwendigen Funktionen und die Interrupt anweisungen, in dem Fall die IRQ21, abgearbeitet außerdem werden die Timer Synchron abgeschaltet und aus experementellen gründen wurde ein weitere Impuls generiert um zu beobachten wie sich das nachschwingen verhält bei einer längeren Kurzschlusszeit an der Ultraschallkapsell. Die IRQ wird auch als Interrupt bezeichnet und wird von der Hardware oder von der Software ausgelöst.
 \\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
