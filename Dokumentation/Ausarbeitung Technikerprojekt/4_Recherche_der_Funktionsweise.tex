@@ -61,14 +61,12 @@ Die Funktionsweise des Hochsetzstellers (Spannungspumpe/Aufwärtswandler/Aufwär
 Für das Senden und Empfangen des Ultraschalls wird eine auf Piezomodulen basierende Ultraschallkapsel verwendet, weil Sie die Möglichkeit hat ein Signal auszugeben sowie zu empfangen und in Kleinbauform erhältlich ist. Wie stark das Nachschwingen der Kapsel eine Auswirkung auf die Empfängerschaltung hat sollte überprüft werden, sowie größe der Störfrequenz bei verschiedenen Amplituden auf unterchiedlichen Entfernungen. Es sollte auch getestet werden welche Kapseln sich für einen stand-alone Betrieb am besten eignen.
 
 \subsection{Filter}
-Die Filterschaltung soll am Eingang des Empfängers mögliche Störfrequenzen herauszufiltern um eine Verfälschung der gemessenen Strecke zu vermeiden, da die Ultraschallkapsel nicht ausschließlich Ultraschallsignale aufnimmt.
+Die Filterschaltung soll am Eingang des Empfängers mögliche Störfrequenzen herauszufiltern um eine Verfälschung der gemessenen Strecke zu vermeiden, da die Ultraschallkapsel nicht ausschließlich Ultraschallsignale aufnimmt. Für Hochefrequenzen eignet sich eine passive Hochpassfilter-Schaltung, weil sich einfach zu demensionieren ist, es wird zu einem Kondensator oder einer Spule ein Widerstand parallel zur Masse bestückt. 
 
 \subsection{Empfänger}
 Im Empfangsbetrieb werden die zurückkommenden Schallsignale, die auf die Ultraschallkapsel treffen, in sinusförmige Spannungssignale umgewandelt. Die Amplitude hängt von dem Schalldruck der empfangenen Signale ab und ist deutlich nieriger als die Amplitude der gesendeten Signale. Diese Signale müssen anschließend verstärkt werden, um sie mit dem Mikrocontroller auswerten zu können. Zur Vereinfachung der Auswertung wird das eingehende analoge Signal in ein digitales Signal umzuwandeln, um Verarbeitungsaufwand einsparen zu können, denn die Auswertung eines Analogsignals erfordert mehr Programmieraufwand als die Auswertung eines Digitalsignals. Um die Qualität der gemessenen Entfernung besser zu beurteilen sollte eventuell auch das Analogsignal ausgewertet und mit dem digitalen Signal verglichen werden. 
 
 
-%Die API nimmt die mühe volle suche der einzelnen Register ab somit spart "man" sich die Zeit und das Programmieren geht zügiger voran. Die Einstellung und konifugration wird in der XMC Lib siehe dazu den Anhang wo es detalierter beschrieben wird
-%Die Dartselungsform erlaubt es ein bessere Verständis der einzelnen Einstellungspunkte als jedes Register einzeln anzusprechen was schnell zu unbersichtlichkit führen kann siehe\ref{fig:oAPI}:Ohne API für ein Programmbeispiel anhand einer PULL-UP Initialisierung. Somit ist die Ansteuerung einzelner Register nur von Vorteilhaft fals keine API Vorhanden ist.
 
 
 

@@ -42,8 +42,8 @@ Für die Umwandlung des Analogen Signales in ein Digitales wurde der Operationsv
 
 \subsection{Besonderheit der Software}
 %EventuellVerschieben
-Um die die Lesbarkeit des Programms zu fördern wurden APIs (Application Programming Interface) verwendet die schon das passende Register ansteuern anstatt per Hand aus dem Reference Manuel jedes einzelne Register mühevoll rauszusuchen. Das erlaubt Programme leichter zuwarten und zu optimieren.
-Um .mode zu bearbeiten und nach der erforderten Funktion zu konfigurieren reicht es die  \textit {xmc1-gpio.h} zu betrachten. Somit reicht es in das Feld .mode=gewünschte Funktion ein zu eintragen ,in diesem Beispiel ist es \textit{XMC GPIO MODE NPUT PULL UP}.
+Um die die Lesbarkeit des Programms zu fördern wurden APIs (Application Programming Interface) verwendet die schon das passende Register ansteuern anstatt per Hand aus dem Reference Manuel jedes einzelne Register rauszusuchen. Das erlaubt Programme leichter zuwarten und zu optimieren.
+Um .mode zu bearbeiten und nach der erforderten Funktion zu konfigurieren reicht es die  \textit {xmc1-gpio.h} zu betrachten. Somit reicht es in das Feld .mode=gewünschte Funktion ein zu eintragen, in diesem Beispiel ist es \textit{XMC GPIO MODE NPUT PULL UP}.
 Siehe\ref{fig:API} : Die API für ein Programmbeispiel anhand einer PULL-UP Initialisierung.
 \\
 \begin{minipage}{1\textwidth}
@@ -69,12 +69,9 @@ void pin_in_pullup_init(XMC_GPIO_PORT_t *const port, const uint8_t pin)
 \label{fig:API}
 \end{minipage}
 
- In der\ref{fig:oAPI} xmc1-gpio.c, veranschaulicht gut was hinter API passiert. Es erfordert viel Einarbeitung in den Prozessor um die einzelnen Funktionsaufrufe zu verstehen, somit erleichter die API immens die Programmierarbeit und ist zeitgleich Anwenderfreundlich.
+ In der\ref{fig:oAPI} Teilausschnitt von der GPIO Init in der xmc1 gpio.c Datei, veranschaulicht gut was hinter API passiert. Es erfordert viel Einarbeitung in den Prozessor um die einzelnen Funktionsaufrufe zu verstehen, somit erleichter die API die Programmierarbeit und ist zeitgleich Anwenderfreundlich.
 
 
-%Code vom Infineon Prozessor XMC 1xxx48 mit ohne API:
-%Pn_IOCR= 	Pn_IOCR & ~ (1<<Port); 	// Input/Output Control
-%Pn_OUT= 	Pn_OUT | (1<<Port);		//Port Output Register
 %Pn_OMR=	Pn_OMR | (1<<Port);		//Port Output Modification
 %Pn_PDISC=	Pn_PDISC &~ (1<<Port);	//Pin Function Decsision Control Register
 %Pn_PDR=	Pn_PDR 	 | (1<<Port);	
@@ -95,22 +92,13 @@ void XMC_GPIO_Init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const XMC_GPI
   /* Set input hysteresis */
   port->PHCR[(uint32_t)pin >> 3U] &= ~(uint32_t)((uint32_t)PORT_PHCR_Msk << ((uint32_t)PORT_PHCR_Size * ((uint32_t)pin & 0x7U)));
   port->PHCR[(uint32_t)pin >> 3U] |= (uint32_t)config->input_hysteresis << ((uint32_t)PORT_PHCR_Size * ((uint32_t)pin & 0x7U));
-    
-  /* Enable digital input */
-  if (XMC_GPIO_CHECK_ANALOG_PORT(port))
-  {    
-    port->PDISC &= ~(uint32_t)((uint32_t)0x1U << pin);
-  }
-  /* Set output level */
-  port->OMR = (uint32_t)config->output_level << pin;
-  
-  /* Set mode */
-  port->IOCR[pin >> 2U] |= (uint32_t)config->mode << (PORT_IOCR_PC_Size * (pin & 0x3U));
-}
+.
+.
+.    
 \end{lstlisting}
-\captionof{figure}{xmc1 gpio.c}
+\captionof{figure}{Teilausschnitt von der GPIO Init in der xmc1 gpio.c Datei }
 \label{fig:oAPI}
 \end{minipage}
 
-xmc1-gpio.c sowie xmc-gpio.h lassen sich in der XMC Libary im Anhang finden.
+xmc1-gpio.c sowie xmc1-gpio.h lassen sich in der XMC Libary im Anhang finden.
 
