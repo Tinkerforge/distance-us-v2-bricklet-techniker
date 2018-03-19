@@ -1,0 +1,79 @@
+\tikzstyle{block} = [draw, fill=blue!20, rectangle, 
+    minimum height=3em, minimum width=6em]
+\tikzstyle{block1} = [draw, fill=white!20, rectangle, 
+    minimum height=3em, minimum width=10em]
+\tikzstyle{pinstyle} = [pin edge={to-,think,black}]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{line} = [ draw, dashed, line width = 0.5pt, -latex']
+
+\begin{minipage}{0.75\textwidth}
+
+\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+\begin{picture}(250,100)
+\put(-38,-122){\dashbox{2.5}(210,45)[rb] {Empfänger}}
+%\put(-38-122){\text{Empfänger}}
+\node [block](controller){Controller};
+\node [block, right of=controller, node distance=4.5cm] (sender)  {Sender};
+\node [block, above of=sender, node distance=2cm] (hochsetzsteller) {Hochsetzsteller};
+\node [block, right of=sender, node distance=4.5cm] (ultraschallkapsel)  {Ultraschallkapsel};
+\node [block, below of=ultraschallkapsel, node distance=3.5cm] (filterung)  {Filterung};
+\node [block, left of=filterung, node distance=4.5cm] (verstaerker)  {Verstaerker};
+\node [block, left of=verstaerker, node distance=4.5cm] (komperrator)  {Komperrator};
+
+\draw [->] (controller) -- node[name=PWM ] {$PWM$}  (sender);
+\node [output, right of=sender] (output) {};
+\coordinate [below of=PWM] (tmp);
+\draw [->] (hochsetzsteller) -- node[name=VBB ] {$VBB$}  (sender);
+\node [output, above of=sender] (output) {};
+\coordinate [below of=VBB] (tmp);
+\draw [->] (sender) --  (ultraschallkapsel);
+\draw [->] (ultraschallkapsel) --  (filterung);
+\draw [->] (filterung) --  (verstaerker);
+\draw [->] (verstaerker) --  (komperrator);
+\node [output, right of=sender] (output) {};
+\coordinate [below of=PWM] (tmp);
+\draw [->] (komperrator) --  node[name=Digital ] {$Digital$} (controller);
+\node [output, above of=komperrator] (output) {};
+\coordinate [below of=Digital] (tmp);
+\path[line] (verstaerker)--node[name=analog] {$Analog$}  (controller);
+\end{picture}
+\end{tikzpicture}
+\captionof{figure}{Blockschaltbild}
+\label{fig:Blockschaltbild1}
+\end{minipage}
+
+Das Blockschaltbild, siehe Abbildung\ref{fig:Blockschaltbild1}, zeigt eine vereinfachte Funktionsübersicht. Der Schaltplan befindet in den Anlagen.
+
+\subsection{Controller}
+Der Controller soll eine stabile und variable PWM ausgeben können. Es werden für die Zeiterfassung und die PWM Ausgabe mehrere Timer benötigt, die Intern und von der Hardware gesteuert werden können. Ein Analog/Digital Wandler sollte vorhanden sein.
+
+\subsection{Sender}
+Der Sender soll Schallwellen im Ultraschallbereich (40 kHz) aussenden, die einen ausreichenden Schalldruck haben, um von Hindernissen, die mehrere Meter entfernt sind, ein Echo erhalten zu können.
+Dafür muss die Ultraschallkapsel mit einem sinusähnlichen Signal angesteuert werden, dessen Amplitude angemessen hoch ist, um den gewünschten Schalldruck zu erzeugen. Der Nachteil ist, dass der Controller nur auf seine Spannungsebene von 3,3 V begrenzt ist und durch höhere Spannungen zerstört werden würde.
+Um höhere Spannungen an der Ultraschallkapsel realisieren zu können, muss ein Schalter als weiteres Bauteil dazwischen geschaltet werden. Dieses zusätzliche Bauteil dient als Trennung zwischen den 3,3 V des Mikrocontrollers und der höheren Spannungsebene der Lautsprecherkapsel. Dabei wird darauf zu achten sein, dass der Schalter schnell genug arbeitet, um die 40 kHz auch zuverlässig schalten zu können.
+
+\subsection{Hochsetzsteller}
+Der Hochsetzsteller dient dazu, aus den 5~V Versorgungsspannung eine höhere Spannung für den Sendebetrieb zu schaffen. So kann der Schalldruck, der ausgegeben wird erhöht werden (größere Reichweite/größeres Rücksignal) siehe Kaptiel:Messungen.\\%Wichtig KapitelAnpassen
+Die Funktionsweise des Hochsetzstellers (Spannungspumpe/Aufwärtswandler/Aufwärtsregler) ist überschaubar und findet in vielen Bereichen Anwendung. Grundsätzlich wird eine Induktivität in Reihe mit einer Freilaufdiode vor einen Ladekondensator geschaltet. Dieser liegt parallel zum Ausgang. Zwischen der Spule und der Diode ist ein Schalter angeschlossen, der die Spule gegen Masse schaltet. So lädt sich die Spule bei Betätigung des Schalters auf, wobei durch den Stromfluss ein Magnetfeld entsteht und beim Öffnen steigt die Spannung am sekundären Ende der Spule, durch das zusammenbrechende Magnetfeld, an und lädt den Kondensator auf. \textbf{Dieser Vorgang wird wiederholt bis der Kondensator so weit aufgeladen ist, dass die Ausgangsspannung den gewünschten Wert hält. Dann wird die Schaltfrequenz auf das Mindestmaß verringert um den Wert zu halten.} Natürlich ist die mögliche Ausgangsspannung nicht unbegrenzt über das Schaltspiel regelbar, sondern ist von den Eigenschaften der Karakteristik abhängig. 
+%Satz überdenken
+\subsection{Ultraschallkapsel}
+Für das Senden und Empfangen des Ultraschalls wird eine auf Piezomodulen basierende Ultraschallkapsel verwendet, weil Sie die Möglichkeit hat ein Signal auszugeben sowie zu empfangen und in Kleinbauform erhältlich ist. Wie stark das Nachschwingen der Kapsel eine Auswirkung auf die Empfängerschaltung hat sollte überprüft werden, sowie größe der Störfrequenz bei verschiedenen Amplituden auf unterchiedlichen Entfernungen. Es sollte auch getestet werden welche Kapseln sich für einen stand-alone Betrieb am besten eignen.
+
+\subsection{Filter}
+Die Filterschaltung soll am Eingang des Empfängers mögliche Störfrequenzen herauszufiltern um eine Verfälschung der gemessenen Strecke zu vermeiden, da die Ultraschallkapsel nicht ausschließlich Ultraschallsignale aufnimmt. Für Hochefrequenzen eignet sich eine passive Hochpassfilter-Schaltung, weil sich einfach zu demensionieren ist, es wird zu einem Kondensator oder einer Spule ein Widerstand parallel zur Masse bestückt. 
+
+\subsection{Empfänger}
+Im Empfangsbetrieb werden die zurückkommenden Schallsignale, die auf die Ultraschallkapsel treffen, in sinusförmige Spannungssignale umgewandelt. Die Amplitude hängt von dem Schalldruck der empfangenen Signale ab und ist deutlich nieriger als die Amplitude der gesendeten Signale. Diese Signale müssen anschließend verstärkt werden, um sie mit dem Mikrocontroller auswerten zu können. Zur Vereinfachung der Auswertung wird das eingehende analoge Signal in ein digitales Signal umzuwandeln, um Verarbeitungsaufwand einsparen zu können, denn die Auswertung eines Analogsignals erfordert mehr Programmieraufwand als die Auswertung eines Digitalsignals. Um die Qualität der gemessenen Entfernung besser zu beurteilen sollte eventuell auch das Analogsignal ausgewertet und mit dem digitalen Signal verglichen werden. 
+
+
+
+
+
+
+
+
+
+
+
+
