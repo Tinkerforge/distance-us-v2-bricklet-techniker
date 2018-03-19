@@ -1,5 +1,5 @@
 \subsection{Controller}
-Der Infineon XMC 1xxx48 gehört zu der Familie der ARM Cortex -M0 Prozessoren und ist ein 32-bit Industrial Microcontroller und wird mit 48MHz externer Clock betrieben. Die 48 im Namen des Prozessors steht für die Anzahl der Pins. Der interne Timer läuft mit 96Mhz. Unteranderem besitzt die CCU4 von dem Prozessor 2x4 16 bit Timer. Außerdem bietet der XMC einen 12 bit A/D Wandler, welcher für die Analogmessung eine viel genauere Auflösung bieten kann als ein 8 bit A/D Wandler. Die Betriebsspannung des Prozessors beträgt 3,3V. Die Auswahl des Controller wurde getroffen, weil der standardmäßig auch schon bei Tinkerforge eingsetz wird und uns für den Prototypen vorgeben wurde.\
+Der Infineon XMC 1xxx48 gehört zu der Familie der ARM Cortex -M0 Prozessoren und ist ein 32-bit Industrial Microcontroller und wird mit 48MHz externer Clock betrieben. Die 48 im Namen des Prozessors steht für die Anzahl der Pins. Der interne Timer läuft mit 96Mhz. Unteranderem besitzt die CCU4 von dem Prozessor 2x4 16 bit Timer. Außerdem bietet der XMC einen 12 bit A/D Wandler, welcher für die Analogmessung eine viel genauere Auflösung bieten kann als ein 8 bit A/D Wandler. Die Betriebsspannung des Prozessors beträgt 3,3V. Die Auswahl des Controller wurde getroffen, weil der standardmäßig auch schon bei Tinkerforge eingsetz wird und uns für den Prototypen vorgeben wurde. Der Controller bietet eine weitere Besonderheit beim Programmieren, siehe dazu das Unterkapitel x.x\\
 
 
 \subsection{Sender}%Bearbeiten
@@ -44,7 +44,7 @@ Für die Umwandlung des Analogen Signales in ein Digitales wurde der Operationsv
 
 \subsection{Besonderheit der Software}
 %EventuellVerschieben
-Um die die Lesbarkeit des Programms zu fördern wurden APIs (Application Programming Interface) verwendet die schon das passende Register ansteuern anstatt per Hand aus dem Reference Manuel jedes einzelne Register rauszusuchen. Das erlaubt Programme leichter zuwarten und zu optimieren.
+Um die die Lesbarkeit des Programms zu fördern wurden APIs (Application Programming Interface) verwendet die schon das passende Register ansteuern anstatt per Hand aus dem Reference Manuel jedes einzelne Register rauszusuchen. Das erlaubt Programme leichter zuwarten und zu optimieren. Die APIs lassen sich in der XMC Lib finden, dies ist eine Bibilothek die der Hersteller zuverfügung stellt.
 Um .mode zu bearbeiten und nach der erforderten Funktion zu konfigurieren reicht es die  \textit {xmc1-gpio.h} zu betrachten. Somit reicht es in das Feld .mode=gewünschte Funktion ein zu eintragen, in diesem Beispiel ist es \textit{XMC GPIO MODE NPUT PULL UP}.
 Siehe\ref{fig:API} : Die API für ein Programmbeispiel anhand einer PULL-UP Initialisierung.
 \\
