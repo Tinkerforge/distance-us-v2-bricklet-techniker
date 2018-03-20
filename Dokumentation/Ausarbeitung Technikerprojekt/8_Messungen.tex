@@ -33,10 +33,9 @@ Mit der verwendeten Halbbrücke ergab sich die Abbildung \ref{fig:Halfbridge}\\
 \captionof{figure}{Ausgabe der PWM an der Ultraschallkapsel}
 \label{fig:Senderausgabe}
 \end{minipage}
-Es zeigt sich, dass das Signal nach der Erweiterung auf eine Halbbrücke wieder wie das von der CPU ausgegebene PWM-Signal \ref{fig:pwm-burst} aussieht, nur dass die Amplitude wie geplant höher ausfällt. Somit kann die Höhe der Amplitude über die Spannungspumpe variiert werden um die Stärke des ausgegebenen Signals zu verändern, ohne die CPU durch die höhere Spannung zu beschädigen. Wie in der Abbildung \ref{fig:Senderausgabe} zu entnehmen ist, entstehen durch die angeschlossene Ultraschallkapsel höhere Spannungsimpulse im Einschaltmoment.
-
+Es zeigt sich, dass das Signal nach der Erweiterung auf eine Halbbrücke wieder wie das von der CPU ausgegebene PWM-Signal \ref{fig:pwm-burst} aussieht, nur dass die Amplitude wie geplant höher ausfällt. Somit kann die Höhe der Amplitude über die Spannungspumpe variiert werden um die Stärke des ausgegebenen Signals zu verändern, ohne die CPU durch die höhere Spannung zu beschädigen. Wie in der Abbildung \ref{fig:Senderausgabe} zu entnehmen ist, entstehen durch die angeschlossene Ultraschallkapsel höhere Spannungsimpulse in den Schaltmomenten. Diese Spannungsspitzen, die durch die Ultraschallkapsel entstehen, wurden in den Versuchen vernachlässigt, da keine Gefährdung anderer Bauteile entstand. Das somit generierte Ausgangssignal entsprach den Anforderungen und musste für die Versuche nicht weiter bearbeitet werden.
 \subsection{Empfängerkreis}
-Die Platinen des Sender- und Empfängerkreises wurden gemeinsam auf einer Halterung montiert, so dass die Ultraschallkapseln zum senden und empfangen der Signale nebeneinander befestigt werden konnten. Ziel war es, durch verschieben eines Hindernisses die Signaländerungen an den Platinen beobachten zu können, ohne die gesamten Messaufbauten bewegen zu müssen. \\
+Die Platinen des Sender- und Empfängerkreises wurden gemeinsam auf einer Halterung montiert, so dass die Ultraschallkapseln zum senden und empfangen der Signale nebeneinander befestigt werden konnten. Ziel war es, durch verschieben eines Hindernisses die Signaländerungen an den Platinen beobachten zu können, ohne die gesamten Messaufbauten bewegen zu müssen. Bei der Aufnahme der Messungen wurde der Empfängerkreis Schritt für Schritt überprüft um zu erfahren, wie sich das empfangene Signal durch die einzelnen Bauteile verändert.\\
 \begin{minipage}{0.5\textwidth}
 \includegraphics[width=1\textwidth%, draft
 ]{Abbildungen/MessungenP1/Signal-Empfang.png}
@@ -49,16 +48,8 @@ Die Platinen des Sender- und Empfängerkreises wurden gemeinsam auf einer Halter
 \captionof{figure}{Signal nach Verstärkung}
 \label{fig:Verstaerkung}
 \end{minipage}
-%\begin{minipage}{0.5\textwidth}
-%\includegraphics[width=1\textwidth%, draft
-%]{Abbildungen/MessungenP1/Signal-nach-der-Filterung.png}
-%\captionof{figure}{Signal nach der Filterung}
-%\label{fig:Filterung}
-%\end{minipage}
-Die Abbildung \ref{fig:Empfang am LS} zeigt das Signal, das direkt am Empfänger zu messen war. Hier sind verschiedene vorerst nicht zuordenbare Signale zu sehen. Allein aus diesem Bild lässt sich aber keine Aussage zu den Signalen machen. Fest steht nur, dass ebenfalls Signale die nicht der gewünschten Frequenz entsprechen, vom Empfänger aufgenommen werden. Dies gilt es natürlich schnellst möglich auszumerzen, um unerwünschte Störungen zu vermeiden.
-Die Abbildungen \ref{fig:Verstaerkung} und \ref{fig:Verstaerkung2} zeigen den Verlauf des Signals nach der Filterung und Verstärkung in zwei verschiedenen Zeitauflösungen. Dabei entspricht \ref{fig:Verstaerkung} den ersten drei Kästchen von \ref{fig:Verstaerkung2} und dient um darzustellen, dass die Verstärkung eine maximale Aussteuerung von 3,3V nicht überschreitet.
-%In der Abbildung \ref{fig:Filterung} ist das Signal nach dem eingebauten Hochpassfilter zu sehen.\\
-
+Die Abbildung \ref{fig:Empfang am LS} zeigt das Signal, das direkt am Empfänger zu messen war. Hier sind verschiedene vorerst nicht zuordenbare Signale zu sehen. Allein aus diesem Bild lässt sich daher keine Aussage zu den einzelnen Signalen machen. Fest steht nur, dass ebenfalls Signale die nicht der gewünschten Frequenz entsprechen, vom Empfänger aufgenommen werden. Dies gilt es natürlich schnellst möglich auszumerzen, um unerwünschte Störungen zu vermeiden.
+Die Abbildungen \ref{fig:Verstaerkung} und \ref{fig:Verstaerkung2} zeigen den Verlauf des Signals nach der Filterung und Verstärkung in zwei verschiedenen Zeitauflösungen. Dabei entspricht \ref{fig:Verstaerkung} den ersten drei Kästchen von \ref{fig:Verstaerkung2} und dient um darzustellen, dass die Verstärkung eine maximale Aussteuerung von 3,3V nicht überschreitet.\\
 \begin{minipage}{0.5\textwidth}
 \includegraphics[width=1\textwidth%, draft
 ]{Abbildungen/MessungenP1/Signal-nach-Verstarkung2.png}
@@ -72,44 +63,17 @@ Die Abbildungen \ref{fig:Verstaerkung} und \ref{fig:Verstaerkung2} zeigen den Ve
 \label{fig:Komparator}
 \end{minipage}\\
 Nach dem das Signal den Komparator passiert hat, ergibt sich das Bild wie in Abbildung \ref{fig:Komparator} zu sehen ist. Bei einem Vergleich mit dem Signal nach der Verstärkung \ref{fig:Verstaerkung2} wird sichtbar, dass der Komparator nur Signale, die über seinem Schwellwert liegen, durchschaltet. Die Aufteilung in zwei Signalblöcke in den Abbildungen kommt daher, dass der erste Block das Signal der Sender-Kapsel ist, das direkt beim Senden seitlich auf die Empfänger-Kapsel abgestrahlt wurde. Der zweite Block ist bereits das Echo, das vom 20cm entfernten Hindernis zurückgeworfen wurde.\\
-%Nachfolgend wurden die Signalverläufe mit verschiedenen Ultraschallkapseln aufgenommen, um vergleichen zu können, wie die Signalqualität bei verschiedenen Produkten schwankt. Dabei wurde die Amplitude von 4,6V für das Sendersignal und die Verstärkung des Empfängers auf ein Minimum eingestellt.\\
-%\begin{minipage}{0.5\textwidth}
-%\includegraphics[width=1\textwidth%, draft
-%]{Abbildungen/MessungenP1/EKULIT1,5m.png}
-%\captionof{figure}{EKULIT 1,5m}
-%\label{fig:EKULIT1,5m}
-%\end{minipage}
-%\begin{minipage}{0.5\textwidth}
-%\includegraphics[width=1\textwidth%, draft
-%]{Abbildungen/MessungenP1/MURATAr1,5m.png}
-%\captionof{figure}{MURATA reciver 1,5m}
-%\label{fig:MURATA reciver 1,5m}
-%\end{minipage}
-%\begin{minipage}{0.5\textwidth}
-%\includegraphics[width=1\textwidth%, draft
-%]{Abbildungen/MessungenP1/MURATAs1,5m.png}
-%\captionof{figure}{MURATA sender 1,5m}
-%\label{fig:MURATA sender 1,5m}
-%\end{minipage}
-%\begin{minipage}{0.5\textwidth}
-%\includegraphics[width=1\textwidth%, draft
-%]{Abbildungen/MessungenP1/MURATAsr1,5m.png}
-%\captionof{figure}{MURATA sender + reciver 1,5m}
-%\label{fig:MURATA sender+reciver}
-%\end{minipage}\\
-%Bei den Ultraschallkapseln von EKULIT zeigte sowohl eine Verpoolung der Anschlüsse, als auch ein Tausch von Sender- und Empfängerkapsel keinen Unterschied. Bei den Ultraschallkapseln von MURATA sind bei der Wahl der Kapseln dagegen deutliche Unterschiede zu sehen. Werden nur die Sender-Kapseln als Sender und Empfänger verwendet, entsteht das in Abbildung \ref{fig:MURATA sender 1,5m} zu sehende Signal. Die Breite des eingehenden Echo Signals ist deutlich geringer, als bei den anderen verwendeten Kombinationen. Am besten sind die Signale bei der Kombination aus Sender und Empfänger von MURATA, Abbildung \ref{fig:MURATA sender+reciver} oder bei den EKULIT-Kapseln, Abbildung \ref{fig:EKULIT1,5m}.
-
+Anhand dieser Ergebnisse kann festgehalten werden, dass die einfachere Version des Ultraschall-Entfernungsmessers durchaus simpel umzusetzen ist. Es fehlt nur noch ein Programm, das die Zeit, die bis zum eintreffen des Echo-Signals in einen Abstand vom Hindernis konvertiert. Besagtes Programm wurde nicht für diese Prototypversion erstellt, da der Anspruch bestand, den Betrieb nicht nur über eine Platine, sondern auch noch über eine Ultraschallkapsel ablaufen zu lassen.
+\newpage
 \section{Prototyp 2}
-Bei der zweiten Prototyp-Version wurden der Sender- und der Empfängerkreis auf einer Platine aufgebaut und es wurde nur noch eine Ultraschallkapsel für beide Anwendungen vorgesehen.
-Um bei diesem Aufbau, einen fehlerfreien Betrieb der verwendeten voll gesteuerten Halbbrücke sicherzustellen, wurden durch den Mikrocontroller zwei getrennte PWM-Signale generiert, die wie in Abbildung \ref{fig:PWMs} zu sehen ist, durch Lücken getrennt sind. So ist sichergestellt, dass auch trotz Verzögerungen im Schaltbetrieb der Halbleiter, keine Kurzschlüsse entstehen können.\\
-% Denn es darf nie außer Acht gelassen werden, dass die Einschaltzeiten von MOSFETs meistens kürzer sind, als die Ausschaltzeiten (letztere sind bis zu dreimal so lang).
+Bei der zweiten Prototyp-Version wurden der Sender- und der Empfängerkreis auf einer Platine aufgebaut und es wurde nur noch eine Ultraschallkapsel für beide Anwendungen vorgesehen. Dadurch bestand die Notwendigkeit, die Halbbrücke der ersten Prototyp-Version durch eine voll gesteuerte Halbbrücke zu ersetzen. Dies geschah, weil für den gewünschten Betrieb drei und nicht zwei Schaltzustände benötigt wurden. Nicht nur sollte die Ultraschallkapsel mit HI-, oder LOW-Signal ansteuerbar sein, auch ein dritter Potentialfreier Zustand war nötig, damit die Echo-Signale auch empfangen werden können. Um bei diesem Aufbau, einen fehlerfreien Betrieb der verwendeten voll gesteuerten Halbbrücke sicherzustellen, wurden durch den Mikrocontroller zwei getrennte PWM-Signale generiert, die wie in Abbildung \ref{fig:PWMs} zu sehen ist, durch Lücken getrennt sind. So ist sichergestellt, dass auch trotz Verzögerungen im Schaltbetrieb der Halbleiter, keine Kurzschlüsse entstehen können.\\
 \begin{minipage}{0.75\textwidth}
 \includegraphics[width=1\textwidth%, draft
 ]{Abbildungen/MessungenP2/Zwei_PWMs_von_der_CPU.PNG}
 \captionof{figure}{Verlauf der zwei generierten PWMs für den Betrieb der voll gesteuerte Halbbrücke}
 \label{fig:PWMs}
 \end{minipage}\\
-Nachdem dieser Betrieb sichergestellt war, wurden Messungen am Verstärker (obere Linie), und am Komparator (untere Linie) vorgenommen. Dabei wurde die Verstärkung so eingestellt, dass unerwünschte Störungen gerade so nicht vom Komparator weitergegeben wurden. Die Spannung für den Sendebetrieb wurde für die Versuche zwischen 5V und 20V variiert, um betrachten zu können, wie sich das auf die Reichweite und Genauigkeit der Messungen auswirkt. Als Hindernis wurde bei allen Versuchen eine glatte Holzplatte der Maße 40x60cm verwendet und in einem Abstand von ein bis fünf Metern von der Ultraschallkapsel aufgestellt.In den Abbildungen \ref{fig:5v1m} bis \ref{fig:5v4m} sind die Ergebnisse einer Messreihe mit einer Spannung von 5V für den Sendebetrieb dargestellt. Die Ansicht wurde so eingestellt, dass zwei Sendeimpulse zu sehen sind. Dadurch wird deutlicher, welches die Sende Impulse sind, und welches die von der Entfernung abhängigen Echos sind.\\
+Nachdem dieser Betrieb sichergestellt war, wurden Messungen am Verstärker (obere Linie), und am Komparator (untere Linie) vorgenommen. Dabei wurde die Verstärkung so eingestellt, dass unerwünschte Störungen gerade so nicht vom Komparator weitergegeben wurden. Die Spannung für den Sendebetrieb wurde für die Versuche zwischen 5V und 20V variiert, um betrachten zu können, wie sich das auf die Reichweite und Genauigkeit der Messungen auswirkt. Als Hindernis wurde bei allen Versuchen eine glatte Holzplatte der Maße 50x64cm verwendet und in einem Abstand von ein bis fünf Metern von der Ultraschallkapsel entfernt aufgestellt. In den Abbildungen \ref{fig:5v1m} bis \ref{fig:5v4m} sind die Ergebnisse einer Messreihe mit einer Spannung von 5V für den Sendebetrieb dargestellt. Die Ansicht wurde so eingestellt, dass zwei Sendeimpulse zu sehen sind. Dadurch wird deutlicher, welches die Sende Impulse sind, und welches die von der Entfernung abhängigen Echos sind.\\
 \begin{minipage}{0.5\textwidth}
 \includegraphics[width=1\textwidth%, draft
 ]{Abbildungen/MessungenP2/5V/1mb.PNG}
@@ -134,7 +98,7 @@ Nachdem dieser Betrieb sichergestellt war, wurden Messungen am Verstärker (ober
 \captionof{figure}{Signalverlauf bei 5V auf 4m Abstand}
 \label{fig:5v4m}
 \end{minipage}
-Bei den Abbildungen ist zu sehen, dass das Echo-Signal mit zunehmender Entfernung immer schwächer wird. Bei einer Entfernung von fünf Metern (Abbildung \ref{fig:5v4m}) wird das Echo-Signal so schwach, dass die Signalstärke nach dem Komparator nicht mehr für eine eindeutige Auswertung über den Mikrokontroller ausreicht. Nachfolgend sind die Abbildungen einer Messreihe mit verschiedenen Spannungseinstellungen für den Sendebetrieb zu sehen. Anhand dieser Messreihe soll dargestellt werden, welchen Einfluss die eingestellte Spannung im Sendebetrieb auf die Reichweite des Ultraschallsignals hat. Für die Darstellung wurden die Messungen bei 5 Meter Abstand ausgewählt.\\
+Bei den Abbildungen ist zu sehen, dass das Echo-Signal mit zunehmender Entfernung immer schwächer wird. Bei einer Entfernung von vier Metern (Abbildung \ref{fig:5v4m}) wird das Echo-Signal so schwach, dass die Signalstärke nach dem Komparator nicht mehr für eine eindeutige Auswertung über den Mikrocontroller ausreicht. Nachfolgend sind die Abbildungen einer Messreihe mit verschiedenen Spannungseinstellungen für den Sendebetrieb zu sehen. Anhand dieser Messreihe soll dargestellt werden, welchen Einfluss die eingestellte Spannung im Sendebetrieb auf die Reichweite des Ultraschallsignals hat. Für die Darstellung wurden die Messungen bei 5 Meter Abstand ausgewählt.\\
 \begin{minipage}{0.5\textwidth}
 \includegraphics[width=1\textwidth%, draft
 ]{Abbildungen/MessungenP2/5V/5m.PNG}
@@ -159,11 +123,27 @@ Bei den Abbildungen ist zu sehen, dass das Echo-Signal mit zunehmender Entfernun
 \captionof{figure}{Signalverlauf bei 20V auf 5m Abstand}
 \label{fig:20v5m}
 \end{minipage}
-Bei Vergleich der Abbildungen \ref{fig:5v5m2} und \ref{fig:10v5m} mit den Abbildungen \ref{fig:15v5m} und \ref{fig:20v5m}  ist zu sehen, dassbei einem Abstand von 5 Metern erst bei einer Sendespannung von über 10V am Komparator ein über den Mikrokontroller auswertbares Signal vorhanden ist. 
-
-
-
-
+Bei Vergleich der Abbildungen \ref{fig:5v5m2} und \ref{fig:10v5m} mit den Abbildungen \ref{fig:15v5m} und \ref{fig:20v5m}  ist zu sehen, dass bei einem Abstand von 5 Metern erst bei einer Sendespannung von über 10V, auch am Komparator ein über den Mikrocontroller auswertbares Signal vorhanden ist. \\
+In der nachfolgenden Tabelle \ref{tab:Entfernungsmessung} wurden die vom ersten Impuls des gesendeten Signals, bis zum ersten Impuls des Echo-Signals aufgetragen, und anhand der Schallgeschwindigkeit die Entfernung, die der Schall zurückgelegt hat berechnet. Dazu wurde noch die Abweichung der berechneten Entfernung von der eingestellten Entfernung angegeben.\\
+\\
+\begin{minipage}{1\textwidth}
+\begin{tabularx}{\textwidth}{p{0.18\textwidth}|r|r|r}
+Entfernung [m]& Zeit bis Anfang Echo [ms]  & Errechnete Entfernung [m] & Abweichung [cm]\\
+\hline
+1 & 6,07 & 1,0416 & 4,16\\
+1,5 & 8,97 & 1,5392 & 3,92\\
+2 & 11,92 & 2,0454 & 4,54\\
+2,5 & 14,8 & 2,5396 & 3,96\\
+3 & 17,75 & 3,0459 & 4,59\\
+3,5 & 20,65 & 3,5435 & 4,35\\
+4 & 23,56 & 4,0428 & 4,28\\
+4,5 & 26,49 & 4,5456 & 4,56\\
+5 & 29,46 & 5,0553 & 5,53\\
+\end{tabularx}
+\captionof{table}{Entfernungsmessung mit Abweichung bei 20V Sendespannung}
+\label{tab:Entfernungsmessung}
+\end{minipage}\\
+Wie befürchtet sind bei der errechneten Entfernung Abweichungen im Bereich weniger Zentimeter aufgetreten. Bei Betrachtung der Abweichungen wird allerdings deutlich, dass die Werte bis auf einen, alle im Bereich von 4cm bis 4,5cm liegen. Ähnliche Abweichungen waren auch bei den anderen Messreihen zu beobachten. Somit ließe sich die Abweichung durch einen Korrekturwert auf ein Minimum reduzieren und würde einen Zentimeter nur noch selten überschreiten. Des weiteren sollte festgehalten werden, dass der erste Impuls des Echo-Signals als Referenz für die Entfernungsberechnung zu nutzen ist. Die anfänglichen Überlegungen, den letzten Impuls des Echo-Signals, oder einen Mittelwert aus allen empfangenen Impulsen zu verwenden beinhaltet ein höheres Fehlerpotential, da die Dauer des Echo-Signals durch niederfrequente Störgeräusche deutlich verlängert werden kann. Dies ließ sich bei einem der Tests beobachten, als im Hintergrund ein Lasercutter betrieben wurde. Dabei entstanden entgegen der Befürchtung keine Störsignale, stattdessen war die Signalintensität des Echo-Signals deutlich höher als bei Versuchen in einer stillen Umgebung. 
 
 
 
