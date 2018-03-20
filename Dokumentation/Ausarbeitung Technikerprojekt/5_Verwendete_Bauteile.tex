@@ -10,7 +10,7 @@ Die H-Brücke kann eine angeschlossene Last mit der vom Hochsetzstellers erzeugt
 \subsection{Hochsetzsteller}%Dannat
 
 Tinkerforge nutzt schon eine Variante eines Hochsetzstellers auf ihren Platinen somit konnte der Aufbau und die Bauteilauswahl nur auf die Variable Ausgangspannungs erweitert werden. Die Standardschaltung, von Tinkerforge, wurde an dem Eingang der Feedbackspannung mit einem Potentiometer (RV1) erweitert, um die gewünschte Variable Spannung zubekommen.\\
-Die Ausgangsspannung wird mit den externen Widerständen RV1, R13 und R2 eingestellt (siehe Grund Schaltung Datenblatt S.11). Ein Wert von ca. \(\displaystyle 13,3~ K\Omega \) wurde für R2 empfohlen. Mit den Potentiometer (RV1) lässt sich die Ausgangsspannung bei 5~V Eingangsspannung bis 21,5~V einstellen. In der Formel werden die Widerstände RV1 und R13 zum Ersatz widerstand(Re) zusammengefasst.
+Die Ausgangsspannung wird mit den externen Widerständen RV1, R13 und R2 eingestellt (siehe Grund Schaltung Datenblatt S.11). Ein Wert von ca. \(\displaystyle 13,3~K\Omega \) wurde für R2 empfohlen. Mit den Potentiometer (RV1) lässt sich die Ausgangsspannung bei 5~V Eingangsspannung bis 21,5~V einstellen. In der Formel werden die Widerstände RV1 und R13 zum Ersatz widerstand(Re) zusammengefasst.
 \onehalfspacing \\
 \(\displaystyle Re=R2*\left(\frac{Vout}{1,23}-1\right) \Rightarrow Vout=\left(\frac{Re}{R2}+1\right)*1,23\) 
 \singlespacing
@@ -29,9 +29,9 @@ Für den Prototypen wurden mehrere Kapseln vereschiedener Hersteller bestellt. D
 
 \subsection{Filter}%bearbeiten
 Die Filterschaltung wurde mit einem Hochpassfilter (CR Glied) bestückt bestehend aus einem Kodensator (C12) und einem Widerstand (R5) um unerwünschte Signalanteile mit Frequenzen, die unter 40~kHz liegen, zu unterdrücken. Der Widerstand wurde nach der e24 Reihe ausgewählt.
-Die Kapazität des Kondensators C12 wurde an die Grenzfrequenz von 40~ kHz und den Widerstand angepasst.
+Die Kapazität des Kondensators C12 wurde an die Grenzfrequenz von 40~kHz und den Widerstand angepasst.
 \onehalfspacing \\
-\(\displaystyle C12=\frac{1}{2*pi*fg*R}\Rightarrow\frac{1}{2*pi*40~kHz*100~ K\Omega}\approx40~pF \)
+\(\displaystyle C12=\frac{1}{2*pi*fg*R}\Rightarrow\frac{1}{2*pi*40~kHz*100~K\Omega}\approx40~pF \)
 \singlespacing
 Anhand der Berechnung wurde ein Kondensator mit \(\displaystyle 39~pF\) genommen für den Hochpassfilter
 
