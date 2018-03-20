@@ -1,10 +1,10 @@
 \subsection{Controller}
-Der Infineon XMC 1xxx48 gehört zu der Familie der ARM Cortex -M0 Prozessoren und ist ein 32-bit Industrial Microcontroller und wird mit 48~MHz externer Clock betrieben. Die 48 im Namen des Prozessors steht für die Anzahl der Pins. Der interne Timer läuft mit 96Mhz. Unteranderem besitzt die CCU4 von dem Prozessor 2x4 16 bit Timer. Außerdem bietet der XMC einen 12 bit A/D Wandler, welcher für die Analogmessung eine viel genauere Auflösung bieten kann als ein 8 bit A/D Wandler. Die Betriebsspannung des Prozessors beträgt 3,3~V. Die Auswahl des Controller wurde getroffen, weil der standardmäßig auch schon bei Tinkerforge eingsetz wird und uns für den Prototypen vorgeben wurde. Der Controller bietet eine weitere Besonderheit beim Programmieren, siehe dazu das Unterkapitel x.x\\
+Der Infineon XMC 1xxx48 gehört zu der Familie der ARM Cortex -M0 Prozessoren und ist ein 32-bit Industrial Microcontroller und wird mit 48~MHz externer Clock betrieben. Die 48 im Namen des Prozessors steht für die Anzahl der Pins. Der interne Timer läuft mit 96Mhz. Unteranderem besitzt die CCU4 von dem Prozessor 2x4 16 bit Timer. Außerdem bietet der XMC einen 12 bit A/D Wandler, welcher für die Analogmessung eine viel genauere Auflösung bieten kann als ein 8 bit A/D Wandler. Die Betriebsspannung des Prozessors beträgt 3,3~V. Die Auswahl des Controller wurde getroffen, weil der standardmäßig auch schon bei Tinkerforge eingsetz wird und uns für den Prototypen vorgeben wurde. Der Controller bietet eine weitere Besonderheit beim Programmieren, siehe dazu das Unterkapitel \ref{Besonderheit der Software}\\
 
 
 \subsection{Sender}%Bearbeiten
-Um eine Trennung zwischen des CPU Kreises (3,3~V) und des Hochsetzstellers (6~V-20~V) dessen Aufgabe ist eine höhere Spannung an der Ultraschallkapsel zur erzielen, dafür eignete sich das IC A5950 (Voll Brücke).
-Wie in Abbildung \ref{fig:} zu sehen ist, kann die H-Brücke eine angeschlossene Last mit der vom Hochsetzstellers erzeugten Spannung versorgen, deren Frequenz über das Signal an der Anschluss Phase der CPU vorgegeben werden an Out1 und Out2 wird das Ausgangssignal abgegriffen. Für die genaue Beschaltung des ICs siehe Anhang Datenblatt “Schimatic A5950“.
+Um eine Trennung zwischen der CPU (3,3~V) und dem Hochsetzsteller (5~V-20~V), dessen Aufgabe es ist eine höhere Spannung an der Ultraschallkapsel zur erzeugen, zu ermöglichen, wurde ein weiteres Bauteil benötigt. Dafür wurde das IC A5950 (Voll Brücke) ausgewählt.
+Die H-Brücke kann eine angeschlossene Last mit der vom Hochsetzstellers erzeugten Spannung versorgen. Deren Frequenz wird über das Signal an dem Anschluss Phase von der CPU vorgegeben. An Out1 und Out2 wird das Ausgangssignal abgegriffen. Für die genaue Beschaltung des ICs siehe Anhang Datenblatt “Schimatic A5950“.
 
 
 \subsection{Hochsetzsteller}%Dannat
@@ -14,8 +14,14 @@ Die Ausgangsspannung wird mit den externen Widerständen RV1, R13 und R2 eingest
 \onehalfspacing \\
 \(\displaystyle Re=R2*\left(\frac{Vout}{1,23}-1\right) \Rightarrow Vout=\left(\frac{Re}{R2}+1\right)*1,23\) 
 \singlespacing
-
-
+\begin{center}
+\begin{minipage}{0.75\textwidth}
+\includegraphics[width=1\textwidth%, draft
+]{Abbildungen/Pumpe.png}
+\captionof{figure}{Hochsetzsteller}
+\label{fig:Hochsetzsteller}
+\end{minipage}\\
+\end{center}
 
 \subsection{Ultraschallkapsel}%bearbeiten
 Für den Prototypen wurden mehrere Kapseln vereschiedener Hersteller bestellt. Dieses geschah um Unterschiede der verschiedenpreisigen Bauteile zu ermitteln und festzustellen, welches Preissegment die nötige Qualität für die vorliegende Anwendung erfüllt.
@@ -30,7 +36,7 @@ Die Kapazität des Kondensators C12 wurde an die Grenzfrequenz von 40~ kHz und d
 Anhand der Berechnung wurde ein Kondensator mit \(\displaystyle 39~pF\) genommen für den Hochpassfilter
 
 \subsection{Empfänger}
-Die Abbildung \ref{fig:empfängerschaltung} zeigt die Empfängerschaltung. Durch diese Verschaltung von Operationsverstärkern(OPVs) wird das ankommende Sinusförmige Signal verstärkt und in ein digitales Signal umgewandelt. 
+Die Abbildung \ref{fig:Empfaengerschaltung} zeigt die Empfängerschaltung. Durch diese Verschaltung von Operationsverstärkern(OPVs) wird das ankommende Sinusförmige Signal verstärkt und in ein digitales Signal umgewandelt. 
 Für die Verstärkung der Amplitude so wie der Umwandlung des analogen Signals in ein Rechtecksignal mit 40~KHz standen zwei Operationsverstärker zur Auswahl, LT1112 mit einem Stückpreis von 4,80~\euro\ und den TLC272 mit einem Stückpreis von 0,88~\euro\ trotz der besseren Performanz, wurde der TLC272 für die Prototypen ausgewählt um die preislich günstigen Möglichkeiten zu prüfen. Die Versorgungsspannung der OPV's von 3,3~V wird durch den Kondensator C16 (EMV Störfilter) stabilisiert.\\
 Für die Verstärkung der Amplitude ist der Operationsverstärker TLC272 U2B als nicht invertierender Verstärker geschaltet.
 Wenn eine Gleichspannung anliegt, wirkt der Kondensator (C10) in der Operationsverstärkerschaltung als Impedanzwandler, also mit einer Verstärkung von eins, geht nun die Eingangsfrequenz hoch, nimmt der Widerstand des Kondensators (C10) ab, somit beginnt der Operationsverstärker auch zu verstärken, und zwar mit zunehmender Verstärkung, bis irgendwann die Impedanz des Kondensators vernachlässigt werden kann und die Verstärkung nur noch durch das Verhältnis der Widerstände beeinflusst wird, R6 ist zudem notwendig um das schwingen der Amplitude zu verhindern, somit kann die Verstärkung mit folgender Formel berechnet werden:
@@ -41,9 +47,16 @@ Für die Umwandlung des Analogen Signales in ein Digitales wurde der Operationsv
 \onehalfspacing \\
 \(\displaystyle Uref=\frac{Uges*R9}{R8+R9}\Rightarrow\frac{3,3~V*120~K\Omega}{100~K\Omega+120~K\Omega}=1,8~V \)
 \singlespacing
-
+\begin{center}
+\begin{minipage}{0.75\textwidth}
+\includegraphics[width=1\textwidth%, draft
+]{Abbildungen/Empfaenger.png}
+\captionof{figure}{Empfängerschaltung}
+\label{fig:Empfaengerschaltung}
+\end{minipage}\\
+\end{center}
 \subsection{Besonderheit der Software}
-%EventuellVerschieben
+\label{Besonderheit der Software}
 Um die die Lesbarkeit des Programms zu fördern wurden APIs (Application Programming Interface) verwendet die schon das passende Register ansteuern anstatt per Hand aus dem Reference Manuel jedes einzelne Register rauszusuchen. Das erlaubt Programme leichter zuwarten und zu optimieren. Die APIs lassen sich in der XMC Lib finden, dies ist eine Bibilothek die der Hersteller zuverfügung stellt.
 Um .mode zu bearbeiten und nach der erforderten Funktion zu konfigurieren reicht es die  \textit {xmc1-gpio.h} zu betrachten. Somit reicht es in das Feld .mode=gewünschte Funktion ein zu eintragen, in diesem Beispiel ist es \textit{XMC GPIO MODE NPUT PULL UP}.
 Siehe\ref{fig:API} : Die API für ein Programmbeispiel anhand einer PULL-UP Initialisierung.
