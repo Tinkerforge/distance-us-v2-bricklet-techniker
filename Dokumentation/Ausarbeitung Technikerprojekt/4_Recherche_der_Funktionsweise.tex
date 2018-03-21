@@ -14,9 +14,9 @@
 \put(-38,-122){\dashbox{2.5}(210,45)[rb] {Empfänger}}
 %\put(-38-122){\text{Empfänger}}
 \node [block](controller){Controller};
-\node [block, right of=controller, node distance=4.5cm] (sender)  {Sender};
-\node [block, above of=sender, node distance=2cm] (hochsetzsteller) {Hochsetzsteller};
-\node [block, right of=sender, node distance=4.5cm] (ultraschallkapsel)  {Ultraschallkapsel};
+\node [block, right of=controller, node distance=4.5cm] (switch)  {Switch};
+\node [block, above of=switch, node distance=2cm] (hochsetzsteller) {Hochsetzsteller};
+\node [block, right of=switch, node distance=4.5cm] (ultraschallkapsel)  {Ultraschallkapsel};
 \node [block, below of=ultraschallkapsel, node distance=3.5cm] (filterung)  {Filterung};
 \node [block, left of=filterung, node distance=4.5cm] (verstaerker)  {Verstaerker};
 \node [block, left of=verstaerker, node distance=4.5cm] (komperrator)  {Komperrator};
@@ -46,13 +46,13 @@
 
 Das Blockschaltbild, siehe Abbildung\ref{fig:Blockschaltbild1}, zeigt eine vereinfachte Funktionsübersicht. Der Schaltplan befindet in den Anlagen.
 
-\subsection{Controller}
-Der Controller soll eine stabile und variable PWM ausgeben können. Es werden für die Zeiterfassung und die PWM Ausgabe mehrere Timer benötigt, die Intern und von der Hardware gesteuert werden können. Ein Analog/Digital Wandler sollte vorhanden sein.
+\subsection{Mikrocontroller}
+Der Mikrocontroller soll eine stabile und variable PWM ausgeben können. Es werden für die Zeiterfassung und die PWM Ausgabe mehrere Timer benötigt, die sowohl Intern als auch über die Hardware angesteuert werden können. Ein Analog/Digital Wandler sollte vorhanden sein.
 
 \subsection{Sender}
 Der Sender soll Schallwellen im Ultraschallbereich (40~kHz) aussenden, die einen ausreichenden Schalldruck haben, um von Hindernissen, die mehrere Meter entfernt sind, ein Echo erhalten zu können.
 Dafür muss die Ultraschallkapsel mit einem sinusähnlichen Signal angesteuert werden, dessen Amplitude angemessen hoch ist, um den gewünschten Schalldruck zu erzeugen. Der Nachteil ist, dass der Controller nur auf seine Spannungsebene von 3,3~V begrenzt ist und durch höhere Spannungen zerstört werden würde.
-Um höhere Spannungen an der Ultraschallkapsel realisieren zu können, muss ein Schalter als weiteres Bauteil dazwischen geschaltet werden. Dieses zusätzliche Bauteil dient als Trennung zwischen den 3,3~V des Mikrocontrollers und der höheren Spannungsebene der Lautsprecherkapsel. Dabei wird darauf zu achten sein, dass der Schalter schnell genug arbeitet, um die 40~kHz auch zuverlässig schalten zu können.
+Um höhere Spannungen an der Ultraschallkapsel realisieren zu können, muss ein Schalter als weiteres Bauteil dazwischen geschaltet werden. Dieses zusätzliche Bauteil dient als Trennung zwischen den 3,3~V des Mikrocontrollers und der höheren Spannungsebene der Lautsprecherkapsel. Dabei muss darauf geachtet werden, dass der Schalter schnell genug arbeitet, um die 40~kHz auch zuverlässig schalten zu können.
 
 \subsection{Hochsetzsteller}
 Der Hochsetzsteller dient dazu, aus den 5~V Versorgungsspannung eine höhere Spannung für den Sendebetrieb zu schaffen. So kann der Schalldruck, der ausgegeben wird erhöht werden (größere Reichweite/größeres Rücksignal) siehe Kaptiel \ref{Messungen}.\\
@@ -65,7 +65,7 @@ Für das Senden und Empfangen des Ultraschalls wird eine auf Piezomodulen basier
 Die Filterschaltung soll am Eingang des Empfängers mögliche Störfrequenzen herauszufiltern um eine Verfälschung der gemessenen Strecke zu vermeiden, da die Ultraschallkapsel nicht ausschließlich Ultraschallsignale aufnimmt. Für Hochefrequenzen eignet sich eine passive Hochpassfilter-Schaltung, es wird zu einem Kondensator oder einer Spule ein Widerstand parallel zur Masse bestückt. 
 
 \subsection{Empfänger}
-Im Empfangsbetrieb werden die zurückkommenden Schallsignale, die auf die Ultraschallkapsel treffen, in sinusförmige Spannungssignale umgewandelt. Die Amplitude hängt von dem Schalldruck der empfangenen Signale ab und ist deutlich niedriger als die Amplitude der gesendeten Signale. Diese Signale müssen anschließend verstärkt werden, um sie mit dem Mikrocontroller auswerten zu können. Zur Vereinfachung der Auswertung wird das eingehende analoge Signal in ein digitales Signal umzuwandeln, um Verarbeitungsaufwand einsparen zu können, denn die Auswertung eines Analogsignals erfordert mehr Programmieraufwand als die Auswertung eines Digitalsignals. Um die Qualität der gemessenen Entfernung besser zu beurteilen sollte eventuell auch das Analogsignal ausgewertet und mit dem digitalen Signal verglichen werden. 
+Im Empfangsbetrieb werden die zurückkommenden Schallsignale, die auf die Ultraschallkapsel treffen, in sinusförmige Spannungssignale umgewandelt. Die Amplitude hängt von dem Schalldruck der empfangenen Signale ab und ist deutlich niedriger als die Amplitude der gesendeten Signale. Diese Signale müssen anschließend verstärkt werden, um sie mit dem Mikrocontroller auswerten zu können. Zur Vereinfachung der Auswertung wird das eingehende analoge Signal in ein digitales Signal umzuwandeln sein. Dadurch wird sich Verarbeitungsaufwand einsparen lassen, denn die Auswertung eines Analogsignals erfordert mehr Programmieraufwand als die Auswertung eines Digitalsignals. Um die Qualität der gemessenen Entfernung besser zu beurteilen sollte eventuell auch das Analogsignal ausgewertet und mit dem digitalen Signal verglichen werden. 
 
 
 
