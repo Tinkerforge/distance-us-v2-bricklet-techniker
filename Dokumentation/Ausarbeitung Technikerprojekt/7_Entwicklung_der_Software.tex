@@ -1,23 +1,20 @@
 \subsection{Benötigte Kenntnisse}
 Um das Programm zu erstellen sollten Kenntnisse z.B. für die Capture Compare Unit des Mikrocontrollers vorhanden sein. Die CCU4 hat insgesamt 4 Einheiten und jede einzelne besitzt mehrer Slices von CC40 bis CC43. Slices können untereinander verschachtelt werden um so z.B. Interrupt Service Routinen aufzurufenird, siehe dazu das Reference Manuel.
-Der Werte der Register mit denen die Zeit gemessen wird müssen sofort zum beginn der Interrupt Service Routine zwischengespeichert werden damit sichergestelt wird das nicht die Zeit zur Berechung mit gemessen wird.\\
+Der Werte der Register mit denen die Zeit gemessen wird müssen sofort zum beginn der Interrupt Service Routine zwischengespeichert werden damit sichergestellt wird das nicht die Zeit zur Brechung mit gemessen wird.\\
 
 \subsubsection{Durchgeführte Berechnungen}
-Auch für die Programmierung waren diverse Berechnungen notwendig. Zur Erzeugung der Ultraschallimpulse wurde ein Pulsweitenmoduliertes Rechtecksignal mit einer Frequenz von 40~kHz generiert. Dafür war es notwendig mit Hilfe der CCU4 einen Timer zur erstellen. So musste bei einem Timertakt von 96~MHz eine Periodendauer von 2400 Takten und einem Compare\_Wert von 1200 Takten  konfiguriert werden. Im Zählvorgang des Timers wird der Ausgang nach erreichen des Compare-Wertes auf 1 gesetzt, und nach erreichen der Periodendauer wieder auf 0 zurückgesetzt. Dadurch ergibt sich eine Periodendauer von 25~\textmu s, was einer Frequenz von 40~kHz entspricht.\\
+Auch für die Programmierung waren diverse Berechnungen notwendig. Zur Erzeugung der Ultraschallimpulse wurde ein pulsweitenmoduliertes Rechtecksignal mit einer Frequenz von 40~kHz generiert. Dafür war es notwendig mit Hilfe der CCU4 einen Timer zur erstellen. So musste bei einem Timertakt von 96~MHz eine Periodendauer von 2400 Takten und einem Compare\_Wert von 1200 Takten  konfiguriert werden. Im Zählvorgang des Timers wird der Ausgang nach erreichen des Compare-Wertes auf 1 gesetzt, und nach erreichen der Periodendauer wieder auf 0 zurückgesetzt. Dadurch ergibt sich eine Periodendauer von 25~\textmu s, was einer Frequenz von 40~kHz entspricht.\\
 Die Zeit die vergeht bis das Echo des Ultraschall-Impulses zurück kommt wird über einen Timer erfasst. 
 \onehalfspacing \\ \\
 \(\displaystyle Periodendauer=\frac{96~MHz}{40~kHz} = 2400 \),  \  \  \    \(\displaystyle Compare\_Wert=\frac{2400}{2} = 1200 \) 
 \singlespacing
 
-Siehe Kapitel Messungen am Ausgang des Controller für das PWM Signal \ref{fig:pwm-burst}sowie die Einstellung der einzelnen Timer, Anhang PWM Configuration sowie Timer Configuration.
-%Neu
+
 \subsection{Quellcodeentwurf}
 
 \textbf{Programmstruktur:}\\
-In der  Distance US main.c befinden sich nur Funktionsaufrufe die eine Grundkonfiguration  für den Controller beinhaltet und eine Schleife die immer wieder abgerufen wird um z.B. eine neue Entfernungsmessung zu starten,siehe Abbildung \ref{fig:main.c1}.
-Anstatt alles in der Distance US main.c an Programmcode zu verfassen was bei  komplexen Programmen schnell zu Unübersichtlichkeit führt hat das Auslagern den Vorteil das der Quellcode Logisch getrennt werden kann und einer verschlankerung des Codes mit sich bringt. 
+In der  Distance US main.c befinden sich nur Funktionsaufrufe die eine Grundkonfiguration  für den Controller beinhaltet und eine Schleife die immer wieder abgerufen wird um z.B. eine neue Entfernungsmessung zu starten, siehe Abbildung \ref{fig:main.c1}. Anstatt alles in der Distance US main.c an Programmcode zu verfassen was bei  komplexen Programmen schnell zu Unübersichtlichkeit führt hat das Auslagern den Vorteil das der Quellcode Logisch getrennt werden kann und einer verschlankerung des Codes mit sich bringt. 
 Somit stehen in der Main  vor allem die Aufrufe der benötigten Funktionen. 
-%So sieht man in der Main jetzt deutlich, welche Funktionen beim Starten initialisiert werden, und welche Unterprogramme regelmäßig aufgerufen werden. 
 Auch vereinfacht diese Struktur gerade bei Prototypen das Testen der Funktion. So kann im Falle einer fehlerhaften Funktion einfach der Aufruf auskommentiert werden um zu testen, ob der Fehler wirklich von der Funktion herrührt. Dadurch müssen nicht etliche Zeilen Programmcode der Funktion auskommentiert werden, wodurch schnell Fehler entstehen könnten, durch übriggebliebene Zeichen, oder gar beim entfernen der Auskommentierung gelöschte Zeichen.\\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
@@ -48,8 +45,8 @@ int main(void)
 \captionof{figure}{Die main.c des Distance US}
 \label{fig:main.c1}
 \end{minipage}\\
-Um die Funktionsaufrufe zu verstehen muss die Abbildung \ref{fig:a16pt.h}: config a16pt.h näher betrachtet werden.
-In der der a16pt.h werden die Funktionen definiert die dann in der main.c aufgerufen werden und die Funktionsanweisungen stehen dafür in der a16pt.c. \ref{fig:a16pt.c}\\
+Um die Funktionsaufrufe wie die a16pt\_init und die a16pt\_tick zu verstehen muss die Abbildung \ref{fig:a16pt.h}: Headerdatei der a16pt.h näher betrachtet werden.
+In der der Datei werden die Funktionen definiert und deren Funktionsanweisung steht dann in der a16pt.c.\\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
 #ifndef A16PT_H
@@ -60,12 +57,12 @@ void a16pt_tick(void); 			//Functional definition
 uint16_t a16pt_get_distance(void); //Functional definition
 #endif
 \end{lstlisting}
-\captionof{figure}{config a16pt.h}
+\captionof{figure}{Headerdatei der a16pt.h}
 \label{fig:a16pt.h}
 \end{minipage}\\
 \\
 \textbf{Init Aufruf:}
-Auch in der \ref{fig:a16pt.c}void a16pt-init(void) gibt es weitere Funktionsaufrufe wo z.B. die PWM oder der Externe Interrupt Initialisiert werden.
+Auch in der Abbildung \ref{fig:a16pt.c}: Ein Teilausschnitt von der a16pt.c mit den Konfiguration Funktionen werden in der void a16pt-init(void)  weitere Funktionsaufrufe wie z.B. die PWM oder der Externe Interrupt aufgerufen und konfiguriert.
 
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
@@ -91,14 +88,14 @@ void a16pt_init(void)
 .
 .
 \end{lstlisting}
-\captionof{figure}{Ein Teilausschnitt von der a16pt.c mit dem Init Aufruf }
+\captionof{figure}{Ein Teilausschnitt von der a16pt.c mit den Konfiguration Funktionen }
 \label{fig:a16pt.c}
 \end{minipage}
 
 
 
 \textbf{Interrupt Aufruf:}
-In der Abbildung \ref{fig:a16pt.c1} :a16pt.c Interrupt Aufruf, werden die für die Entfernungsmessung notwendigen Funktionen und die Interrupt anweisungen, in dem Fall die IRQ21, abgearbeitet außerdem werden die Timer Synchron abgeschaltet und aus experementellen gründen wurde ein weitere Impuls generiert um zu beobachten wie sich das nachschwingen verhält bei einer längeren Kurzschlusszeit an der Ultraschallkapsell. Die IRQ wird auch als Interrupt bezeichnet und wird von der Hardware oder von der Software ausgelöst.
+In der Abbildung \ref{fig:a16pt.c1} :a16pt.c Interrupt Request, werden die für die Entfernungsmessung notwendigen Funktionen und die Interrupt Anweisungen, in dem Fall die IRQ21, abgearbeitet. Außerdem werden die Timer synchron abgeschaltet und aus experimentellen gründen wurde ein weiterer Impuls generiert um zu beobachten wie sich das Nachschwingen bei einer längeren Kurzschlusszeit an der Ultraschallkapsell verhält. Die IRQ wird auch als Interrupt Request bezeichnet und wird von der Hardware oder von der Software ausgelöst.
 \\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
@@ -123,14 +120,14 @@ void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 		__NOP();
 	}
 	
-	//new pin configuration
+	//New pin configuration
 	const XMC_GPIO_CONFIG_t pin_out_config	= {
 			.mode                = XMC_GPIO_MODE_OUTPUT_PUSH_PULL,
 			.output_level        = XMC_GPIO_OUTPUT_LEVEL_HIGH,
 		};
 
 	 XMC_GPIO_Init(P4_6, &pin_out_config);
-	//Creat a high impulse
+	//Creatw a high impulse
 	for(s=0; s<50; s++)
 		{
 			__NOP();
@@ -138,7 +135,7 @@ void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 	// Stop slice 0
 	XMC_CCU4_SLICE_StopClearTimer(CCU41_CC42);
 	
-	//pin configuration back to the PWM-Mode
+	//Pin configuration back to the PWM-Mode
 	const XMC_GPIO_CONFIG_t gpio_out_config1	= {
 		.mode                = XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT9,
 		.input_hysteresis    = XMC_GPIO_INPUT_HYSTERESIS_STANDARD,
@@ -152,7 +149,7 @@ void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 
 }
 \end{lstlisting}
-\captionof{figure}{Ein Teilausschnitt von der a16pt.c mit dem Interrupt Aufruf}
+\captionof{figure}{Ein Teilausschnitt von der a16pt.c mit einem Interrupt Request}
 \label{fig:a16pt.c1}
 \end{minipage}
 
