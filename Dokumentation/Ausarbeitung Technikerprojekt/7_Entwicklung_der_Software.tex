@@ -98,7 +98,6 @@ In der Abbildung \ref{fig:a16pt.c1} werden die für die Entfernungsmessung notwe
 
 void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 {
-
 	// Disable IRQs so we can't be interrupted
 	__disable_irq();
 
@@ -120,68 +119,8 @@ void IRQ_Hdlr_21(void) // Compare Interrupt counter 10
 			.output_level        = XMC_GPIO_OUTPUT_LEVEL_HIGH,
 		};
 
-	 XMC_GPIO_Init(P4_6, &pin_out_config);
-	//Creatw a high impulse
-	for(s=0; s<50; s++)
-		{
-			__NOP();
-		}
-	// Stop slice 0
-	XMC_CCU4_SLICE_StopClearTimer(CCU41_CC42);
-	
-	//Pin configuration back to the PWM-Mode
-	const XMC_GPIO_CONFIG_t gpio_out_config1	= {
-		.mode                = XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT9,
-		.input_hysteresis    = XMC_GPIO_INPUT_HYSTERESIS_STANDARD,
-		.output_level        = XMC_GPIO_OUTPUT_LEVEL_LOW,
-	};
-
-	XMC_GPIO_Init(P4_6, &gpio_out_config1);
-	// Enable IRQs again
-	__enable_irq();
-
-
-}
+...
 \end{lstlisting}
 \captionof{figure}{Ein Teilausschnitt von der a16pt.c mit einem Interrupt Request}
 \label{fig:a16pt.c1}
 \end{minipage}
-
-%\newpage
-%\begin{minipage}{1\textwidth}Eventuell wo anders hin
-%\begin{struktogramm}(120,75)
-%\forever
-%\assign{\#include aufrufe}
-%\while[8]{int main (void)}
- %\sub{Logging init()}
- %\sub{logd ("start Distance us v2 Bricklet")}
- %\sub{Communication init()}
- %\sub{a16pt init()}
-%\while[8]{while (1)}
- %\sub{a16pt\_tick()}
- %\sub{bootloader\_tick()}
-% \sub{Communication\_tick()}
-%\whileend
-%\whileend
-%\foreverend
-
-%  \ifthenelse{10}{4}{Bedingung 1}{ja}{nein}
-%    \ifthenelse{6}{6}{Bedingung 2}{ja}{nein}
-%      \assign{Anweisungsblock 1}
-%    \change
-%      \assign{Anweisungsblock 2}
-%    \ifend
-%  \change
-%    \assign{Anweisungsblock 3}
-%  \ifend
-%\sub{bla}
-%\end{struktogramm}
-%\captionof{figure}{Struktogramm der main}\label{fig:Struktogramm der main}
-%\end{minipage}
-
-%\newpage
-%\begin{figure}[H]
-%\includegraphics[width=1.0\textwidth]{Struktogramme/a16pt.png}\caption{Struktogramm der a16.pt}\label{fig:Bild2}
-%\end{figure}
-
-
