@@ -1,10 +1,10 @@
 \subsection{Benötigte Kenntnisse}
-Um das Programm zu erstellen sollten Kenntnisse z.B. für die Capture Compare Unit des Mikrocontrollers vorhanden sein. Die CCU4 hat insgesamt 4 Einheiten und jede einzelne besitzt mehrer Slices von CC40 bis CC43. Slices können untereinander verschachtelt werden um so z.B. Interrupt Service Routinen aufzurufen, siehe dazu das Reference Manuel.
+Um das Programm zu erstellen sollten Kenntnisse z.B. für die Capture Compare Unit des Mikrocontrollers vorhanden sein. Die CCU4 hat insgesamt 4 Einheiten und jede einzelne besitzt mehrer Slices von CC40 bis CC43. Slices können untereinander verschachtelt werden um z.B. Interrupt Service Routinen aufzurufen, siehe dazu das Reference Manuel.
 Die Werte der Register mit denen die Zeit gemessen wird müssen sofort zum beginn der Interrupt Service Routine zwischengespeichert werden damit sichergestellt wird das nicht die Zeit zur Brechung mit gemessen wird.\\
 
 \subsubsection{Durchgeführte Berechnungen}
-Auch für die Programmierung waren diverse Berechnungen notwendig. Zur Erzeugung der Ultraschallimpulse wurde ein pulsweitenmoduliertes Rechtecksignal mit einer Frequenz von 40~kHz generiert. Dafür war es notwendig mit Hilfe der CCU4 einen Timer zur erstellen. So musste bei einem Timertakt von 96~MHz eine Periodendauer von 2400 Takten und einem Compare\_Wert von 1200 Takten  konfiguriert werden. Im Zählvorgang des Timers wird der Ausgang nach erreichen des Compare-Wertes auf 1 gesetzt, und nach erreichen der Periodendauer wieder auf 0 zurückgesetzt. Dadurch ergibt sich eine Periodendauer von 25~\textmu s, was einer Frequenz von 40~kHz entspricht.\\
-Die Zeit die vergeht bis das Echo des Ultraschall-Impulses zurück kommt wird über einen Timer erfasst. 
+Für die Programmierung waren diverse Berechnungen notwendig. Zur Erzeugung der Ultraschallimpulse wurde ein pulsweitenmoduliertes Rechtecksignal mit einer Frequenz von 40~kHz generiert. Dafür war es notwendig mithilfe der CCU4 einen Timer zur erstellen. Dabei musste bei einem Timertakt von 96~MHz eine Periodendauer von 2400 Takten und einem Comparex\_Wert von 1200 Takten konfiguriert werden. Im Zählvorgang des Timers wird der Ausgang nach erreichen des Compare-Wertes auf 1 gesetzt, und nach erreichen der Periodendauer wieder auf 0 zurückgesetzt. Dadurch ergibt sich eine Periodendauer von 25~\textmu s, was einer Frequenz von 40~kHz entspricht.\\
+Die Zeit, die vergeht, bis das Echo des Ultraschall-Impulses zurückkommt, wird über einen Timer erfasst. 
 \onehalfspacing \\ \\
 \[\displaystyle Periodendauer=\frac{96~MHz}{40~kHz} = 2400,\qquad	 Compare\_Wert=\frac{2400}{2} = 1200 \] 
 \singlespacing
@@ -13,7 +13,7 @@ Die Zeit die vergeht bis das Echo des Ultraschall-Impulses zurück kommt wird ü
 \subsection{Quellcodeentwurf}
 
 \textbf{Programmstruktur:}\\
-In dem Hauptprogramm main.c befinden sich nur Funktionsaufrufe die eine Grundkonfiguration  für den Mikrocontroller beinhaltet und eine Schleife die immer wieder abgerufen wird um z.B. eine neue Entfernungsmessung zu starten, siehe Abbildung \ref{fig:main.c1}. Anstatt den gesamten Programmcode im Hauptprogramm zu verfassen was bei  komplexen Programmen schnell zu Unübersichtlichkeit führt hat das Auslagern den Vorteil, dass der Quellcode Logisch getrennt werden kann was eine Verschlankung des Quellcodes mit sich bringt. Somit stehen in dem Hauptprogramm nur noch die Aufrufe der separat verfassten Funktionen. Auch vereinfacht diese Struktur gerade bei Prototypen das Testen der Funktion. So kann im Falle einer fehlerhaften Funktion einfach ein Aufruf auskommentiert werden um zu testen, ob der Fehler wirklich von der Funktion herrührt. Dadurch müssen nicht etliche Zeilen Programmcode einer Funktion auskommentiert werden. Dadurch ist die Fehlerrate durch übriggebliebene Zeichen, oder gar beim entfernen der Auskommentierung gelöschte Zeichen deutlich gesenkt.\\
+In dem Hauptprogramm main.c befinden sich nur Funktionsaufrufe die eine Grundkonfiguration  für den Mikrocontroller beinhaltet und eine Schleife die immer wieder abgerufen wird um z.B. eine neue Entfernungsmessung zu starten, siehe Abbildung \ref{fig:main.c1}. Anstatt den gesamten Programmcode im Hauptprogramm zu verfassen was bei komplexen Programmen zur Unübersichtlichkeit führt, hat das Auslagern den Vorteil, dass der Quellcode logisch getrennt werden kann, was zu einer Verschlankung des Quellcodes mit sich bringt. Somit stehen in dem Hauptprogramm nur noch die Aufrufe der separat verfassten Funktionen. Somit vereinfacht diese Struktur gerade bei Prototypen das Testen der Funktion. So kann im Falle einer fehlerhaften Funktion einfach ein Aufruf auskommentiert werden, um zu testen, ob der Fehler wirklich von der Funktion herrührt. Hiermit müssen nicht etliche Zeilen Programmcode einer Funktion auskommentiert werden. Dadurch ist die Fehlerrate durch verbleibende Zeichen oder beim Entfernen der Auskommentierung gelöschte Zeichen deutlich gesenkt.\\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
 #include <stdio.h>
@@ -44,7 +44,7 @@ int main(void)
 \label{fig:main.c1}
 \end{minipage}\\
 %Um die Funktionsaufrufe wie die a16pt\_init und die a16pt\_tick zu verstehen muss die Abbildung \ref{fig:a16pt.h}: Headerdatei der a16pt.h näher betrachtet werden. In der der Datei werden die Funktionen definiert und deren Funktionsanweisung steht dann in der a16pt.c.\\
-Die verwendete Vorgehensweise bei der Programmierung arbeitet mit einer gewissen Verschachtlung. In den *.c Dateien befindet sich zwar der Großteil des des aktiv geschriebenen Programms, doch stehen die Funktionsdefinitionen in den Headerdateien, wie der a16pt.h \ref{fig:a16pt.h}
+Die verwendete Vorgehensweise bei der Programmierung arbeitet mit einer gewissen Verschachtlung. In den *.c Dateien befindet sich zwar der Großteil des des aktiv geschriebenen Programms, doch stehen die Funktionsdefinitionen in den Headerdateien, wie der a16pt.h \ref{fig:a16pt.h}\\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
 #ifndef A16PT_H
@@ -60,7 +60,7 @@ uint16_t a16pt_get_distance(void); //Functional definition
 \end{minipage}\\
 \\
 \textbf{Init Aufruf:}
-In der Abbildung \ref{fig:a16pt.c} ist ein Teilausschnitt aus der a16pt.c zu sehen. Dieser enthält zwei verschiedene PWM konfigurationen, die auf den Ports P4\_4 und P4\_6 ausgegeben werden.
+In der Abbildung \ref{fig:a16pt.c} ist ein Teilausschnitt aus der a16pt.c zu sehen. Dieser enthält zwei verschiedene PWM Konfigurationen, die auf den Ports P4\_4 und P4\_6 ausgegeben werden.
 
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
@@ -89,7 +89,7 @@ void a16pt_init(void)
 
 
 \textbf{Interrupt Aufruf:}
-In der Abbildung \ref{fig:a16pt.c1} :a16pt.c Interrupt Request, werden die für die Entfernungsmessung notwendigen Funktionen und die Interrupt Anweisungen, in dem Fall die IRQ21, abgearbeitet. Außerdem werden die Timer synchron abgeschaltet und aus experimentellen gründen wurde ein weiterer Impuls generiert um zu beobachten wie sich das Nachschwingen bei einer längeren Kurzschlusszeit an der Ultraschallkapsell verhält. Die IRQ wird auch als Interrupt Request bezeichnet und wird von der Hardware oder von der Software ausgelöst.
+In der Abbildung \ref{fig:a16pt.c1} :a16pt.c Interrupt Request, werden die für die Entfernungsmessung notwendigen Funktionen und die Interrupt Anweisungen, in dem Fall die IRQ21, abgearbeitet. Außerdem werden die Timer synchron abgeschaltet und aus experimentellen gründen wurde ein weiterer Impuls generiert um zu beobachten, wie sich das Nachschwingen bei einer längeren Kurzschlusszeit an der Ultraschallkapsel verhält. Die IRQ wird als Interrupt Request bezeichnet und wird von der Hardware oder von der Software ausgelöst.
 \\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
