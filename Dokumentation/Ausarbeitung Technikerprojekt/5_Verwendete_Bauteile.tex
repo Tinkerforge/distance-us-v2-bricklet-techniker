@@ -1,4 +1,4 @@
-Bevor ein erster Prototyp erstellt werden konnte, mussten die richtigen Bauteile ausgewählt werden. Dies Geschah unteranderem anhand der gewonnen Informationen aus dem Kapitel 2 Vorbereitung. 
+Bevor ein erster Prototyp erstellt werden konnte, mussten die richtigen Bauteile ausgewählt werden. Dies Geschah unteranderem anhand der gewonnenen Informationen aus dem Kapitel 2 Vorbereitung. 
 
 \subsection{Mikrocontroller}
 Der Infineon XMC 1404\_Q048 gehört zur der Familie der ARM Cortex -M0 Prozessoren und ist ein 32-bit Industrial Microcontroller, wird mit 48~MHz externer Clock betrieben. Die 48 im Namen des Prozessors steht für die Anzahl der Pins. Der interne Timer läuft mit 96Mhz. Die CCU4 des Prozessor bietet ein 2x4 16 bit Timer. Außerdem hat der XMC einen 12 bit A/D Wandler, welcher für die Analogmessung eine genauere Auflösung bieten kann als ein 8 bit A/D Wandler. Die Betriebsspannung des Prozessors beträgt 3,3~V. Die Auswahl des Controller wurde getroffen, weil dieser standardmäßig auch schon bei Tinkerforge eingsetz wird und uns für den Prototypen vorgegeben wurde. 
@@ -16,10 +16,10 @@ Die Ausgangsspannung wird mit den externen Widerständen RV1, R13 und R2 eingest
 \[\displaystyle Re=R2*\left(\frac{Vout}{1,23}-1\right) \Rightarrow Vout=\left(\frac{Re}{R2}+1\right)*1,23\] 
 \singlespacing
 \begin{center}
-\begin{minipage}{0.75\textwidth}
+\begin{minipage}{1\textwidth}
 \includegraphics[width=1\textwidth%, draft
 ]{Abbildungen/Pumpe.png}
-\captionof{figure}{Hochsetzsteller}
+\captionof{figure}{Schaltplan des beschalteten Hochsetzstellers}
 \label{fig:Hochsetzsteller}
 \end{minipage}\\
 \end{center}
@@ -46,10 +46,10 @@ Für die Umwandlung des analogen Signales in ein digitales wurde der Operationsv
 \[\displaystyle Uref=\frac{Uges*R9}{R8+R9}\Rightarrow\frac{3,3~V*120~K\Omega}{100~K\Omega+120~K\Omega}=1,8~V \]
 \singlespacing
 \begin{center}
-\begin{minipage}{0.75\textwidth}
+\begin{minipage}{1\textwidth}
 \includegraphics[width=1\textwidth%, draft
 ]{Abbildungen/Empfaenger.png}
-\captionof{figure}{Empfängerschaltung}
+\captionof{figure}{Schaltplan zweier Operationsverstärker mit einer vorgelagerten Filterung als Empfängerschaltung}
 \label{fig:Empfaengerschaltung}
 \end{minipage}\\
 \end{center}

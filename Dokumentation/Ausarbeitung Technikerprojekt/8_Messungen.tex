@@ -1,6 +1,15 @@
-Für die Messungen wurden im Laufe des Projekts zwei Versionen an Prototyp-Platinen entworfen. An den Platinen wurden Verbesserungen vorgenommen. 
+Für die Messungen wurden im Laufe des Projekts zwei Versionen an Prototyp-Platinen entworfen. Im Verlauf der Versuche wurden Veränderungen an den Platinen vorgenommen, um den Betrieb dieser zu verbessern. 
 \section{Prototyp 1}
-Bei dem ersten Prototyp wurden die Sendereinheit und die Empfängereinheit auf getrennten Platinen aufgebaut. So bestand die Möglichkeit, den Senderkreis und den Empfängerkreis getrennt zu untersuchen, ohne dass sich elektrische Signale der beiden Schaltkreise überlagern konnten.
+%\begin{center}
+%\begin{minipage}{0.5\textwidth}
+%\includegraphics[width=1\textwidth%, draft
+%]{Abbildungen/Prototyp1.png}
+%\captionof{figure}{Aufebaute und bearbeitete Platine des ersten Prototypen}
+%\label{fig:Prototyp1}
+%\end{minipage}
+%\end{center}
+Bei dem ersten Prototyp wurden die Sendereinheit und die Empfängereinheit auf getrennten Platinen aufgebaut. So bestand die Möglichkeit, den Senderkreis und den Empfängerkreis getrennt zu untersuchen, ohne dass sich elektrische Signale der beiden Schaltkreise überlagern konnten. Anfangs wurde für den Senderkreis eine komplette H-Brücke als Schalter verwendet. Allerdings war der Aufbau nicht funktional, da ein Beschaltungsfehler vorhanden war. Dieser wurde mit Fädeldraht provisorisch behoben.  Dadurch, dass das A5950 eine H-Brücke mit integrierter Kontroll-Logik und eigener Spannungspumpe ist, wurde anhand der Schaltweise der Baugruppe festgestellt, dass diese H-Brücke nicht für die Schaltung einsetzbar ist. Um nicht sofort eine neue Platine in Auftrag geben zu müssen, was einiges an Zeit gekostet hätte, wurde das IC einfach ausgelötet. Danach wurde zunächst ein MOSFET als HIGH-Side an der Stelle eingesetzt.Dadurch ließen sich erste Versuche durchführen, allerdings entsprach das Ergebnis noch nicht den Anforderungen. Deswegen wurde die Beschaltung an dieser Stelle auf eine Halbbrücke erweitert. Damit war die Funktion des Senderkreises für die ersten Versuche und Messungen gegeben.\\
+Der Empfängerkreis war von Beginn an funktional, konnte aber erst mit Inbetriebnahme des Senderkreises richtig getestet werden. Am Empfängerkreis wurden lediglich zu Testzwecken Änderungen an der Filterung, vor dem Verstärker, vorgenommen. Die Filterung wurde in ihrer Dimensionierung verändert, um herauszufinden, wie sich die Qualität des Echo-Signals verbessern lässt.\\
 
 \subsection{Senderkreis}
 Zu erst wurden Signale direkt an der CPU gemessen, um sicher zu stellen, dass die Einstellungen im Programm auch die gewünschten Ausgaben zur Folge haben, und keine Gefärdung der Bauteile entsteht.
@@ -14,12 +23,12 @@ Um das Signal für die Entfernungsmessung zu generieren wurde der Mikrocontrolle
 \begin{minipage}{0.5\textwidth}
 \includegraphics[width=1\textwidth%, draft
 ]{Abbildungen/MessungenP1/PWM-ausgabe-mit-Hi-Side.png}
-\captionof{figure}{PWM Ausgabe über einen Hi-Side}
+\captionof{figure}{PWM Ausgabe über einen HIGH-Side}
 \label{fig:HiSide}
 \end{minipage}
 In der Abbildung \ref{fig:pwm-burst} ist zu sehen, dass der gewünschte Burst aus zehn Impulsen mit einer Periodendauer von jeweils 25~\textmu s vom Mikrocontroller generiert wurde. Diese Messung wurde auch vorgenommen, um zu überprüfen, wie sich das Signal durch die eingesetzten Bauteile verändert.\\
-Die Abbildung \ref{fig:HiSide} zeigt, wie das Ausgangssignal nach einer Hi-Side aussieht. So wird zwar im Takt des PWM-Signals geschaltet, allerdings fehlt es an einem Gegenpol, um das Potential in den Schaltpausen wieder auf Null zu ziehen. Dadurch bleibt die Spannung während des Schaltens immer auf einem erhöhten Pegel und sinkt erst nach Ende des PWM-Signals langsam ab. Dadurch kann natürlich keine vernünftige Ausgabe am Lautsprecher erzeugt werden, denn ohne deutliche Potentialunterschiede kann dieser auch nicht in Schwingungen versetzt werden. Der ausgegebene Schalldruck würde nur für kurze Entfernungsmessungen reichen. Das zurückkommende Signal wird von der abklingenden Spannung des HIGH-Side überlagert. Somit ist dieser Aufbau nicht operabel.\\
-Um die Spannung nicht nur auf einen Hi-Pegel, sondern auch auf einen LOW-Pegel schalten zu können wurde danach auf eine Halbbrücke gewechselt. Mit dieser lässt sich der Ausgang, über zwei durch das PWM-Signal gesteuerte MOSFETs, sauber auf HIGH- oder LOW-Pegel schalten. %Bei der ersten, einfach gesteuerten Version, entstand das Problem, dass beim Schalten der Halbbrücke, beide MOSFETs gleichzeitig geschaltet haben. Dieses klingt zwar nicht nach einem Problem, doch wird es durch die technischen Gegebenheiten zu einem, denn bei den meisten elektronischen Schaltern verläuft der Einschaltprozess deutlich schneller, als der Ausschaltprozess. Wenn also zwei Bauteile gleichzeitig schalten, hat das einschaltende Bauteil schneller eingeschaltet, als das ausschaltende Bauteil ausgeschaltet. Dadurch entstehen bei jedem Schaltvorgang Kurzschlüsse. Auch wenn diese nur für Nanosekunden bestehen, bevor sie wieder unterbrochen werden, ist davon auszugehen, dass zu den dadurch entstehenden Störungen auch Bauteile zerstört werden.\\ Somit wurde auf eine voll gesteuerte Halbbrücke gewechselt und es wurden zwei PWM-Signale moduliert, bei denen eines invertiert und die Flanken derart verschoben waren, dass die angesteuerten MOSFETs nie Kurzschlüsse schalten können.
+Die Abbildung \ref{fig:HiSide} zeigt, wie das Ausgangssignal nach einer HIGH-Side aussieht. So wird zwar im Takt des PWM-Signals geschaltet, allerdings fehlt es an einem Gegenpol, um das Potential in den Schaltpausen wieder auf Null zu ziehen. Dadurch bleibt die Spannung während des Schaltens immer auf einem erhöhten Pegel und sinkt erst nach Ende des PWM-Signals langsam ab. Dadurch kann natürlich keine vernünftige Ausgabe am Lautsprecher erzeugt werden, denn ohne deutliche Potentialunterschiede kann dieser auch nicht in Schwingungen versetzt werden. Der ausgegebene Schalldruck würde nur für kurze Entfernungsmessungen reichen. Das zurückkommende Signal wird von der abklingenden Spannung des HIGH-Side überlagert. Somit ist dieser Aufbau nicht operabel.\\
+Um die Spannung nicht nur auf einen HIGH-Pegel, sondern auch auf einen LOW-Pegel schalten zu können wurde danach auf eine Halbbrücke gewechselt. Mit dieser lässt sich der Ausgang, über zwei durch das PWM-Signal gesteuerte MOSFETs, sauber auf HIGH- oder LOW-Pegel schalten. %Bei der ersten, einfach gesteuerten Version, entstand das Problem, dass beim Schalten der Halbbrücke, beide MOSFETs gleichzeitig geschaltet haben. Dieses klingt zwar nicht nach einem Problem, doch wird es durch die technischen Gegebenheiten zu einem, denn bei den meisten elektronischen Schaltern verläuft der Einschaltprozess deutlich schneller, als der Ausschaltprozess. Wenn also zwei Bauteile gleichzeitig schalten, hat das einschaltende Bauteil schneller eingeschaltet, als das ausschaltende Bauteil ausgeschaltet. Dadurch entstehen bei jedem Schaltvorgang Kurzschlüsse. Auch wenn diese nur für Nanosekunden bestehen, bevor sie wieder unterbrochen werden, ist davon auszugehen, dass zu den dadurch entstehenden Störungen auch Bauteile zerstört werden.\\ Somit wurde auf eine voll gesteuerte Halbbrücke gewechselt und es wurden zwei PWM-Signale moduliert, bei denen eines invertiert und die Flanken derart verschoben waren, dass die angesteuerten MOSFETs nie Kurzschlüsse schalten können.
 Mit der verwendeten Halbbrücke ergab sich die Abbildung \ref{fig:Halfbridge}\\
 \begin{minipage}{0.5\textwidth}
 \includegraphics[width=1\textwidth%, draft
@@ -66,7 +75,15 @@ Nach dem das Signal den Komparator passiert hat, ergibt sich das Bild wie in Abb
 Anhand dieser Ergebnisse kann festgehalten werden, dass die einfachere Version des Ultraschall-Entfernungsmessers durchaus simpel umzusetzen ist. Es fehlt nur noch ein Programm, das die Zeit zum eintreffen des Echo-Signals in einen Abstand zum Hindernis konvertiert. Besagtes Programm wurde nicht für diese Prototypversion erstellt, da der Anspruch bestand, den Betrieb nicht nur über eine Platine, sondern auch noch über eine Ultraschallkapsel ablaufen zu lassen.
 \newpage
 \section{Prototyp 2}
-Bei der zweiten Prototyp-Version wurden der Sender- und der Empfängerkreis auf einer Platine aufgebaut und es wurde nur noch eine Ultraschallkapsel für beide Anwendungen vorgesehen. Die Halbbrücke der ersten Prototyp-Version wurde durch eine voll gesteuerte Halbbrücke ersetzt. Für den gewünschten Betrieb werden drei und nicht zwei Schaltzustände benötigt. Nicht nur sollte die Ultraschallkapsel mit HIGH-, oder LOW-Signal ansteuerbar sein, auch ein dritter potentialfreier Zustand war nötig, damit die Echo-Signale auch empfangen werden können. Um bei diesem Aufbau einen fehlerfreien Betrieb der verwendeten voll gesteuerten Halbbrücke sicherzustellen wurden durch den Mikrocontroller zwei getrennte PWM-Signale generiert die wie in Abbildung \ref{fig:PWMs} zu sehen ist durch Lücken getrennt sind. Verzögerungen im Schaltbetrieb der Halbleiter können daher, keine Kurzschlüsse verursachen.\\
+%\begin{center}
+%\begin{minipage}{0.5\textwidth}
+%\includegraphics[width=1\textwidth%, draft
+%]{Abbildungen/Prototyp2.png}
+%\captionof{figure}{Aufebaute und bearbeitete Platine des zweiten Prototypen}
+%\label{fig:Prototyp2}
+%\end{minipage}
+%\end{center}
+Nachdem mit der ersten Prototyp-Version bereits Versuche an der Elektronik durchgeführt wurden und auch erste Messungen mit einem beweglichen Hindernis auswertbare Ergebnisse brachten, wurde eine zweite Prototyp-Version entworfen. Bei der zweiten Prototyp-Version wurden der Sender- und der Empfängerkreis auf einer Platine aufgebaut und es wurde nur noch eine Ultraschallkapsel für beide Anwendungen vorgesehen. Dadurch wurden für den fehlerfreien Betrieb drei und nicht zwei Schaltzustände der Halbbrücke benötigt. Deswegen wurde die Halbbrücke der ersten Prototyp-Version durch eine voll gesteuerte Halbbrücke ersetzt. Nicht nur sollte die Ultraschallkapsel mit HIGH-, oder LOW-Signal ansteuerbar sein, auch ein dritter potentialfreier Zustand war nötig, damit die Echo-Signale auch empfangen werden konnten. Um bei diesem Aufbau einen fehlerfreien Betrieb der verwendeten voll gesteuerten Halbbrücke sicherzustellen wurden durch den Mikrocontroller zwei getrennte PWM-Signale generiert die wie in Abbildung \ref{fig:PWMs} zu sehen ist durch Lücken getrennt sind. Verzögerungen im Schaltbetrieb der Halbleiter konnten daher, keine Kurzschlüsse mehr verursachen. Außerdem konnten durch den neuen Platinenentwurf die ab der ersten Prototyp-Version vorgenommenen Änderungen direkt in den Schaltplan übernommen werden. Dadurch ließ sich die Störanfälligkeit durch empfindliche Drahtbrücken deutlich reduzieren. Bedingt durch anfängliche Befürchtungen wurden für die MOSFETs der Halbbrücke anfangs jeweils ein weiteres MOSFET vorgeschaltet. Dieser Zusatz stellte sich als unnötig heraus, da durch eines der zusätzlichen Bauteile eines der PWM-Signale invertiert wurde. Somit wurde das überflüssige MOSFET entfernt. Durch zwei Drahtbrücken konnte die komplette Schaltung nach Entlarvung eines weiteren Verdrahtungsfehlers, in Betrieb genommen werden.\\
 \begin{minipage}{0.75\textwidth}
 \includegraphics[width=1\textwidth%, draft
 ]{Abbildungen/MessungenP2/Zwei_PWMs_von_der_CPU.PNG}
@@ -128,6 +145,7 @@ In der nachfolgenden Tabelle \ref{tab:Entfernungsmessung} wurden die Zeitabstän
 
 
 \begin{minipage}{1\textwidth}
+\captionof{table}{Entfernungsmessung mit Abweichung bei 20~V Sendespannung}
 \begin{tabularx}{\textwidth}{|p{0.17\textwidth}|p{0.27\textwidth}|p{0.27\textwidth}|X|}
 \hline
 Entfernung [m]& Zeit bis Anfang Echo [ms]  & Errechnete Entfernung [m] & Abweichung [cm]\\
@@ -151,18 +169,9 @@ Entfernung [m]& Zeit bis Anfang Echo [ms]  & Errechnete Entfernung [m] & Abweich
 5 & 29,46 & 5,0553 & 5,53\\
 \hline
 \end{tabularx}
-\captionof{table}{Entfernungsmessung mit Abweichung bei 20~V Sendespannung}
+
 \label{tab:Entfernungsmessung}
 \end{minipage}\\
+
+
 Wie befürchtet sind bei der errechneten Entfernung Abweichungen im Bereich weniger Zentimeter aufgetreten. Bei Betrachtung der Abweichungen wird allerdings deutlich, dass die Werte bis auf einen, alle im Bereich von 4~cm bis 4,5~cm liegen. Ähnliche Abweichungen waren auch bei den anderen Messreihen zu beobachten. Somit ließe sich die Abweichung durch einen Korrekturwert auf ein Minimum reduzieren und würde einen Zentimeter nur noch selten überschreiten. Der erste Impuls des Echo-Signals als Referenz für die Entfernungsberechnung zu nutzen ist. Die anfänglichen Überlegungen, den letzten Impuls des Echo-Signals, oder einen Mittelwert aus allen empfangenen Impulsen zu verwenden beinhaltet ein höheres Fehlerpotential. Die Dauer des Echo-Signals kann durch niederfrequente Störgeräusche deutlich verlängert werden. Dies ließ sich bei einem der Tests beobachten, als im Hintergrund ein Lasercutter betrieben wurde. Dabei entstanden entgegen der Befürchtung keine Störsignale, stattdessen war die Signalintensität des Echo-Signals deutlich höher als bei Versuchen in einer stillen Umgebung. 
-
-
-
-
-
-%\begin{minipage}{0.5\textwidth}
-%\includegraphics[width=1\textwidth%, draft
-%]{Abbildungen/MessungenP2/.PNG}
-%\captionof{figure}{}
-%\label{fig:}
-%\end{minipage}

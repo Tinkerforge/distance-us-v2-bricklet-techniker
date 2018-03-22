@@ -10,7 +10,7 @@
 \begin{minipage}{0.75\textwidth}
 \includegraphics[width=1\textwidth%, draft
 ]{Abbildungen/Schema.png}
-\captionof{figure}{Blockschaltbild des Ultraschall-Entfernungsessers}
+\captionof{figure}{Blockschaltbild des Ultraschall-Entfernungsmessers}
 \label{fig:Blockschaltbild}
 %\begin{tikzpicture}[auto, node distance=2cm,>=latex']
 %\begin{picture}(250,100)
@@ -47,7 +47,7 @@
 
 \end{minipage}
 \end{center}
-Das Blockschaltbild in Abbildung \ref{fig:Blockschaltbild} zeigt eine vereinfachte Funktionsübersicht. Der Schaltplan befindet in den Anlagen.
+Die Abbildung \ref{fig:Blockschaltbild} zeigt eine vereinfachte Funktionsübersicht der Platine. Die Schaltpläne zu den verschiedenen Ausführungen der Platine sind den Anlagen beigefügt.
 
 \subsection{Mikrocontroller}
 Der Mikrocontroller soll eine stabile und variable PWM ausgeben können. Es werden für die Zeiterfassung und die PWM Ausgabe mehrere Timer benötigt, die sowohl intern als auch über die Hardware angesteuert werden können. Ein Analog/Digital-Wandler sollte ebenfalls vorhanden sein.
@@ -56,7 +56,7 @@ Der Mikrocontroller soll eine stabile und variable PWM ausgeben können. Es werd
 Der Sender soll Schallwellen im Ultraschallbereich (40~kHz) aussenden. Diese sollen einen ausreichenden Schalldruck haben um von Hindernissen, die mehrere Meter entfernt sind, ein Echo erhalten zu können. Dafür muss die Ultraschallkapsel mit einem sinusähnlichen Signal angesteuert werden. Dessen Amplitude muss angemessen hoch sein, um den gewünschten Schalldruck zu erzeugen. Der Controller ist auf eine Spannungsebene von 3,3~V begrenzt. Um höhere Spannungen an der Ultraschallkapsel realisieren zu können, muss ein Schalter als weiteres Bauteil dazwischen geschaltet werden. Dieses zusätzliche Bauteil dient als Trennung zwischen den 3,3~V des Mikrocontrollers und der höheren Spannungsebene der Lautsprecherkapsel. Dabei muss darauf geachtet werden, dass der Schalter schnell genug arbeitet, um die 40~kHz auch zuverlässig schalten zu können.
 
 \subsection{Hochsetzsteller}
-Der Hochsetzsteller generiert aus den 5~V Versorgungsspannung eine höhere Spannung für den Sendebetrieb. So kann der Schalldruck, der ausgegeben wird erhöht werden (größere Reichweite/größeres Rücksignal) siehe Kapitel \ref{Messungen}.\\
+Der Hochsetzsteller generiert aus den 5~V Versorgungsspannung eine höhere Spannung für den Sendebetrieb. So kann der Schalldruck, der ausgegeben wird erhöht werden (größere Reichweite/größeres Rücksignal) siehe Abbildung \ref{fig:5v5m2}.\\
 Die Funktionsweise des Hochsetzstellers (Spannungspumpe/Aufwärtswandler/Aufwärtsregler) ist überschaubar und findet in vielen Bereichen Anwendung. Grundsätzlich wird eine Induktivität in Reihe mit einer Freilaufdiode vor einen Ladekondensator geschaltet. Dieser liegt parallel zum Ausgang. Zwischen der Spule und der Diode ist ein Schalter angeschlossen, der die Spule gegen Masse schaltet. Die Spule lädt sich bei Betätigung des Schalters auf. Durch den Stromfluss entsteht ein Magnetfeld und beim Öffnen steigt die Spannung am sekundären Ende der Spule. Durch das zusammenbrechende Magnetfeld an und lädt den Kondensator auf. Dieser Vorgang wird wiederholt bis der Kondensator so weit aufgeladen ist, dass die Ausgangsspannung den gewünschten Wert hält. Die mögliche Ausgangsspannung ist nicht unbegrenzt über das Schaltspiel regelbar. Sie ist von den Eigenschaften der Komponenten abhängig. 
 
 \subsection{Ultraschallkapsel}
