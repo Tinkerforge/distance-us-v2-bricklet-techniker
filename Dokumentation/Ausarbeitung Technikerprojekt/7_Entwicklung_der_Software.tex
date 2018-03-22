@@ -3,17 +3,17 @@ Um das Programm zu erstellen sollten Kenntnisse z.B. für die Capture Compare Un
 Die Werte der Register mit denen die Zeit gemessen wird müssen sofort zum beginn der Interrupt Service Routine zwischengespeichert werden damit sichergestellt wird das nicht die Zeit zur Brechung mit gemessen wird.\\
 
 \subsubsection{Durchgeführte Berechnungen}
-Für die Programmierung waren diverse Berechnungen notwendig. Zur Erzeugung der Ultraschallimpulse wurde ein pulsweitenmoduliertes Rechtecksignal mit einer Frequenz von 40~kHz generiert. Dafür war es notwendig mithilfe der CCU4 einen Timer zur erstellen. Dabei musste bei einem Timertakt von 96~MHz eine Periodendauer von 2400 Takten und einem Comparex\_Wert von 1200 Takten konfiguriert werden. Im Zählvorgang des Timers wird der Ausgang nach erreichen des Compare-Wertes auf 1 gesetzt, und nach erreichen der Periodendauer wieder auf 0 zurückgesetzt. Dadurch ergibt sich eine Periodendauer von 25~\textmu s, was einer Frequenz von 40~kHz entspricht.\\
+Für die Programmierung waren diverse Berechnungen notwendig. Zur Erzeugung der Ultraschallimpulse wurde ein pulsweitenmoduliertes Rechtecksignal mit einer Frequenz von 40\,kHz generiert. Dafür war es notwendig mithilfe der CCU4 einen Timer zur erstellen. Dabei musste bei einem Timertakt von 96\,MHz eine Periodendauer von 2400 Takten und einem Comparex\_Wert von 1200 Takten konfiguriert werden. Im Zählvorgang des Timers wird der Ausgang nach erreichen des Compare-Wertes auf 1 gesetzt, und nach erreichen der Periodendauer wieder auf 0 zurückgesetzt. Dadurch ergibt sich eine Periodendauer von 25\,\textmu s, was einer Frequenz von 40\,kHz entspricht.\\
 Die Zeit, die vergeht, bis das Echo des Ultraschall-Impulses zurückkommt, wird über einen Timer erfasst. 
 \onehalfspacing \\ \\
-\[\displaystyle Periodendauer=\frac{96~MHz}{40~kHz} = 2400,\qquad	 Compare\_Wert=\frac{2400}{2} = 1200 \] 
+\[\displaystyle Periodendauer=\frac{96\,MHz}{40\,kHz} = 2400,\qquad	 Compare\_Wert=\frac{2400}{2} = 1200 \] 
 \singlespacing
 
 
 \subsection{Quellcodeentwurf}
 
 \textbf{Programmstruktur:}\\
-In dem Hauptprogramm main.c befinden sich nur Funktionsaufrufe die eine Grundkonfiguration  für den Mikrocontroller beinhaltet und eine Schleife die immer wieder abgerufen wird um z.B. eine neue Entfernungsmessung zu starten, siehe Abbildung \ref{fig:main.c1}. Anstatt den gesamten Programmcode im Hauptprogramm zu verfassen was bei komplexen Programmen zur Unübersichtlichkeit führt, hat das Auslagern den Vorteil, dass der Quellcode logisch getrennt werden kann, was zu einer Verschlankung des Quellcodes mit sich bringt. Somit stehen in dem Hauptprogramm nur noch die Aufrufe der separat verfassten Funktionen. Somit vereinfacht diese Struktur gerade bei Prototypen das Testen der Funktion. So kann im Falle einer fehlerhaften Funktion einfach ein Aufruf auskommentiert werden, um zu testen, ob der Fehler wirklich von der Funktion herrührt. Hiermit müssen nicht etliche Zeilen Programmcode einer Funktion auskommentiert werden. Dadurch ist die Fehlerrate durch verbleibende Zeichen oder beim Entfernen der Auskommentierung gelöschte Zeichen deutlich gesenkt.\\
+In der Hauptpfunktion main.c befinden sich nur Funktionsaufrufe die eine Grundkonfiguration  für den Mikrocontroller beinhaltet und eine Schleife die immer wieder abgerufen wird um z.B. eine neue Entfernungsmessung zu starten, siehe Abbildung \ref{fig:main.c1}. Anstatt den gesamten Programmcode in der Hauptpfunktion zu verfassen, hat das Auslagern den Vorteil, dass der Quellcode logisch getrennt werden kann. Dieses Vorgehen führt zu einer Verschlankung des Quellcodes anstatt ihn unübersichtlich zu gestalten. Somit stehen in dem Hauptprogramm nur noch die Aufrufe der separat verfassten Funktionen. Dadurch vereinfacht diese Struktur gerade bei Prototypen das Testen der Funktion. So kann im Falle einer fehlerhaften Funktion einfach ein Aufruf auskommentiert werden, um zu testen, ob der Fehler wirklich von der Funktion herrührt. Hiermit müssen nicht etliche Zeilen Programmcode einer Funktion auskommentiert werden. Dadurch ist die Fehlerrate durch verbleibende Zeichen oder beim Entfernen der Auskommentierung gelöschte Zeichen deutlich gesenkt.\\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
 #include <stdio.h>
@@ -50,9 +50,9 @@ Die verwendete Vorgehensweise bei der Programmierung arbeitet mit einer gewissen
 #ifndef A16PT_H
 #define A16PT_H
 #include <stdint.h>
-void a16pt_init(void);				//Functional definition
-void a16pt_tick(void); 			//Functional definition
-uint16_t a16pt_get_distance(void); //Functional definition
+	void a16pt_init(void);			//Functional definition
+	void a16pt_tick(void); 			//Functional definition
+	uint16_t a16pt_get_distance(void); //Functional definition
 #endif
 \end{lstlisting}
 \captionof{figure}{Inhalt der Headerdatei a16pt.h}
@@ -89,7 +89,7 @@ void a16pt_init(void)
 
 
 \textbf{Interrupt Aufruf:}
-In der Abbildung \ref{fig:a16pt.c1} :a16pt.c Interrupt Request, werden die für die Entfernungsmessung notwendigen Funktionen und die Interrupt Anweisungen, in dem Fall die IRQ21, abgearbeitet. Außerdem werden die Timer synchron abgeschaltet und aus experimentellen gründen wurde ein weiterer Impuls generiert um zu beobachten, wie sich das Nachschwingen bei einer längeren Kurzschlusszeit an der Ultraschallkapsel verhält. Die IRQ wird als Interrupt Request bezeichnet und wird von der Hardware oder von der Software ausgelöst.
+In der Abbildung \ref{fig:a16pt.c1} werden die für die Entfernungsmessung notwendigen Funktionen und die Interrupt Anweisungen, in dem Fall die IRQ21, abgearbeitet. Außerdem werden die Timer synchron abgeschaltet und aus experimentellen gründen wurde ein weiterer Impuls generiert um zu beobachten, wie sich das Nachschwingen bei einer längeren Kurzschlusszeit an der Ultraschallkapsel verhält. Die IRQ wird als Interrupt Request bezeichnet und wird von der Hardware oder von der Software ausgelöst.
 \\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
