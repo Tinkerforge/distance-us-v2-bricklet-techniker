@@ -1,19 +1,20 @@
+Zum Betrieb der Prototypen wurde bereits eine rudimentäre Version einer Betriebssoftware erstellt. Diese wurde benötigt um Ausgangssignale generieren zu können, damit Messungen an dem Empfängerkreis durchgeführt werden konnten.
 \subsection{Benötigte Kenntnisse}
-Um das Programm zu erstellen sollten Kenntnisse z.B. für die Capture Compare Unit des Mikrocontrollers vorhanden sein. Die CCU4 hat insgesamt 4 Einheiten und jede einzelne besitzt mehrer Slices von CC40 bis CC43. Slices können untereinander verschachtelt werden um z.B. Interrupt Service Routinen aufzurufen, siehe dazu das Reference Manuel.
+Um das Programm zu erstellen sollten Kenntnisse z.B. für die Capture Compare Unit des Mikrocontrollers vorhanden sein. Die CCU4 hat insgesamt 4 Einheiten und jede einzelne besitzt mehrer Slices von CC40 bis CC43. Slices können untereinander verschachtelt werden um z.B. Interrupt Service Routinen aufzurufen, siehe dazu das Reference Manual [INF2].
 Die Werte der Register mit denen die Zeit gemessen wird müssen sofort zum beginn der Interrupt Service Routine zwischengespeichert werden damit sichergestellt wird das nicht die Zeit zur Brechung mit gemessen wird.\\
 
 \subsubsection{Durchgeführte Berechnungen}
-Für die Programmierung waren diverse Berechnungen notwendig. Zur Erzeugung der Ultraschallimpulse wurde ein pulsweitenmoduliertes Rechtecksignal mit einer Frequenz von 40\,kHz generiert. Dafür war es notwendig mithilfe der CCU4 einen Timer zur erstellen. Dabei musste bei einem Timertakt von 96\,MHz eine Periodendauer von 2400 Takten und einem Comparex\_Wert von 1200 Takten konfiguriert werden. Im Zählvorgang des Timers wird der Ausgang nach erreichen des Compare-Wertes auf 1 gesetzt, und nach erreichen der Periodendauer wieder auf 0 zurückgesetzt. Dadurch ergibt sich eine Periodendauer von 25\,\textmu s, was einer Frequenz von 40\,kHz entspricht.\\
+Für die Programmierung waren diverse Berechnungen notwendig. Zur Erzeugung der Ultraschallimpulse wurde ein pulsweitenmoduliertes Rechtecksignal mit einer Frequenz von 40\,kHz generiert. Dafür war es notwendig mithilfe der CCU4 einen Timer zur erstellen. Dabei musste bei einem Timertakt von 96\,MHz eine Periodendauer von 2400 Takten und einem Compare-Wert von 1200 Takten konfiguriert werden. Im Zählvorgang des Timers wird der Ausgang nach erreichen des Compare-Wertes auf 1 gesetzt, und nach erreichen der Periodendauer wieder auf 0 zurückgesetzt. Dadurch ergibt sich eine Periodendauer von 25\,\textmu s, was einer Frequenz von 40\,kHz entspricht.\\
 Die Zeit, die vergeht, bis das Echo des Ultraschall-Impulses zurückkommt, wird über einen Timer erfasst. 
 \onehalfspacing \\ \\
-\[\displaystyle Periodendauer=\frac{96\,MHz}{40\,kHz} = 2400,\qquad	 Compare\_Wert=\frac{2400}{2} = 1200 \] 
+\[\displaystyle Periodendauer=\frac{96\,MHz}{40\,kHz} = 2400,\qquad	 Compare-Wert=\frac{2400}{2} = 1200 \] 
 \singlespacing
 
 
 \subsection{Quellcodeentwurf}
 
 \textbf{Programmstruktur:}\\
-In der Hauptpfunktion main.c befinden sich nur Funktionsaufrufe die eine Grundkonfiguration  für den Mikrocontroller beinhaltet und eine Schleife die immer wieder abgerufen wird um z.B. eine neue Entfernungsmessung zu starten, siehe Abbildung \ref{fig:main.c1}. Anstatt den gesamten Programmcode in der Hauptpfunktion zu verfassen, hat das Auslagern den Vorteil, dass der Quellcode logisch getrennt werden kann. Dieses Vorgehen führt zu einer Verschlankung des Quellcodes anstatt ihn unübersichtlich zu gestalten. Somit stehen in dem Hauptprogramm nur noch die Aufrufe der separat verfassten Funktionen. Dadurch vereinfacht diese Struktur gerade bei Prototypen das Testen der Funktion. So kann im Falle einer fehlerhaften Funktion einfach ein Aufruf auskommentiert werden, um zu testen, ob der Fehler wirklich von der Funktion herrührt. Hiermit müssen nicht etliche Zeilen Programmcode einer Funktion auskommentiert werden. Dadurch ist die Fehlerrate durch verbleibende Zeichen oder beim Entfernen der Auskommentierung gelöschte Zeichen deutlich gesenkt.\\
+In der Hauptpfunktion main.c befinden sich nur Funktionsaufrufe die eine Grundkonfiguration  für den Mikrocontroller beinhalten und eine Schleife die immer wieder aufgerufen wird um z.B. eine neue Entfernungsmessung zu starten. Siehe Abbildung \ref{fig:main.c1}. Anstatt den gesamten Programmcode in der Hauptpfunktion zu verfassen, hat das Auslagern den Vorteil, dass der Quellcode logisch getrennt werden kann. Dieses Vorgehen führt zu einer Verschlankung des Quellcodes anstatt ihn unübersichtlich zu gestalten. Somit stehen in dem Hauptprogramm nur noch die Aufrufe der separat verfassten Funktionen. Dadurch vereinfacht diese Struktur gerade bei Prototypen das Testen der Funktion. So kann im Falle einer fehlerhaften Funktion einfach ein Aufruf auskommentiert werden, um zu testen, ob der Fehler wirklich von der Funktion herrührt. Somit müssen nicht etliche Zeilen Programmcode einer Funktion auskommentiert werden. Dadurch ist die Fehlerrate durch verbleibende Zeichen oder beim Entfernen der Auskommentierung gelöschte Zeichen deutlich gesenkt.\\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
 #include <stdio.h>
@@ -35,16 +36,15 @@ int main(void)
 	{
 		a16pt_tick(); 						//Function call
 		bootloader_tick(); 					//Function call
-		communication_tick(); 				//Function call
-		
+		communication_tick(); 				//Function call	
 	}
 }
 \end{lstlisting}
-\captionof{figure}{Quellcode der main.c des Distance US}
+\captionof{figure}{kompletter Quellcode der main.c}
 \label{fig:main.c1}
 \end{minipage}\\
 %Um die Funktionsaufrufe wie die a16pt\_init und die a16pt\_tick zu verstehen muss die Abbildung \ref{fig:a16pt.h}: Headerdatei der a16pt.h näher betrachtet werden. In der der Datei werden die Funktionen definiert und deren Funktionsanweisung steht dann in der a16pt.c.\\
-Die verwendete Vorgehensweise bei der Programmierung arbeitet mit einer gewissen Verschachtlung. In den *.c Dateien befindet sich zwar der Großteil des des aktiv geschriebenen Programms, doch stehen die Funktionsdefinitionen in den Headerdateien, wie der a16pt.h \ref{fig:a16pt.h}\\
+Die verwendete Vorgehensweise bei der Programmierung arbeitet mit einer gewissen Verschachtlung. In den *.c Dateien befindet sich zwar der Großteil des des aktiv geschriebenen Programms, doch stehen die Funktionsdefinitionen in den Headerdateien, wie der a16pt.h. Zu sehen in der nachfolgenden Abbildung \ref{fig:a16pt.h}\\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
 #ifndef A16PT_H
@@ -88,8 +88,8 @@ void a16pt_init(void)
 
 
 
-\textbf{Interrupt Aufruf:}
-In der Abbildung \ref{fig:a16pt.c1} werden die für die Entfernungsmessung notwendigen Funktionen und die Interrupt Anweisungen, in dem Fall die IRQ21, abgearbeitet. Außerdem werden die Timer synchron abgeschaltet und aus experimentellen gründen wurde ein weiterer Impuls generiert um zu beobachten, wie sich das Nachschwingen bei einer längeren Kurzschlusszeit an der Ultraschallkapsel verhält. Die IRQ wird als Interrupt Request bezeichnet und wird von der Hardware oder von der Software ausgelöst.
+\textbf{Interrupt Aufrufe:}
+In der Abbildung \ref{fig:a16pt.c1} werden beispielsweise die für die Entfernungsmessung notwendigen Funktionen und die Interrupt Anweisungen abgearbeitet. in diesem Fall die IRQ21. Außerdem werden die PWM-Signale synchron abgeschaltet. Unter der Überschrift \glqq New pin configuration\grqq~wird bereits eine neue Ausgangskonfiguration angefangen. Die IRQ wird als Interrupt Request bezeichnet und wird von der Hardware oder von der Software ausgelöst.
 \\
 \begin{minipage}{1\textwidth}
 \begin{lstlisting}
