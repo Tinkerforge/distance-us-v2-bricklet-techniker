@@ -27,25 +27,19 @@
 
 #include "a16pt.h"
 
-CallbackValue callback_value_distance;
-
+CallbackValue_uint16_t callback_value_distance;
 
 BootloaderHandleMessageResponse handle_message(const void *message, void *response) {
 	switch(tfp_get_fid_from_message(message)) {
-		case FID_GET_DISTANCE: return get_callback_value(message, response, &callback_value_distance);
-		case FID_SET_DISTANCE_CALLBACK_CONFIGURATION: return set_callback_value_callback_configuration(message, &callback_value_distance);
-		case FID_GET_DISTANCE_CALLBACK_CONFIGURATION: return get_callback_value_callback_configuration(message, response, &callback_value_distance);
+		case FID_GET_DISTANCE: return get_callback_value_uint16_t(message, response, &callback_value_distance);
+		case FID_SET_DISTANCE_CALLBACK_CONFIGURATION: return set_callback_value_callback_configuration_uint16_t(message, &callback_value_distance);
+		case FID_GET_DISTANCE_CALLBACK_CONFIGURATION: return get_callback_value_callback_configuration_uint16_t(message, response, &callback_value_distance);
 		default: return HANDLE_MESSAGE_RESPONSE_NOT_SUPPORTED;
 	}
 }
 
-
-
-
-
-
 bool handle_distance_callback(void) {
-	return handle_callback_value_callback(&callback_value_distance, FID_CALLBACK_DISTANCE);
+	return handle_callback_value_callback_uint16_t(&callback_value_distance, FID_CALLBACK_DISTANCE);
 }
 
 void communication_tick(void) {
@@ -53,7 +47,7 @@ void communication_tick(void) {
 }
 
 void communication_init(void) {
-	callback_value_init(&callback_value_distance, a16pt_get_distance);;
+	callback_value_init_uint16_t(&callback_value_distance, a16pt_get_distance);;
 
 	communication_callback_init();
 }
